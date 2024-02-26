@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -21,10 +22,13 @@ import com.kropotov.lovehate.ui.MainScreenActivity.Companion.NEW_FEELING_TYPE
 import com.kropotov.lovehate.ui.adapters.FeelingsViewPagerAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.vm.FeedVm
+import com.kropotov.lovehate.ui.vm.ToolbarVm
 
 class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment_feed) {
 
     override val vmClass = FeedVm::class.java
+
+    val toolbarVm: ToolbarVm by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,15 +38,13 @@ class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment
             offscreenPageLimit = 4 // To load all fragments in advance
         }
 
-
-
         setTabLayout()
     }
 
     private fun setTabLayout() {
-        TabLayoutMediator(binding.feelingsTabLayout, binding.feelingsPagerContainer, ) { tab, position ->
-            val tabView = LayoutInflater.from(requireContext()).inflate(R.layout.item_tab_feeling, null, false)
-            val textView = tabView.findViewById<TextView>(R.id.tab_feeling_text)
+        TabLayoutMediator(binding.feelingsTabLayout, binding.feelingsPagerContainer) { tab, position ->
+            val tabView = LayoutInflater.from(requireContext()).inflate(R.layout.item_tab_layout, null, false)
+            val textView = tabView.findViewById<TextView>(R.id.tab_text)
 
             textView.text = resources.getString(FeelingType.entries[position].title)
             if (position == 0) { // UNION
@@ -65,7 +67,7 @@ class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment
                 tab?.run {
                     val layoutColorAttr = FeelingType.entries[tab.position].color
                     val tabLayoutColor = MaterialColors.getColor(requireContext(), layoutColorAttr, Color.WHITE)
-                    view.findViewById<TextView>(R.id.tab_feeling_text)?.setTextColor(textColor)
+                    view.findViewById<TextView>(R.id.tab_text)?.setTextColor(textColor)
 
                     DrawableCompat.setTint(
                         DrawableCompat.wrap(binding.feelingsTabLayout.background),
@@ -81,7 +83,7 @@ class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 val color = MaterialColors.getColor(requireContext(), R.attr.unaccented_light_text_color, Color.GRAY)
-                tab?.view?.findViewById<TextView>(R.id.tab_feeling_text)?.setTextColor(color)
+                tab?.view?.findViewById<TextView>(R.id.tab_text)?.setTextColor(color)
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {}

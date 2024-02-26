@@ -2,10 +2,13 @@
 <resources>
     <attr name="background_color" format="color"/>
     <attr name="surface_color" format="color"/>
+    <attr name="reaction_background_color" format="color"/>
+    <attr name="reaction_selected_background_color" format="color"/>
 
     <attr name="text_color" format="color"/>
     <attr name="unaccented_text_color" format="color"/>
     <attr name="unaccented_light_text_color" format="color"/>
+    <attr name="favorite_icon_color" format="color"/>
 
     <attr name="union_color" format="color"/>
     <attr name="love_color" format="color"/>
@@ -16,4 +19,5 @@
     <attr name="love_background_color" format="color"/>
     <attr name="neutral_background_color" format="color"/>
     <attr name="hate_background_color" format="color"/>
+
 </resources>

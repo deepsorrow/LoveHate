@@ -2,18 +2,22 @@ package com.kropotov.lovehate.ui
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.WindowManager
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentResultListener
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.color.MaterialColors
 import com.kropotov.lovehate.R
 import com.kropotov.lovehate.data.FeelingType
 import com.kropotov.lovehate.databinding.ActivityMainScreenBinding
-import com.kropotov.lovehate.ui.fragments.FeedFragment
+import com.kropotov.lovehate.ui.adapters.MainScreenViewPagerAdapter
 import com.kropotov.lovehate.ui.utils.autoCleared
+import com.kropotov.lovehate.ui.vm.ToolbarVm
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -22,7 +26,7 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
     private var binding by autoCleared<ActivityMainScreenBinding>()
     @Inject lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-    private val toolbarVm by viewModels()
+    private val toolbarVm: ToolbarVm by viewModels()
     //@Inject lateinit var sharedPrefs: SharedPrefs
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,16 +34,57 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
         //setTheme(sharedPrefs.getPreferredTheme())
         super.onCreate(savedInstanceState)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().add(R.id.container, FeedFragment.newInstance(), FeedFragment.tag).commit()
-        }
-
         binding = ActivityMainScreenBinding.inflate(layoutInflater).apply {
             setContentView(root)
+
+            pagerContainer.adapter = MainScreenViewPagerAdapter(this@MainScreenActivity)
+            pagerContainer.isUserInputEnabled = false
+            pagerContainer.offscreenPageLimit = 2
 
             initBottomBar()
         }
 
+        subscribeToToolbarEvents()
+        registerFragmentResultListener()
+    }
+
+    private fun subscribeToToolbarEvents() {
+        lifecycleScope.launch {
+            toolbarVm.title.collect {
+                binding.toolbarLayout.title.text = it
+            }
+        }
+
+        lifecycleScope.launch {
+            toolbarVm.subtitle.collect {
+                binding.toolbarLayout.subtitle.text = it
+            }
+        }
+
+        lifecycleScope.launch {
+            toolbarVm.subtitleIsVisible.collect {
+                binding.toolbarLayout.subtitle.visibility = if (it) View.VISIBLE else View.GONE
+            }
+        }
+
+        lifecycleScope.launch {
+            toolbarVm.arrowBackIsVisible.collect {
+                binding.toolbarLayout.arrowBack.visibility = if (it) View.VISIBLE else View.GONE
+            }
+        }
+
+        lifecycleScope.launch {
+            toolbarVm.isBottomOffsetVisible.collect { isVisible ->
+                val offset = this@MainScreenActivity.resources.getDimension(R.dimen.standard_offset).toInt()
+                val paddingBottom = if (isVisible) offset else 0
+                binding.toolbarLayout.root.run {
+                    setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+                }
+            }
+        }
+    }
+
+    private fun registerFragmentResultListener() {
         supportFragmentManager.setFragmentResultListener(CHANGE_TOOLBAR_COLOR_EVENT, this, object : FragmentResultListener {
             override fun onFragmentResult(requestKey: String, result: Bundle) {
                 val feelingTypeInd = result.getInt(NEW_FEELING_TYPE, 0)
@@ -48,7 +93,7 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
                 val containerColor = MaterialColors.getColor(this@MainScreenActivity, feelingType.containerColor, Color.WHITE)
 
                 binding.toolbarLayout.root.setBackgroundColor(toolbarColor)
-                binding.container.setBackgroundColor(containerColor)
+                binding.pagerContainer.setBackgroundColor(containerColor)
 
                 window.statusBarColor = toolbarColor
             }
@@ -58,15 +103,39 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
     private fun ActivityMainScreenBinding.initBottomBar() {
         bottomBar.setOnItemSelectedListener { item ->
             val nextScreenId = when (item.itemId) {
-                R.id.menu_item_feed -> 0
-                R.id.menu_item_topics -> 1
+                R.id.menu_item_feed -> {
+                    lifecycleScope.launch {
+                        toolbarVm.run {
+                            title.emit(getString(R.string.app_name))
+                            subtitle.emit(getString(R.string.new_messages))
+                            subtitleIsVisible.emit(true)
+                            arrowBackIsVisible.emit(false)
+                            isBottomOffsetVisible.emit(false)
+                        }
+                    }
+
+                    0
+                }
+                R.id.menu_item_topics -> {
+                    lifecycleScope.launch {
+                        toolbarVm.run {
+                            title.emit(getString(R.string.topics))
+                            subtitleIsVisible.emit(false)
+                            arrowBackIsVisible.emit(false)
+                            isBottomOffsetVisible.emit(true)
+                        }
+                    }
+
+                    1
+                }
                 R.id.menu_item_create_new_topic -> 2
                 R.id.menu_item_ratings -> 3
                 R.id.menu_item_profile -> 4
                 else -> throw IllegalArgumentException("Неверный номер экрана!")
             }
+            nextScreenId > 1 && return@setOnItemSelectedListener false
 
-            //supportFragmentManager.beginTransaction().add(
+            binding.pagerContainer.currentItem = nextScreenId
             true
         }
     }
@@ -74,11 +143,6 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
     override fun androidInjector() = androidInjector
 
     companion object {
-        const val CHANGE_TOOLBAR_EVENT = "change_toolbar_event"
-        const val NEW_TITLE = "new_title"
-        const val NEW_SUBTITLE = "new_subtitle"
-        const val NEW_SUBTITLE = "new_subtitle"
-
         const val CHANGE_TOOLBAR_COLOR_EVENT = "change_toolbar_color_event"
         const val NEW_FEELING_TYPE = "new_feeling_type"
     }

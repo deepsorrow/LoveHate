@@ -12,6 +12,7 @@
         <item name="text_color">@color/light_onSurface</item>
         <item name="unaccented_text_color">@color/light_onSurfaceVariant1</item>
         <item name="unaccented_light_text_color">@color/light_onSurfaceVariant2</item>
+        <item name="favorite_icon_color">@color/light_onSurfaceVariant3</item>
 
         <item name="union_color">?colorPrimary</item>
         <item name="love_color">@color/light_love</item>
@@ -23,6 +24,8 @@
         <item name="neutral_background_color">@color/light_neutral_container</item>
         <item name="hate_background_color">@color/light_hate_container</item>
 
+        <item name="reaction_background_color">@color/light_surfaceVariant1</item>
+        <item name="reaction_selected_background_color">@color/light_surfaceVariant2</item>
 
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <item name="android:navigationBarColor">@color/light_background</item>

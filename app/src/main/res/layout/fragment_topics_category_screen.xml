@@ -5,12 +5,12 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.vm.FeelingScreenVm" />
+            type="com.kropotov.lovehate.ui.vm.TopicCategoryVm" />
 
     </data>
 
     <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/feelings_recycler_view"
+        android:id="@+id/topics_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </layout>

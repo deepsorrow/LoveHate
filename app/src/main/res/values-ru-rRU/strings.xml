@@ -4,4 +4,12 @@
     <string name="neutral">Безразличие</string>
     <string name="hate">Ненависть</string>
     <string name="new_messages">Новые сообщения</string>
+    <string name="recent">Последние</string>
+    <string name="new_topics">Новые</string>
+    <string name="popular">Популярные</string>
+    <string name="most_loved">Самые любимые</string>
+    <string name="most_hated">Самые ненавидимые</string>
+    <string name="topics">Темы</string>
+    <string name="love_percent_feeling">%s%% любви</string>
+    <string name="hate_percent_feeling">%s%% ненависти</string>
 </resources>

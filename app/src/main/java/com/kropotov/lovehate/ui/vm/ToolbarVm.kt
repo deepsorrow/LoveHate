@@ -7,7 +7,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class ToolbarVm : ViewModel() {
     val title = MutableStateFlow("")
     val subtitle = MutableStateFlow("")
+    val subtitleIsVisible = MutableStateFlow(true)
 
+    val searchIconIsVisible = MutableStateFlow(false)
     val searchText = MutableSharedFlow<String>()
-    val hasArrow = MutableStateFlow(false)
+    val arrowBackIsVisible = MutableStateFlow(false)
+    val isBottomOffsetVisible = MutableStateFlow(true)
 }

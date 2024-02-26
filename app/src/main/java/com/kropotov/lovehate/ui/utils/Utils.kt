@@ -3,6 +3,7 @@ package com.kropotov.lovehate.ui.utils
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import androidx.fragment.app.Fragment
 import java.io.Serializable
 
 /** Returns Serializible in a new way for API 33+ and in the old way for previous API. */
@@ -23,3 +24,8 @@ fun <T : Parcelable> Bundle.parcelable(key: String, clazz: Class<T>): T? {
         getParcelable(key)
     }
 }
+
+inline fun <T : Fragment> T.withArgs(argsBuilder: Bundle.() -> Unit): T =
+    this.apply {
+        arguments = Bundle().apply(argsBuilder)
+    }

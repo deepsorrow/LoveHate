@@ -9,4 +9,8 @@
         <item name="android:textSize">@dimen/regular_text_size</item>
     </style>
 
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20%</item>
+    </style>
 </resources>

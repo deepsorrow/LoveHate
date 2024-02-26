@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?colorPrimary"
-    android:paddingTop="@dimen/medium_offset"
-    android:paddingStart="@dimen/medium_offset"
-    android:paddingEnd="@dimen/medium_offset">
+    android:paddingTop="@dimen/standard_offset"
+    android:paddingStart="@dimen/standard_offset"
+    android:paddingEnd="@dimen/standard_offset">
 
     <TextView
         android:id="@+id/arrow_back"
         style="@style/IconText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/medium_2x_offset"
+        android:paddingEnd="@dimen/enormous_offset"
         android:text="@string/icon_arrow_back"
         android:textColor="?colorOnPrimary"
         android:visibility="gone"
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:text="@string/icon_search"
         android:textColor="?colorOnPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/subtitle"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/title" />
 

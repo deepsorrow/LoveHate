@@ -1,37 +1,48 @@
 <resources>
-    <string name="app_name">LoveHate</string>
+    <string name="app_name" translatable="false">LoveHate</string>
     <string name="love">Love</string>
     <string name="neutral">Neutral</string>
     <string name="hate">Hate</string>
     <string name="new_messages">New messages</string>
+    <string name="recent">Recent</string>
+    <string name="new_topics">New</string>
+    <string name="popular">Popular</string>
+    <string name="most_loved">Most loved</string>
+    <string name="most_hated">Most hated</string>
+    <string name="topics">Topics</string>
+    <string name="love_percent_feeling">%s%% of love</string>
+    <string name="hate_percent_feeling">%s%% of hate</string>
 
-    <string name="icon_padlock">&#xe90a;</string>
-    <string name="icon_home">&#xe90b;</string>
-    <string name="icon_feedback">&#xe90c;</string>
-    <string name="icon_attention">&#xe90d;</string>
-    <string name="icon_union">&#xe90e;</string>
-    <string name="icon_arrow_back">&#xe910;</string>
-    <string name="icon_arrow_next">&#xe911;</string>
-    <string name="icon_filled_broken_heart">&#xe912;</string>
-    <string name="icon_broken_heart">&#xe913;</string>
-    <string name="icon_ratings">&#xe914;</string>
-    <string name="icon_copy">&#xe915;</string>
-    <string name="icon_write">&#xe916;</string>
-    <string name="icon_filter">&#xe917;</string>
-    <string name="icon_gallery">&#xe918;</string>
-    <string name="icon_popup_handle">&#xe919;</string>
-    <string name="icon_heart">&#xe91a;</string>
-    <string name="icon_filled">&#xe91b;</string>
-    <string name="icon_messages">&#xe91c;</string>
-    <string name="icon_more">&#xe91d;</string>
-    <string name="icon_topics">&#xe91e;</string>
-    <string name="icon_add_circle">&#xe920;</string>
-    <string name="icon_profile">&#xe921;</string>
-    <string name="icon_reply">&#xe922;</string>
-    <string name="icon_search">&#xe923;</string>
-    <string name="icon_send">&#xe924;</string>
-    <string name="icon_favorite">&#xe925;</string>
-    <string name="icon_dislike">&#xe926;</string>
-    <string name="icon_like">&#xe927;</string>
-    <string name="icon_upload">&#xe927;</string>
+    <string name="icon_favorite_filled" translatable="false">&#xe900;</string>
+    <string name="icon_like_filled" translatable="false">&#xe902;</string>
+    <string name="icon_dislike_filled" translatable="false">&#xe901;</string>
+    <string name="icon_padlock" translatable="false">&#xe90a;</string>
+    <string name="icon_home" translatable="false">&#xe90b;</string>
+    <string name="icon_feedback" translatable="false">&#xe90c;</string>
+    <string name="icon_attention" translatable="false">&#xe90d;</string>
+    <string name="icon_union" translatable="false">&#xe90e;</string>
+    <string name="icon_arrow_back" translatable="false">&#xe910;</string>
+    <string name="icon_arrow_next" translatable="false">&#xe911;</string>
+    <string name="icon_filled_broken_heart" translatable="false">&#xe912;</string>
+    <string name="icon_broken_heart" translatable="false">&#xe913;</string>
+    <string name="icon_ratings" translatable="false">&#xe914;</string>
+    <string name="icon_copy" translatable="false">&#xe915;</string>
+    <string name="icon_write" translatable="false">&#xe916;</string>
+    <string name="icon_filter" translatable="false">&#xe917;</string>
+    <string name="icon_gallery" translatable="false">&#xe918;</string>
+    <string name="icon_popup_handle" translatable="false">&#xe919;</string>
+    <string name="icon_heart" translatable="false">&#xe91a;</string>
+    <string name="icon_heart_filled" translatable="false">&#xe91b;</string>
+    <string name="icon_messages" translatable="false">&#xe91c;</string>
+    <string name="icon_more" translatable="false">&#xe91d;</string>
+    <string name="icon_topics" translatable="false">&#xe91e;</string>
+    <string name="icon_add_circle" translatable="false">&#xe920;</string>
+    <string name="icon_profile" translatable="false">&#xe921;</string>
+    <string name="icon_reply" translatable="false">&#xe922;</string>
+    <string name="icon_search" translatable="false">&#xe923;</string>
+    <string name="icon_send" translatable="false">&#xe924;</string>
+    <string name="icon_favorite" translatable="false">&#xe925;</string>
+    <string name="icon_dislike" translatable="false">&#xe926;</string>
+    <string name="icon_like" translatable="false">&#xe927;</string>
+    <string name="icon_upload" translatable="false">&#xe928;</string>
 </resources>
