@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="IconText">
+        <item name="android:fontFamily">@font/icons</item>
+        <item name="android:textSize">@dimen/icon_text_size</item>
+    </style>
+
+    <style name="TabLayoutTextStyle" parent="IconText">
+        <item name="android:textSize">@dimen/regular_text_size</item>
+    </style>
+
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="love">Любовь</string>
+    <string name="neutral">Безразличие</string>
+    <string name="hate">Ненависть</string>
+    <string name="new_messages">Новые сообщения</string>
+</resources>

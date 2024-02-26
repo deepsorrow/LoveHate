@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="light_primary">#57467B</color>
+    <color name="light_onPrimary">@android:color/white</color>
+    <color name="light_background">#F8F8F8</color>
+    <color name="light_surface">@android:color/white</color>
+    <color name="light_onSurface">#1E212B</color>
+    <color name="light_onSurfaceVariant1">#555555</color>
+    <color name="light_onSurfaceVariant2">#DCDCDC</color>
+    <color name="light_secondary">#4A3C68</color>
+
+    <color name="light_union_container">#F6F2FF</color>
+    <color name="light_love">#226F54</color>
+    <color name="light_love_container">#E9F3E9</color>
+    <color name="light_neutral">#909090</color>
+    <color name="light_neutral_container">#F0F0F0</color>
+    <color name="light_neutral_onContainer">#DCDCDC</color>
+    <color name="light_hate">#AB3428</color>
+    <color name="light_hate_container">#E5DBDB</color>
+</resources>

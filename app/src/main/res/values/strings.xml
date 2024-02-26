@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">LoveHate</string>
+    <string name="love">Love</string>
+    <string name="neutral">Neutral</string>
+    <string name="hate">Hate</string>
+    <string name="new_messages">New messages</string>
+
+    <string name="icon_padlock">&#xe90a;</string>
+    <string name="icon_home">&#xe90b;</string>
+    <string name="icon_feedback">&#xe90c;</string>
+    <string name="icon_attention">&#xe90d;</string>
+    <string name="icon_union">&#xe90e;</string>
+    <string name="icon_arrow_back">&#xe910;</string>
+    <string name="icon_arrow_next">&#xe911;</string>
+    <string name="icon_filled_broken_heart">&#xe912;</string>
+    <string name="icon_broken_heart">&#xe913;</string>
+    <string name="icon_ratings">&#xe914;</string>
+    <string name="icon_copy">&#xe915;</string>
+    <string name="icon_write">&#xe916;</string>
+    <string name="icon_filter">&#xe917;</string>
+    <string name="icon_gallery">&#xe918;</string>
+    <string name="icon_popup_handle">&#xe919;</string>
+    <string name="icon_heart">&#xe91a;</string>
+    <string name="icon_filled">&#xe91b;</string>
+    <string name="icon_messages">&#xe91c;</string>
+    <string name="icon_more">&#xe91d;</string>
+    <string name="icon_topics">&#xe91e;</string>
+    <string name="icon_add_circle">&#xe920;</string>
+    <string name="icon_profile">&#xe921;</string>
+    <string name="icon_reply">&#xe922;</string>
+    <string name="icon_search">&#xe923;</string>
+    <string name="icon_send">&#xe924;</string>
+    <string name="icon_favorite">&#xe925;</string>
+    <string name="icon_dislike">&#xe926;</string>
+    <string name="icon_like">&#xe927;</string>
+    <string name="icon_upload">&#xe927;</string>
+</resources>

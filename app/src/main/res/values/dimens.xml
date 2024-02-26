@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="medium_offset">16dp</dimen>
+    <dimen name="medium_2x_offset">32dp</dimen>
+
+    <dimen name="regular_text_size">16sp</dimen>
+    <dimen name="toolbar_title_size">24sp</dimen>
+    <dimen name="toolbar_subtitle_size">20sp</dimen>
+    <dimen name="icon_text_size">24sp</dimen>
+</resources>
