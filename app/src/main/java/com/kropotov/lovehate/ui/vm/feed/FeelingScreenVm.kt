@@ -1,4 +1,4 @@
-package com.kropotov.lovehate.ui.vm
+package com.kropotov.lovehate.ui.vm.feed
 
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject

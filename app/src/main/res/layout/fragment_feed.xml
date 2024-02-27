@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.vm.FeedVm" />
+            type="com.kropotov.lovehate.ui.vm.feed.FeedVm" />
 
     </data>
 
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.fragments.FeedFragment">
+        tools:context=".ui.fragments.feed.FeedFragment">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/feelings_tab_layout"

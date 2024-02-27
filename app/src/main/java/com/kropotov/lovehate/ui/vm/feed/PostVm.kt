@@ -1,14 +1,14 @@
-package com.kropotov.lovehate.ui.vm
+package com.kropotov.lovehate.ui.vm.feed
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.kropotov.lovehate.R
-import com.kropotov.lovehate.data.FeelingType
+import com.kropotov.lovehate.data.OpinionType
 
 class PostVm(
     val username: String,
     val date: String,
-    val feeling: FeelingType,
+    val feeling: OpinionType,
     val topic: String,
     val text: String,
     val feelingStr: String = "",
@@ -24,8 +24,8 @@ class PostVm(
     var favoriteIconColor = ObservableField(R.attr.unaccented_text_color)
 
     val feelingColor = when (feeling) {
-        FeelingType.LOVE -> R.attr.love_color
-        FeelingType.HATE -> R.attr.hate_color
+        OpinionType.LOVE -> R.attr.love_color
+        OpinionType.HATE -> R.attr.hate_color
         else -> R.attr.unaccented_text_color
     }
 

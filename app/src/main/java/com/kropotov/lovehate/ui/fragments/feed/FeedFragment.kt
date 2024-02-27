@@ -1,4 +1,4 @@
-package com.kropotov.lovehate.ui.fragments
+package com.kropotov.lovehate.ui.fragments.feed
 
 import android.graphics.Color
 import android.os.Bundle
@@ -15,13 +15,13 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kropotov.lovehate.R
 import com.google.android.material.R as RMaterial
-import com.kropotov.lovehate.data.FeelingType
+import com.kropotov.lovehate.data.OpinionType
 import com.kropotov.lovehate.databinding.FragmentFeedBinding
 import com.kropotov.lovehate.ui.MainScreenActivity.Companion.CHANGE_TOOLBAR_COLOR_EVENT
 import com.kropotov.lovehate.ui.MainScreenActivity.Companion.NEW_FEELING_TYPE
 import com.kropotov.lovehate.ui.adapters.FeelingsViewPagerAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
-import com.kropotov.lovehate.ui.vm.FeedVm
+import com.kropotov.lovehate.ui.vm.feed.FeedVm
 import com.kropotov.lovehate.ui.vm.ToolbarVm
 
 class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment_feed) {
@@ -54,7 +54,7 @@ class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment
             val tabView = LayoutInflater.from(requireContext()).inflate(R.layout.list_item_tab, null, false)
             val textView = tabView.findViewById<TextView>(R.id.tab_text)
 
-            textView.text = resources.getString(FeelingType.entries[position].title)
+            textView.text = resources.getString(OpinionType.entries[position].title)
             if (position == 0) { // UNION
                 val iconsFont = ResourcesCompat.getFont(requireContext(), R.font.icons)
                 textView.typeface = iconsFont
@@ -73,7 +73,7 @@ class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment
                 )
 
                 tab?.run {
-                    val layoutColorAttr = FeelingType.entries[tab.position].color
+                    val layoutColorAttr = OpinionType.entries[tab.position].color
                     val tabLayoutColor = MaterialColors.getColor(requireContext(), layoutColorAttr, Color.WHITE)
                     view.findViewById<TextView>(R.id.tab_text)?.setTextColor(textColor)
 

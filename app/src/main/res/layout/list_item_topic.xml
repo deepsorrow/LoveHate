@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.vm.TopicListItemVm" />
+            type="com.kropotov.lovehate.ui.vm.topics.TopicListItemVm" />
 
     </data>
 

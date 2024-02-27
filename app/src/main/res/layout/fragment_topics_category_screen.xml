@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.vm.TopicCategoryVm" />
+            type="com.kropotov.lovehate.ui.vm.topics.TopicCategoryVm" />
 
     </data>
 

@@ -7,7 +7,7 @@ import com.kropotov.lovehate.R
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-enum class FeelingType(
+enum class OpinionType(
     @StringRes val title: Int,
     @AttrRes val color: Int,
     @AttrRes val containerColor: Int

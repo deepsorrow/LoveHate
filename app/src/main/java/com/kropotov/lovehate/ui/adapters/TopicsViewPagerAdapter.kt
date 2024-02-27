@@ -3,8 +3,8 @@ package com.kropotov.lovehate.ui.adapters
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.kropotov.lovehate.data.TopicCategory
-import com.kropotov.lovehate.ui.fragments.TopicsCategoryScreenFragment
-import com.kropotov.lovehate.ui.fragments.TopicsHostScreenFragment
+import com.kropotov.lovehate.ui.fragments.topics.TopicsCategoryScreenFragment
+import com.kropotov.lovehate.ui.fragments.topics.TopicsHostScreenFragment
 import java.lang.IllegalArgumentException
 
 class TopicsViewPagerAdapter(fragment: TopicsHostScreenFragment): FragmentStateAdapter(fragment) {

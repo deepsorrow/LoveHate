@@ -3,14 +3,12 @@ package com.kropotov.lovehate.ui
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.color.MaterialColors
 import com.kropotov.lovehate.R
-import com.kropotov.lovehate.data.FeelingType
+import com.kropotov.lovehate.data.OpinionType
 import com.kropotov.lovehate.databinding.ActivityMainScreenBinding
 import com.kropotov.lovehate.ui.adapters.MainScreenViewPagerAdapter
 import com.kropotov.lovehate.ui.utils.autoCleared
@@ -75,6 +73,12 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
         }
 
         lifecycleScope.launch {
+            toolbarVm.searchIconIsVisible.collect { it ->
+                binding.toolbarLayout.titleIcon.visibility = if (it) View.VISIBLE else View.GONE
+            }
+        }
+
+        lifecycleScope.launch {
             toolbarVm.isBottomOffsetVisible.collect { isVisible ->
                 val offset = this@MainScreenActivity.resources.getDimension(R.dimen.standard_offset).toInt()
                 val paddingBottom = if (isVisible) offset else 0
@@ -90,12 +94,12 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
             CHANGE_TOOLBAR_COLOR_EVENT, this
         ) { _, result ->
             val feelingTypeInd = result.getInt(NEW_FEELING_TYPE, 0)
-            val feelingType = FeelingType.entries[feelingTypeInd]
+            val opinionType = OpinionType.entries[feelingTypeInd]
             val toolbarColor =
-                MaterialColors.getColor(this@MainScreenActivity, feelingType.color, Color.BLUE)
+                MaterialColors.getColor(this@MainScreenActivity, opinionType.color, Color.BLUE)
             val containerColor = MaterialColors.getColor(
                 this@MainScreenActivity,
-                feelingType.containerColor,
+                opinionType.containerColor,
                 Color.WHITE
             )
 
@@ -123,6 +127,7 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
                             subtitleIsVisible.emit(true)
                             arrowBackIsVisible.emit(false)
                             isBottomOffsetVisible.emit(false)
+                            searchIconIsVisible.emit(true)
                         }
                     }
 
@@ -135,17 +140,30 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
                             subtitleIsVisible.emit(false)
                             arrowBackIsVisible.emit(false)
                             isBottomOffsetVisible.emit(true)
+                            searchIconIsVisible.emit(false)
                         }
                     }
 
                     1
                 }
-                R.id.menu_item_create_new_topic -> 2
+                R.id.menu_item_create_new_topic -> {
+                    lifecycleScope.launch {
+                        toolbarVm.run {
+                            title.emit(getString(R.string.new_topic))
+                            subtitleIsVisible.emit(false)
+                            arrowBackIsVisible.emit(false)
+                            isBottomOffsetVisible.emit(true)
+                            searchIconIsVisible.emit(false)
+                        }
+                    }
+
+                    2
+                }
                 R.id.menu_item_ratings -> 3
                 R.id.menu_item_profile -> 4
                 else -> throw IllegalArgumentException("Неверный номер экрана!")
             }
-            nextScreenId > 1 && return@setOnItemSelectedListener false
+            nextScreenId > 2 && return@setOnItemSelectedListener false
             setDefaultColorOnTop()
             binding.pagerContainer.currentItem = nextScreenId
             true

@@ -1,4 +1,4 @@
-package com.kropotov.lovehate.ui.fragments
+package com.kropotov.lovehate.ui.fragments.topics
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import com.kropotov.lovehate.databinding.FragmentTopicsHostScreenBinding
 import com.kropotov.lovehate.ui.adapters.TopicsViewPagerAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.vm.ToolbarVm
-import com.kropotov.lovehate.ui.vm.TopicsScreenVm
+import com.kropotov.lovehate.ui.vm.topics.TopicsScreenVm
 
 class TopicsHostScreenFragment : BaseFragment<TopicsScreenVm, FragmentTopicsHostScreenBinding>(R.layout.fragment_topics_host_screen) {
 

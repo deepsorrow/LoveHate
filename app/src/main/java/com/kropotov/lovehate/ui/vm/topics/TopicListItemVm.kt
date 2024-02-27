@@ -1,4 +1,4 @@
-package com.kropotov.lovehate.ui.vm
+package com.kropotov.lovehate.ui.vm.topics
 
 import androidx.lifecycle.ViewModel
 import com.kropotov.lovehate.R

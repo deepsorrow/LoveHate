@@ -1,4 +1,4 @@
-package com.kropotov.lovehate.ui.fragments
+package com.kropotov.lovehate.ui.fragments.topics
 
 import android.os.Bundle
 import android.view.View
@@ -13,8 +13,8 @@ import com.kropotov.lovehate.databinding.ListItemTopicBinding
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.utils.SpaceItemDecoration
 import com.kropotov.lovehate.ui.utils.withArgs
-import com.kropotov.lovehate.ui.vm.TopicListItemVm
-import com.kropotov.lovehate.ui.vm.TopicCategoryVm
+import com.kropotov.lovehate.ui.vm.topics.TopicListItemVm
+import com.kropotov.lovehate.ui.vm.topics.TopicCategoryVm
 
 class TopicsCategoryScreenFragment : BaseFragment<TopicCategoryVm, FragmentTopicsCategoryScreenBinding>(
     R.layout.fragment_topics_category_screen
@@ -39,7 +39,7 @@ class TopicsCategoryScreenFragment : BaseFragment<TopicCategoryVm, FragmentTopic
         binding.topicsRecyclerView.apply {
             this.adapter = adapter
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-            addItemDecoration(SpaceItemDecoration(context, R.dimen.one_dp_offset))
+            addItemDecoration(SpaceItemDecoration(context, R.dimen.one_dp))
         }
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="background_color" format="color"/>
-    <attr name="surface_color" format="color"/>
+    <attr name="surface_color" format="color|reference"/>
     <attr name="reaction_background_color" format="color"/>
     <attr name="reaction_selected_background_color" format="color"/>
 
@@ -11,7 +11,7 @@
     <attr name="favorite_icon_color" format="color"/>
 
     <attr name="union_color" format="color"/>
-    <attr name="love_color" format="color"/>
+    <attr name="love_color" format="color|reference"/>
     <attr name="neutral_color" format="color"/>
     <attr name="hate_color" format="color"/>
 

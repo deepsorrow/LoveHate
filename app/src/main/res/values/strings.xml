@@ -10,6 +10,7 @@
     <string name="most_loved">Most loved</string>
     <string name="most_hated">Most hated</string>
     <string name="topics">Topics</string>
+    <string name="new_topic">New topic</string>
     <string name="love_percent_feeling">%s%% of love</string>
     <string name="hate_percent_feeling">%s%% of hate</string>
 
@@ -45,4 +46,9 @@
     <string name="icon_dislike" translatable="false">&#xe926;</string>
     <string name="icon_like" translatable="false">&#xe927;</string>
     <string name="icon_upload" translatable="false">&#xe928;</string>
+    <string name="pick_media_hint">Pick media by search or\n upload from your device</string>
+    <string name="carousel_indicator_hint">Carousel indicator</string>
+    <string name="contribute_topic_name_hint">Topic title</string>
+    <string name="contribute_your_comment_hint">Your comment</string>
+    <string name="contribute_publish_button_text">Contribute</string>
 </resources>

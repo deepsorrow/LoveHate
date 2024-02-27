@@ -10,6 +10,12 @@
     <string name="most_loved">Самые любимые</string>
     <string name="most_hated">Самые ненавидимые</string>
     <string name="topics">Темы</string>
+    <string name="new_topic">Новая тема</string>
     <string name="love_percent_feeling">%s%% любви</string>
     <string name="hate_percent_feeling">%s%% ненависти</string>
+    <string name="pick_media_hint">Выберите медиа поиском или\n загрузите с устройства</string>
+    <string name="carousel_indicator_hint">Индикатор карусели</string>
+    <string name="contribute_topic_name_hint">Название темы</string>
+    <string name="contribute_your_comment_hint">Ваш комментарий</string>
+    <string name="contribute_publish_button_text">Опубликовать</string>
 </resources>

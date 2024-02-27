@@ -1,4 +1,4 @@
-package com.kropotov.lovehate.ui.fragments
+package com.kropotov.lovehate.ui.fragments.feed
 
 
 import android.os.Bundle
@@ -8,19 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import com.kropotov.lovehate.R
-import com.kropotov.lovehate.data.FeelingType
-import com.kropotov.lovehate.data.FeelingType.HATE
-import com.kropotov.lovehate.data.FeelingType.LOVE
-import com.kropotov.lovehate.data.FeelingType.NEUTRAL
-import com.kropotov.lovehate.data.FeelingType.UNION
+import com.kropotov.lovehate.data.OpinionType
+import com.kropotov.lovehate.data.OpinionType.HATE
+import com.kropotov.lovehate.data.OpinionType.LOVE
+import com.kropotov.lovehate.data.OpinionType.NEUTRAL
+import com.kropotov.lovehate.data.OpinionType.UNION
 import com.kropotov.lovehate.databinding.FragmentFeelingScreenBinding
 import com.kropotov.lovehate.databinding.ListItemPostBinding
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.utils.SpaceItemDecoration
 import com.kropotov.lovehate.ui.utils.serializable
 import com.kropotov.lovehate.ui.utils.withArgs
-import com.kropotov.lovehate.ui.vm.FeelingScreenVm
-import com.kropotov.lovehate.ui.vm.PostVm
+import com.kropotov.lovehate.ui.vm.feed.FeelingScreenVm
+import com.kropotov.lovehate.ui.vm.feed.PostVm
 
 class FeelingScreenFragment : BaseFragment<FeelingScreenVm, FragmentFeelingScreenBinding>(
     R.layout.fragment_feeling_screen
@@ -28,8 +28,8 @@ class FeelingScreenFragment : BaseFragment<FeelingScreenVm, FragmentFeelingScree
 
     override val vmClass = FeelingScreenVm::class.java
 
-    val feelingType: FeelingType by lazy {
-        arguments?.serializable(FEELING_TYPE_ARG, FeelingType::class.java) ?: UNION
+    val opinionType: OpinionType by lazy {
+        arguments?.serializable(FEELING_TYPE_ARG, OpinionType::class.java) ?: UNION
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class FeelingScreenFragment : BaseFragment<FeelingScreenVm, FragmentFeelingScree
             PostVm("Jane Lost", "03/02/2023 Суб 14:55:11", LOVE, "спать", "Кто же не любит спать? Я лично уже в 22.00 могу отключиться, а спать я просто обожаю. Спишь себе и видишь сны с розовыми единорогами и ведьмами. Замечательно.",  "любит"),
             PostVm("asyaq", "03/02/2023 Ср 23:54:41", HATE, "кошки", "О, эта ненависть идёт еще с детства. За всю мою жизнь до данного момента у нас было 4 кошки и ДА! я так и не полюбила этих животных. Причём все кошки у нас были не ласковыми. Мне хотелось бы собаку, а при одном только упоминании о ней меня сразу же отшивали. Вот только из-за того, что мы заводим кошку, а не собаку, я их и ненавижу :[", "ненавидит")
         ).filter {
-            feelingType == it.feeling || feelingType == UNION
+            opinionType == it.feeling || opinionType == UNION
         }
         binding.feelingsRecyclerView.apply {
             this.adapter = adapter
@@ -67,7 +67,7 @@ class FeelingScreenFragment : BaseFragment<FeelingScreenVm, FragmentFeelingScree
 
         const val FEELING_TYPE_ARG = "arg_feeling_type"
 
-        fun newInstance(type: FeelingType) =
+        fun newInstance(type: OpinionType) =
             FeelingScreenFragment().withArgs {
                 putSerializable(FEELING_TYPE_ARG, type)
             }
