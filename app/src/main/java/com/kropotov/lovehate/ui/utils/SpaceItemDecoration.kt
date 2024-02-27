@@ -23,7 +23,7 @@ class SpaceItemDecoration(
         super.getItemOffsets(outRect, view, parent, state)
         val itemPosition = parent.getChildAdapterPosition(view)
         val totalCount = parent.adapter!!.itemCount
-        if (itemPosition >= 0 && itemPosition < totalCount - 1) {
+        if (itemPosition >= 0 && itemPosition <= totalCount - 1) {
             outRect.bottom = decorationHeight
         }
     }

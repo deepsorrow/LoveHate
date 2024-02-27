@@ -61,6 +61,8 @@ dependencies {
     implementation("com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.2")
     implementation("com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.2")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
 
     val graphQlApollo = "4.0.0-beta.4"
     implementation("com.apollographql.apollo3:apollo-runtime:$graphQlApollo")

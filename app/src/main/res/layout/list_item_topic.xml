@@ -20,10 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?colorSurface"
-            android:padding="@dimen/medium_offset">
+            android:paddingVertical="@dimen/minor_standard_offset"
+            android:paddingHorizontal="@dimen/standard_offset">
 
             <com.google.android.material.imageview.ShapeableImageView
-
                 android:id="@+id/image_preview"
                 android:layout_width="@dimen/topic_list_item_image_size"
                 android:layout_height="@dimen/topic_list_item_image_size"

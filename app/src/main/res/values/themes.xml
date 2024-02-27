@@ -36,4 +36,8 @@
         <item name="android:textColor">?text_color</item>
         <item name="android:textSize">@dimen/regular_text_size</item>
     </style>
+
+    <style name="SplashTheme" parent="Theme.LoveHate.Light">
+        <item name="android:windowBackground">?colorPrimary</item>
+    </style>
 </resources>

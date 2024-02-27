@@ -1,6 +1,7 @@
 package com.kropotov.lovehate.di.modules
 
 import android.app.Application
+import android.content.Context
 import com.kropotov.lovehate.LoveHateApplication
 import dagger.Binds
 import dagger.Module
@@ -10,7 +11,7 @@ import dagger.Provides
 class AppModule {
 
     @Provides
-    fun provideApplicationContext(application: Application) = application.applicationContext
+    fun provideApplicationContext(application: Application): Context = application.applicationContext
 
     @Module
     interface BindsDIModule {

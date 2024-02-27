@@ -51,6 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/tiny_offset"
                 android:text="@{viewModel.feelingStr}"
                 android:textColor="?unaccented_text_color"
                 app:colorByAttr="@{viewModel.feelingColor}"
@@ -68,8 +69,9 @@
                 android:includeFontPadding="false"
                 android:text="@{viewModel.topic}"
                 app:colorByAttr="@{viewModel.feelingColor}"
+                app:layout_constraintBottom_toBottomOf="@+id/feeling"
                 app:layout_constraintStart_toEndOf="@id/feeling"
-                app:layout_constraintTop_toBottomOf="@id/username"
+                app:layout_constraintTop_toTopOf="@+id/feeling"
                 tools:text="cats"
                 tools:textColor="@color/light_love" />
 
@@ -101,6 +103,7 @@
                 android:id="@+id/images_recycler_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_offset"
                 app:layout_constraintStart_toStartOf="@id/body_text"
                 app:layout_constraintTop_toBottomOf="@id/body_text"
                 tools:itemCount="3" />
@@ -114,6 +117,7 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingVertical="@dimen/medium_offset"
+                android:layout_marginTop="@dimen/small_offset"
                 app:backgroundRes="@{viewModel.likeBackground}"
                 app:layout_constraintStart_toStartOf="@id/images_recycler_view"
                 app:layout_constraintTop_toBottomOf="@id/images_recycler_view"
@@ -136,7 +140,6 @@
                     android:layout_marginStart="@dimen/small_offset"
                     android:text="@{viewModel.likeCount}"
                     android:textColor="?unaccented_text_color"
-                    android:textSize="@dimen/reaction_count_text_size"
                     tools:text="3" />
             </LinearLayout>
 
@@ -149,8 +152,9 @@
                 android:orientation="horizontal"
                 android:paddingVertical="@dimen/medium_offset"
                 app:backgroundRes="@{viewModel.dislikeBackground}"
+                app:layout_constraintBottom_toBottomOf="@+id/like_layout"
                 app:layout_constraintStart_toEndOf="@id/like_layout"
-                app:layout_constraintTop_toBottomOf="@id/images_recycler_view"
+                app:layout_constraintTop_toTopOf="@+id/like_layout"
                 app:onClick="@{viewModel::onDislikeClick}"
                 tools:background="@drawable/reaction_background">
 
@@ -170,7 +174,6 @@
                     android:layout_marginStart="@dimen/small_offset"
                     android:text="@{viewModel.dislikeCount}"
                     android:textColor="?unaccented_text_color"
-                    android:textSize="@dimen/reaction_count_text_size"
                     tools:text="1" />
             </LinearLayout>
 
@@ -181,7 +184,7 @@
                 android:background="@drawable/reaction_background"
                 app:layout_constraintBottom_toBottomOf="@+id/like_layout"
                 app:layout_constraintStart_toEndOf="@id/dislike_layout"
-                app:layout_constraintTop_toBottomOf="@id/images_recycler_view">
+                app:layout_constraintTop_toTopOf="@+id/like_layout">
 
                 <TextView
                     android:id="@+id/messages_btn"

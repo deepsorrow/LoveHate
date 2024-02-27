@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.color.MaterialColors
@@ -26,14 +27,14 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
     private var binding by autoCleared<ActivityMainScreenBinding>()
     @Inject lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
-    private val toolbarVm: ToolbarVm by viewModels()
+    @Inject lateinit var toolbarVm: ToolbarVm
     //@Inject lateinit var sharedPrefs: SharedPrefs
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         AndroidInjection.inject(this)
         //setTheme(sharedPrefs.getPreferredTheme())
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainScreenBinding.inflate(layoutInflater).apply {
             setContentView(root)
 
@@ -85,19 +86,30 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
     }
 
     private fun registerFragmentResultListener() {
-        supportFragmentManager.setFragmentResultListener(CHANGE_TOOLBAR_COLOR_EVENT, this, object : FragmentResultListener {
-            override fun onFragmentResult(requestKey: String, result: Bundle) {
-                val feelingTypeInd = result.getInt(NEW_FEELING_TYPE, 0)
-                val feelingType = FeelingType.entries[feelingTypeInd]
-                val toolbarColor = MaterialColors.getColor(this@MainScreenActivity, feelingType.color, Color.BLUE)
-                val containerColor = MaterialColors.getColor(this@MainScreenActivity, feelingType.containerColor, Color.WHITE)
+        supportFragmentManager.setFragmentResultListener(
+            CHANGE_TOOLBAR_COLOR_EVENT, this
+        ) { _, result ->
+            val feelingTypeInd = result.getInt(NEW_FEELING_TYPE, 0)
+            val feelingType = FeelingType.entries[feelingTypeInd]
+            val toolbarColor =
+                MaterialColors.getColor(this@MainScreenActivity, feelingType.color, Color.BLUE)
+            val containerColor = MaterialColors.getColor(
+                this@MainScreenActivity,
+                feelingType.containerColor,
+                Color.WHITE
+            )
 
-                binding.toolbarLayout.root.setBackgroundColor(toolbarColor)
-                binding.pagerContainer.setBackgroundColor(containerColor)
+            binding.toolbarLayout.root.setBackgroundColor(toolbarColor)
+            binding.pagerContainer.setBackgroundColor(containerColor)
 
-                window.statusBarColor = toolbarColor
-            }
-        })
+            window.statusBarColor = toolbarColor
+        }
+    }
+
+    private fun setDefaultColorOnTop() {
+        val color = MaterialColors.getColor(this@MainScreenActivity, androidx.appcompat.R.attr.colorPrimary, Color.BLUE)
+        window.statusBarColor = color
+        binding.toolbarLayout.root.setBackgroundColor(color)
     }
 
     private fun ActivityMainScreenBinding.initBottomBar() {
@@ -134,7 +146,7 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
                 else -> throw IllegalArgumentException("Неверный номер экрана!")
             }
             nextScreenId > 1 && return@setOnItemSelectedListener false
-
+            setDefaultColorOnTop()
             binding.pagerContainer.currentItem = nextScreenId
             true
         }

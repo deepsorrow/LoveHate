@@ -7,6 +7,7 @@
     android:fontFamily="@font/medium"
     android:textAlignment="center"
     android:textColor="?unaccented_light_text_color"
+
     tools:padding="10dp"
     tools:background="?colorPrimary"
     tools:text="Любовь"

@@ -34,7 +34,7 @@ class TopicsHostScreenFragment : BaseFragment<TopicsScreenVm, FragmentTopicsHost
 
     private fun setTabLayout() {
         TabLayoutMediator(binding.topicsTabLayout, binding.topicsPagerContainer) { tab, position ->
-            val tabView = LayoutInflater.from(requireContext()).inflate(R.layout.item_tab_layout, null, false)
+            val tabView = LayoutInflater.from(requireContext()).inflate(R.layout.list_item_tab, null, false)
             val textView = tabView.findViewById<TextView>(R.id.tab_text)
 
             textView.text = resources.getString(TopicCategory.entries[position].title)

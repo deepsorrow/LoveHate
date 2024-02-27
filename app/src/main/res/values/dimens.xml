@@ -15,6 +15,5 @@
     <dimen name="small_offset">6dp</dimen>
     <dimen name="medium_offset">8dp</dimen>
     <dimen name="big_offset">12dp</dimen>
-    <dimen name="reaction_count_text_size">18sp</dimen>
     <dimen name="topic_list_item_image_size">60dp</dimen>
 </resources>

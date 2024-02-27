@@ -9,7 +9,7 @@ import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import com.kropotov.lovehate.R
 import com.kropotov.lovehate.data.TopicCategory
 import com.kropotov.lovehate.databinding.FragmentTopicsCategoryScreenBinding
-import com.kropotov.lovehate.databinding.ItemTopicBinding
+import com.kropotov.lovehate.databinding.ListItemTopicBinding
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.utils.SpaceItemDecoration
 import com.kropotov.lovehate.ui.utils.withArgs
@@ -44,9 +44,9 @@ class TopicsCategoryScreenFragment : BaseFragment<TopicCategoryVm, FragmentTopic
     }
 
     private fun adapterDelegate() =
-        adapterDelegateViewBinding<TopicListItemVm, TopicListItemVm, ItemTopicBinding>(
+        adapterDelegateViewBinding<TopicListItemVm, TopicListItemVm, ListItemTopicBinding>(
             { layoutInflater, parent ->
-                ItemTopicBinding.inflate(layoutInflater, parent, false)
+                ListItemTopicBinding.inflate(layoutInflater, parent, false)
             }
         ) {
             bind {

@@ -14,7 +14,7 @@ import com.kropotov.lovehate.data.FeelingType.LOVE
 import com.kropotov.lovehate.data.FeelingType.NEUTRAL
 import com.kropotov.lovehate.data.FeelingType.UNION
 import com.kropotov.lovehate.databinding.FragmentFeelingScreenBinding
-import com.kropotov.lovehate.databinding.ItemPostBinding
+import com.kropotov.lovehate.databinding.ListItemPostBinding
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.utils.SpaceItemDecoration
 import com.kropotov.lovehate.ui.utils.serializable
@@ -52,9 +52,9 @@ class FeelingScreenFragment : BaseFragment<FeelingScreenVm, FragmentFeelingScree
     }
 
     private fun adapterDelegate() =
-        adapterDelegateViewBinding<PostVm, PostVm, ItemPostBinding>(
+        adapterDelegateViewBinding<PostVm, PostVm, ListItemPostBinding>(
             { layoutInflater, parent ->
-                ItemPostBinding.inflate(layoutInflater, parent, false)
+                ListItemPostBinding.inflate(layoutInflater, parent, false)
             }
         ) {
             bind {

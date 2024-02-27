@@ -13,7 +13,7 @@
     <string name="love_percent_feeling">%s%% of love</string>
     <string name="hate_percent_feeling">%s%% of hate</string>
 
-    <string name="icon_favorite_filled" translatable="false">&#xe900;</string>
+    <string name="icon_favorite_filled" translatable="false">&#xe903;</string>
     <string name="icon_like_filled" translatable="false">&#xe902;</string>
     <string name="icon_dislike_filled" translatable="false">&#xe901;</string>
     <string name="icon_padlock" translatable="false">&#xe90a;</string>

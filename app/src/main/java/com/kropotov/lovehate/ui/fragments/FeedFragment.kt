@@ -41,9 +41,17 @@ class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment
         setTabLayout()
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
     private fun setTabLayout() {
         TabLayoutMediator(binding.feelingsTabLayout, binding.feelingsPagerContainer) { tab, position ->
-            val tabView = LayoutInflater.from(requireContext()).inflate(R.layout.item_tab_layout, null, false)
+            val tabView = LayoutInflater.from(requireContext()).inflate(R.layout.list_item_tab, null, false)
             val textView = tabView.findViewById<TextView>(R.id.tab_text)
 
             textView.text = resources.getString(FeelingType.entries[position].title)
