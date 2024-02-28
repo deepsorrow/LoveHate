@@ -11,4 +11,9 @@ class TopicListItemVm(
 ) : ViewModel() {
 
     val heartIcon: Int = if (isLoved) R.string.icon_heart else R.string.icon_broken_heart
+
+    var onClick: () -> Unit = {}
+    fun onClick() {
+        onClick.invoke()
+    }
 }

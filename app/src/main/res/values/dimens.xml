@@ -21,4 +21,6 @@
     <dimen name="text_field_height">56dp</dimen>
     <dimen name="min_comment_height">100dp</dimen>
     <dimen name="max_comment_height">120dp</dimen>
+    <dimen name="topic_image_preview_height">300dp</dimen>
+    <dimen name="topic_title_text_size">20sp</dimen>
 </resources>

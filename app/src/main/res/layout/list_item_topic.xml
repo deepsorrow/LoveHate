@@ -14,7 +14,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/default_corner_radius">
+        app:cardCornerRadius="@dimen/default_corner_radius"
+        app:onClick="@{viewModel::onClick}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

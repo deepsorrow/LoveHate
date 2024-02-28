@@ -1,6 +1,6 @@
 package com.kropotov.lovehate.data
 
-data class TopicListItem(
+data class Topic(
     val title: String,
     val isLoved: Boolean,
     val commentsCount: Int,

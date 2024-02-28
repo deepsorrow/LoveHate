@@ -6,6 +6,7 @@ import com.kropotov.lovehate.ui.MainScreenActivity
 import com.kropotov.lovehate.ui.fragments.contribute.ContributeFragment
 import com.kropotov.lovehate.ui.fragments.feed.FeedFragment
 import com.kropotov.lovehate.ui.fragments.feed.FeelingScreenFragment
+import com.kropotov.lovehate.ui.fragments.topic.TopicPageFragment
 import com.kropotov.lovehate.ui.fragments.topics.TopicsCategoryScreenFragment
 import com.kropotov.lovehate.ui.fragments.topics.TopicsHostScreenFragment
 import dagger.Module
@@ -31,4 +32,7 @@ interface ActivityFragmentInjectorsModule {
 
     @ContributesAndroidInjector
     fun injectContributeFragment(): ContributeFragment
+
+    @ContributesAndroidInjector
+    fun injectTopicPageFragment(): TopicPageFragment
 }

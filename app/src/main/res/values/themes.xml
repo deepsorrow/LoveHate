@@ -37,6 +37,15 @@
         <item name="android:textSize">@dimen/regular_text_size</item>
     </style>
 
+    <style name="TopicImagePreviewStyle" parent="">
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/default_corner_radius</item>
+        <item name="cornerSizeBottomRight">@dimen/default_corner_radius</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+
     <style name="SplashTheme" parent="Theme.LoveHate.Light">
         <item name="android:windowBackground">?colorPrimary</item>
     </style>

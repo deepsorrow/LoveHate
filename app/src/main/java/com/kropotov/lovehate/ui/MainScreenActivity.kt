@@ -47,6 +47,14 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
         registerFragmentResultListener()
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.fragments.isNotEmpty()) {
+            supportFragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun subscribeToToolbarEvents() {
         lifecycleScope.launch {
             toolbarVm.title.collect {
@@ -75,6 +83,12 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
         lifecycleScope.launch {
             toolbarVm.searchIconIsVisible.collect { it ->
                 binding.toolbarLayout.titleIcon.visibility = if (it) View.VISIBLE else View.GONE
+            }
+        }
+
+        lifecycleScope.launch {
+            toolbarVm.isVisible.collect {
+                binding.toolbarLayout.root.visibility = if (it) View.VISIBLE else View.GONE
             }
         }
 
@@ -128,6 +142,7 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
                             arrowBackIsVisible.emit(false)
                             isBottomOffsetVisible.emit(false)
                             searchIconIsVisible.emit(true)
+                            isVisible.emit(true)
                         }
                     }
 
@@ -141,6 +156,7 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
                             arrowBackIsVisible.emit(false)
                             isBottomOffsetVisible.emit(true)
                             searchIconIsVisible.emit(false)
+                            isVisible.emit(true)
                         }
                     }
 
@@ -154,6 +170,7 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
                             arrowBackIsVisible.emit(false)
                             isBottomOffsetVisible.emit(true)
                             searchIconIsVisible.emit(false)
+                            isVisible.emit(true)
                         }
                     }
 

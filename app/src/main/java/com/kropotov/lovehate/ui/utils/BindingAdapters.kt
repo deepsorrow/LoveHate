@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.kropotov.lovehate.R
+import com.kropotov.lovehate.data.OpinionType
 
 @BindingAdapter("textRes")
 internal fun TextView.textRes(@StringRes textId: Int?) {
@@ -52,4 +53,24 @@ internal fun TextView.formatFeelingPercent(isLove: Boolean, percent: String) {
         context.getString(R.string.hate_percent_feeling)
     }
     text = String.format(template, percent)
+}
+
+@BindingAdapter("messagesCount")
+internal fun TextView.formatMessagesCount(messagesCount: String) {
+    val template = if (messagesCount == "1") {
+        context.getString(R.string.messages_count_template_single)
+    } else {
+        context.getString(R.string.messages_count_template_multiple)
+    }
+    text = String.format(template, messagesCount)
+}
+
+@BindingAdapter("authorOpinion")
+internal fun TextView.formatAuthorOpinion(opinionType: OpinionType) {
+    val stringRes = when (opinionType) {
+        OpinionType.LOVE -> R.string.posted_with_love
+        OpinionType.HATE -> R.string.posted_with_hate
+        else -> R.string.posted_with_neutral
+    }
+    text = context.getString(stringRes)
 }

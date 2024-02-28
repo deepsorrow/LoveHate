@@ -18,4 +18,9 @@
     <string name="contribute_topic_name_hint">Название темы</string>
     <string name="contribute_your_comment_hint">Ваш комментарий</string>
     <string name="contribute_publish_button_text">Опубликовать</string>
+    <string name="messages_count_template_multiple">из %s сообщений</string>
+    <string name="messages_count_template_single">из 1 сообщения</string>
+    <string name="posted_with_love">Создано с любовью пользователем</string>
+    <string name="posted_with_neutral">Создано с безразличием пользователем</string>
+    <string name="posted_with_hate">Создано с ненавистью пользователем</string>
 </resources>

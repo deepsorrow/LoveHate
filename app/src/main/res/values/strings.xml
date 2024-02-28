@@ -51,4 +51,12 @@
     <string name="contribute_topic_name_hint">Topic title</string>
     <string name="contribute_your_comment_hint">Your comment</string>
     <string name="contribute_publish_button_text">Contribute</string>
+    <string name="messages_count_template_multiple">out of %s opinions</string>
+    <string name="messages_count_template_single">out of 1 opinion</string>
+    <string name="feelings">Opinions</string>
+    <string name="write_opinion">Post</string>
+    <string name="similar_topics">Similar topics</string>
+    <string name="posted_with_love">Created with love by</string>
+    <string name="posted_with_neutral">Created with indifference by</string>
+    <string name="posted_with_hate">Created with hate by</string>
 </resources>
