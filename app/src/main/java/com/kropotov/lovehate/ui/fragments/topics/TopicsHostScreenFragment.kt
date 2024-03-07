@@ -4,22 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kropotov.lovehate.R
 import com.kropotov.lovehate.data.TopicCategory
 import com.kropotov.lovehate.databinding.FragmentTopicsHostScreenBinding
 import com.kropotov.lovehate.ui.adapters.TopicsViewPagerAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
-import com.kropotov.lovehate.ui.vm.ToolbarVm
+import com.kropotov.lovehate.ui.utils.getDrawableRes
 import com.kropotov.lovehate.ui.vm.topics.TopicsScreenVm
 
 class TopicsHostScreenFragment : BaseFragment<TopicsScreenVm, FragmentTopicsHostScreenBinding>(R.layout.fragment_topics_host_screen) {
 
     override val vmClass = TopicsScreenVm::class.java
-
-    val toolbarVm: ToolbarVm by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,6 +25,12 @@ class TopicsHostScreenFragment : BaseFragment<TopicsScreenVm, FragmentTopicsHost
         binding.topicsPagerContainer.apply {
             adapter = TopicsViewPagerAdapter(this@TopicsHostScreenFragment)
             offscreenPageLimit = 5 // To load all fragments in advance
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback {
+            if (childFragmentManager.backStackEntryCount > 0) {
+                childFragmentManager.popBackStack()
+            }
         }
 
         setTabLayout()
@@ -41,7 +45,7 @@ class TopicsHostScreenFragment : BaseFragment<TopicsScreenVm, FragmentTopicsHost
             if (position == 0) { // UNION
                 val iconsFont = ResourcesCompat.getFont(requireContext(), R.font.icons)
                 textView.typeface = iconsFont
-                tab.view.background = ResourcesCompat.getDrawable(resources, R.drawable.tab_layout_background, null)
+                tab.view.background = resources.getDrawableRes(R.drawable.tab_layout_background)
             }
 
             tab.setCustomView(tabView)

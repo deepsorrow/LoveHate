@@ -8,6 +8,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
+import androidx.databinding.ObservableInt
 import com.kropotov.lovehate.R
 import com.kropotov.lovehate.data.OpinionType
 
@@ -34,9 +35,24 @@ internal fun setColorByAttr(view: TextView, @AttrRes attrResId: Int) {
     }
 }
 
+@BindingAdapter("backgroundColorByAttr")
+internal fun setBackgroundColorByAttr(view: View, @AttrRes attrResId: Int) {
+    if (attrResId != 0) {
+        val typedValue = TypedValue()
+        val theme = view.context.theme
+        theme.resolveAttribute(attrResId, typedValue, true)
+        view.setBackgroundColor(typedValue.data)
+    }
+}
+
 @BindingAdapter("backgroundRes")
 internal fun View.setBackgroundRes(@DrawableRes drawableRes: Int) {
     background = ResourcesCompat.getDrawable(resources, drawableRes, context.theme)
+}
+
+@BindingAdapter("isVisible")
+internal fun View.isVisible(isVisible: Boolean) {
+    visibility = if (isVisible) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("isLoveTextColor")

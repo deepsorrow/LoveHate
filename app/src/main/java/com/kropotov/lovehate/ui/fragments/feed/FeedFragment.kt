@@ -1,6 +1,5 @@
 package com.kropotov.lovehate.ui.fragments.feed
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,26 +8,22 @@ import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
-import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kropotov.lovehate.R
 import com.google.android.material.R as RMaterial
 import com.kropotov.lovehate.data.OpinionType
 import com.kropotov.lovehate.databinding.FragmentFeedBinding
-import com.kropotov.lovehate.ui.MainScreenActivity.Companion.CHANGE_TOOLBAR_COLOR_EVENT
+import com.kropotov.lovehate.ui.MainScreenActivity.Companion.CHANGE_CONTAINER_COLOR
 import com.kropotov.lovehate.ui.MainScreenActivity.Companion.NEW_FEELING_TYPE
 import com.kropotov.lovehate.ui.adapters.FeelingsViewPagerAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
+import com.kropotov.lovehate.ui.utils.getColorAttr
 import com.kropotov.lovehate.ui.vm.feed.FeedVm
-import com.kropotov.lovehate.ui.vm.ToolbarVm
 
 class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment_feed) {
 
     override val vmClass = FeedVm::class.java
-
-    val toolbarVm: ToolbarVm by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,18 +33,21 @@ class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment
             offscreenPageLimit = 4 // To load all fragments in advance
         }
 
-        setTabLayout()
+        initTabLayout()
+        setOnTabSelectedListener()
     }
 
     override fun onResume() {
         super.onResume()
+        syncStatusBarColor(isResume = true)
     }
 
     override fun onPause() {
         super.onPause()
+        syncStatusBarColor(isResume = false)
     }
 
-    private fun setTabLayout() {
+    private fun initTabLayout() {
         TabLayoutMediator(binding.feelingsTabLayout, binding.feelingsPagerContainer) { tab, position ->
             val tabView = LayoutInflater.from(requireContext()).inflate(R.layout.list_item_tab, null, false)
             val textView = tabView.findViewById<TextView>(R.id.tab_text)
@@ -64,40 +62,38 @@ class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment
             tab.setCustomView(tabView)
         }.attach()
 
+        binding.feelingsTabLayout.setNeutralTabWidth()
+        binding.feelingsTabLayout.setTabWidthAsWrapContent(0)
+    }
+
+    private fun setOnTabSelectedListener() {
+        // On select tab highlight it with color and change statusBarColor
         binding.feelingsTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                val textColor = MaterialColors.getColor(
-                    requireContext(),
-                    RMaterial.attr.colorOnPrimary,
-                    Color.WHITE
-                )
+                val textColor = requireContext().getColorAttr(RMaterial.attr.colorOnPrimary)
 
                 tab?.run {
-                    val layoutColorAttr = OpinionType.entries[tab.position].color
-                    val tabLayoutColor = MaterialColors.getColor(requireContext(), layoutColorAttr, Color.WHITE)
+                    val colorAttr = OpinionType.entries[position].color
+                    viewModel.toolbar.toolbarColor.set(colorAttr)
+
+                    val tabColor = requireContext().getColorAttr(colorAttr)
                     view.findViewById<TextView>(R.id.tab_text)?.setTextColor(textColor)
 
-                    DrawableCompat.setTint(
-                        DrawableCompat.wrap(binding.feelingsTabLayout.background),
-                        tabLayoutColor
-                    )
+                    val wrappedDrawable = DrawableCompat.wrap(binding.feelingsTabLayout.background)
+                    DrawableCompat.setTint(wrappedDrawable, tabColor)
 
-                    parentFragmentManager.setFragmentResult(
-                        CHANGE_TOOLBAR_COLOR_EVENT,
-                        bundleOf(NEW_FEELING_TYPE to tab.position)
-                    )
+                    val params = bundleOf(NEW_FEELING_TYPE to tab.position)
+                    parentFragmentManager.setFragmentResult(CHANGE_CONTAINER_COLOR, params)
                 }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                val color = MaterialColors.getColor(requireContext(), R.attr.unaccented_light_text_color, Color.GRAY)
+                val color = requireContext().getColorAttr(R.attr.unaccented_light_text_color)
                 tab?.view?.findViewById<TextView>(R.id.tab_text)?.setTextColor(color)
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
-        binding.feelingsTabLayout.setNeutralTabWidth()
-        binding.feelingsTabLayout.setTabWidthAsWrapContent(0)
     }
 
     private fun TabLayout.setNeutralTabWidth() {
@@ -113,6 +109,15 @@ class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment
         layoutParams.weight = 0f
         layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT
         layout.layoutParams = layoutParams
+    }
+
+    private fun syncStatusBarColor(isResume: Boolean) {
+        val colorAttr = viewModel.toolbar.toolbarColor.get()
+        requireActivity().window.statusBarColor = if (isResume) {
+            requireContext().getColorAttr(colorAttr)
+        } else {
+            requireContext().getColorAttr(androidx.appcompat.R.attr.colorPrimary)
+        }
     }
 
     companion object {

@@ -8,7 +8,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ContributeVm @Inject constructor() : ViewModel() {
+class ContributeVm @Inject constructor(
+    val toolbar: ContributeToolbar
+) : ViewModel() {
 
     private val _opinionState = MutableStateFlow(OpinionType.LOVE)
     val opinionType: StateFlow<OpinionType> = _opinionState

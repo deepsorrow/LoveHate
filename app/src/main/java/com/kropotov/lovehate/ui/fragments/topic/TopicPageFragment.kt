@@ -1,8 +1,9 @@
 package com.kropotov.lovehate.ui.fragments.topic
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
@@ -12,6 +13,7 @@ import com.kropotov.lovehate.databinding.FragmentTopicPageBinding
 import com.kropotov.lovehate.databinding.ListItemTopicBinding
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.utils.SpaceItemDecoration
+import com.kropotov.lovehate.ui.utils.getColorAttr
 import com.kropotov.lovehate.ui.vm.topic.TopicPageVm
 import com.kropotov.lovehate.ui.vm.topics.TopicListItemVm
 import javax.inject.Inject
@@ -36,6 +38,28 @@ class TopicPageFragment @Inject constructor() : BaseFragment<TopicPageVm, Fragme
             this.adapter = adapter
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             addItemDecoration(SpaceItemDecoration(context, R.dimen.one_dp))
+        }
+        binding.backButton.setOnClickListener { parentFragmentManager.popBackStack() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setTransparentStatusBar(true)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        setTransparentStatusBar(false)
+    }
+
+    private fun setTransparentStatusBar(transparent: Boolean) {
+        val window = requireActivity().window
+        if (transparent) {
+            WindowCompat.setDecorFitsSystemWindows(window, false)
+            window.statusBarColor = Color.TRANSPARENT
+        } else {
+            WindowCompat.setDecorFitsSystemWindows(window, true)
+            window.statusBarColor = requireContext().getColorAttr(androidx.appcompat.R.attr.colorPrimary)
         }
     }
 

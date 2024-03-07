@@ -12,6 +12,7 @@ import com.kropotov.lovehate.R
 import com.kropotov.lovehate.data.OpinionType
 import com.kropotov.lovehate.databinding.FragmentContributeScreenBinding
 import com.kropotov.lovehate.ui.base.BaseFragment
+import com.kropotov.lovehate.ui.utils.getColorAttr
 import com.kropotov.lovehate.ui.vm.contribute.ContributeVm
 import kotlinx.coroutines.launch
 
@@ -32,11 +33,7 @@ class ContributeFragment : BaseFragment<ContributeVm, FragmentContributeScreenBi
                 binding.neutralToggleButton.isChecked = selectedOpinionType == OpinionType.NEUTRAL
                 binding.hateToggleButton.isChecked = selectedOpinionType == OpinionType.HATE
 
-                val colorTint = MaterialColors.getColor(
-                    requireContext(),
-                    selectedOpinionType.color,
-                    Color.WHITE
-                )
+                val colorTint = requireContext().getColorAttr(selectedOpinionType.color)
                 val widthPx = resources.getDimension(R.dimen.one_dp).toInt()
                 (binding.topicEditText.background as GradientDrawable).setStroke(widthPx, colorTint)
                 (binding.commentEditText.background as GradientDrawable).setStroke(widthPx, colorTint)
