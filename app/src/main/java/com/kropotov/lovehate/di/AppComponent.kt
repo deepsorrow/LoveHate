@@ -1,18 +1,21 @@
 package com.kropotov.lovehate.di
 
 import com.kropotov.lovehate.LoveHateApplication
-import com.kropotov.lovehate.di.modules.ActivityFragmentInjectorsModule
+import com.kropotov.lovehate.di.modules.AndroidInjectorsModule
 import com.kropotov.lovehate.di.modules.AppModule
+import com.kropotov.lovehate.di.modules.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import javax.inject.Singleton
 
-@AppScope
+@Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
-        ActivityFragmentInjectorsModule::class,
-        AppModule::class
+        AndroidInjectorsModule::class,
+        AppModule::class,
+        NetworkModule::class
     ]
 )
 interface AppComponent {

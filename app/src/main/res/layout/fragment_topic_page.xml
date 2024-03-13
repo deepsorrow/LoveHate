@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.vm.topic.TopicPageVm" />
+            type="com.kropotov.lovehate.ui.viewmodels.topicPage.TopicPageViewModel" />
 
     </data>
 
@@ -113,7 +113,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/title"
                     app:layout_constraintStart_toEndOf="@+id/love_percent"
                     app:layout_constraintTop_toTopOf="@+id/love_percent"
-                    app:messagesCount="@{viewModel.commentsCount}"
+                    app:messagesCount="@{viewModel.opinionsCount}"
                     tools:text="67% of love" />
 
                 <TextView
@@ -160,7 +160,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/small_offset"
-                        android:text="@string/feelings" />
+                        android:text="@string/opinions" />
 
                 </LinearLayout>
 
@@ -271,6 +271,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/overlay_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

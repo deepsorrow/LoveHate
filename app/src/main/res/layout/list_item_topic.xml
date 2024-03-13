@@ -7,22 +7,26 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.vm.topics.TopicListItemVm" />
+            type="com.kropotov.lovehate.ui.viewmodels.topics.TopicListItemVm" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
 
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/default_corner_radius"
-        app:onClick="@{viewModel::onClick}">
+        android:onClick="@{clickListener}"
+        app:cardCornerRadius="@dimen/default_corner_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?colorSurface"
-            android:paddingVertical="@dimen/big_offset"
-            android:paddingHorizontal="@dimen/standard_offset">
+            android:paddingHorizontal="@dimen/standard_offset"
+            android:paddingVertical="@dimen/big_offset">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_preview"
@@ -64,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_offset"
-                android:text="@{viewModel.commentsCount}"
+                android:text="@{viewModel.opinionsCount}"
                 android:textColor="?unaccented_text_color"
                 app:layout_constraintBottom_toBottomOf="@id/comments_icon"
                 app:layout_constraintStart_toEndOf="@id/comments_icon"
@@ -75,7 +79,7 @@
                 android:id="@+id/feeling_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:feelingPercent="@{viewModel.feelingPercent}"
+                app:feelingPercent="@{viewModel.percent}"
                 app:isLove="@{viewModel.loved}"
                 app:isLoveTextColor="@{viewModel.loved}"
                 app:layout_constraintBottom_toBottomOf="parent"

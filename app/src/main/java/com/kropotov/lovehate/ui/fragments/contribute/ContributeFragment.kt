@@ -1,37 +1,37 @@
 package com.kropotov.lovehate.ui.fragments.contribute
 
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.color.MaterialColors
 import com.kropotov.lovehate.R
-import com.kropotov.lovehate.data.OpinionType
-import com.kropotov.lovehate.databinding.FragmentContributeScreenBinding
+import com.kropotov.lovehate.data.OpinionSortType
+import com.kropotov.lovehate.databinding.FragmentContributeBinding
 import com.kropotov.lovehate.ui.base.BaseFragment
-import com.kropotov.lovehate.ui.utils.getColorAttr
-import com.kropotov.lovehate.ui.vm.contribute.ContributeVm
+import com.kropotov.lovehate.ui.utilities.getColorAttr
+import com.kropotov.lovehate.ui.viewmodels.contribute.ContributeViewModel
 import kotlinx.coroutines.launch
 
-class ContributeFragment : BaseFragment<ContributeVm, FragmentContributeScreenBinding>(R.layout.fragment_contribute_screen) {
+class ContributeFragment : BaseFragment<ContributeViewModel, FragmentContributeBinding>(
+    R.layout.fragment_contribute
+) {
 
-    override val vmClass = ContributeVm::class.java
+    override val vmClass = ContributeViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        subscribeToOpinionType()
+        subscribeToOpinionTypeState()
         subscribeToCharacterCountdown()
     }
 
-    private fun subscribeToOpinionType() {
+    private fun subscribeToOpinionTypeState() {
         lifecycleScope.launch {
             viewModel.opinionType.collect { selectedOpinionType ->
-                binding.loveToggleButton.isChecked = selectedOpinionType == OpinionType.LOVE
-                binding.neutralToggleButton.isChecked = selectedOpinionType == OpinionType.NEUTRAL
-                binding.hateToggleButton.isChecked = selectedOpinionType == OpinionType.HATE
+                binding.loveToggleButton.isChecked = selectedOpinionType == OpinionSortType.LOVE
+                binding.neutralToggleButton.isChecked = selectedOpinionType == OpinionSortType.INDIFFERENCE
+                binding.hateToggleButton.isChecked = selectedOpinionType == OpinionSortType.HATE
 
                 val colorTint = requireContext().getColorAttr(selectedOpinionType.color)
                 val widthPx = resources.getDimension(R.dimen.one_dp).toInt()
@@ -63,10 +63,10 @@ class ContributeFragment : BaseFragment<ContributeVm, FragmentContributeScreenBi
         }
 
         val commentMaxLength = resources.getInteger(R.integer.comment_max_length)
-        binding.commnetCountdown.text = "$commentMaxLength"
+        binding.commentCountdown.text = "$commentMaxLength"
         binding.commentEditText.addTextChangedListener {
             if (it != null) {
-                binding.commnetCountdown.text = (commentMaxLength - it.length).toString()
+                binding.commentCountdown.text = (commentMaxLength - it.length).toString()
             }
         }
     }

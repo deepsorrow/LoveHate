@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kropotov.lovehate.ui.viewmodels.feed.OpinionViewModel" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?background_color"
+        app:cardCornerRadius="@dimen/default_corner_radius">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/standard_offset">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/medium"
+                android:includeFontPadding="false"
+                android:text="@{viewModel.username}"
+                android:textColor="?unaccented_text_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="arabesque" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_offset"
+                android:includeFontPadding="false"
+                android:text="@{viewModel.date}"
+                android:textColor="?unaccented_text_color"
+                app:layout_constraintStart_toEndOf="@id/username"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="03/02/2023 Wd 23:54:41" />
+
+            <TextView
+                android:id="@+id/feeling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/tiny_offset"
+                android:text="@{viewModel.opinionTypeFormatted}"
+                android:textColor="?unaccented_text_color"
+                app:colorByAttr="@{viewModel.opinionColor}"
+                app:layout_constraintStart_toStartOf="@id/username"
+                app:layout_constraintTop_toBottomOf="@id/username"
+                tools:text="loves"
+                tools:textColor="@color/light_love" />
+
+            <TextView
+                android:id="@+id/topic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tiny_offset"
+                android:fontFamily="@font/medium"
+                android:includeFontPadding="false"
+                android:text="@{viewModel.topic}"
+                app:colorByAttr="@{viewModel.opinionColor}"
+                app:layout_constraintBottom_toBottomOf="@+id/feeling"
+                app:layout_constraintStart_toEndOf="@id/feeling"
+                app:layout_constraintTop_toTopOf="@+id/feeling"
+                tools:text="cats"
+                tools:textColor="@color/light_love" />
+
+            <TextView
+                android:id="@+id/favorite_icon"
+                style="@style/IconText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/small_offset"
+                android:paddingBottom="@dimen/small_offset"
+                app:colorByAttr="@{viewModel.favoriteIconColor}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/date"
+                app:onClick="@{viewModel::onFavoriteClick}"
+                app:textRes="@{viewModel.favoriteIcon}"
+                tools:text="@string/icon_favorite" />
+
+            <TextView
+                android:id="@+id/body_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/tiny_offset"
+                android:text="@{viewModel.text}"
+                app:layout_constraintStart_toStartOf="@id/feeling"
+                app:layout_constraintTop_toBottomOf="@id/feeling"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper risus mauris. Suspendisse potenti. Vivamus ut porta quam. Phasellus sed lacinia libero, vitae ullamcorper eros. Maecenas sit amet sapien non lacus condimentum consectetur sit amet nec mi. Praesent molestie semper auctor." />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/images_recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_offset"
+                app:layout_constraintStart_toStartOf="@id/body_text"
+                app:layout_constraintTop_toBottomOf="@id/body_text"
+                tools:itemCount="3" />
+
+            <LinearLayout
+                android:id="@+id/like_layout"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/medium_offset"
+                android:layout_marginTop="@dimen/small_offset"
+                app:backgroundRes="@{viewModel.likeDislikeChecker.likeBackground}"
+                app:layout_constraintStart_toStartOf="@id/images_recycler_view"
+                app:layout_constraintTop_toBottomOf="@id/images_recycler_view"
+                app:onClick="@{viewModel.likeDislikeChecker::onLikeClick}"
+                tools:background="@drawable/reaction_background">
+
+                <TextView
+                    android:id="@+id/like_icon"
+                    style="@style/IconText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?unaccented_text_color"
+                    app:textRes="@{viewModel.likeDislikeChecker.likeIcon}"
+                    tools:text="&#xe927;" />
+
+                <TextView
+                    android:id="@+id/like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_offset"
+                    android:text="@{viewModel.likeDislikeChecker.likeCount}"
+                    android:textColor="?unaccented_text_color"
+                    tools:text="3" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dislike_layout"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_offset"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/medium_offset"
+                app:backgroundRes="@{viewModel.likeDislikeChecker.dislikeBackground}"
+                app:layout_constraintBottom_toBottomOf="@+id/like_layout"
+                app:layout_constraintStart_toEndOf="@id/like_layout"
+                app:layout_constraintTop_toTopOf="@+id/like_layout"
+                app:onClick="@{viewModel.likeDislikeChecker::onDislikeClick}"
+                tools:background="@drawable/reaction_background">
+
+                <TextView
+                    android:id="@+id/dislike_icon"
+                    style="@style/IconText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?unaccented_text_color"
+                    app:textRes="@{viewModel.likeDislikeChecker.dislikeIcon}"
+                    tools:text="&#xe926;" />
+
+                <TextView
+                    android:id="@+id/dislike_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_offset"
+                    android:text="@{viewModel.likeDislikeChecker.dislikeCount}"
+                    android:textColor="?unaccented_text_color"
+                    tools:text="1" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/small_offset"
+                android:background="@drawable/reaction_background"
+                app:layout_constraintBottom_toBottomOf="@+id/like_layout"
+                app:layout_constraintStart_toEndOf="@id/dislike_layout"
+                app:layout_constraintTop_toTopOf="@+id/like_layout">
+
+                <TextView
+                    android:id="@+id/messages_btn"
+                    style="@style/IconText"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/icon_messages"
+                    android:textAlignment="center"
+                    android:textColor="?unaccented_text_color" />
+            </FrameLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

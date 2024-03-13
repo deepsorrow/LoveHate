@@ -20,7 +20,22 @@
     <string name="contribute_publish_button_text">Опубликовать</string>
     <string name="messages_count_template_multiple">из %s сообщений</string>
     <string name="messages_count_template_single">из 1 сообщения</string>
+    <string name="opinions">Мнения</string>
+    <string name="write_opinion">Написать</string>
+    <string name="similar_topics">Похожие темы</string>
     <string name="posted_with_love">Создано с любовью пользователем</string>
     <string name="posted_with_neutral">Создано с безразличием пользователем</string>
     <string name="posted_with_hate">Создано с ненавистью пользователем</string>
+    <string name="opinion_loves">любит</string>
+    <string name="opinion_neutral">безразличен к</string>
+    <string name="opinion_hate">ненавидит</string>
+    <string name="ratings_users_most_active">Самые активные</string>
+    <string name="ratings_users_most_indifferent">Самые равнодушные</string>
+    <string name="ratings_users_most_tenderhearted">Самые добродушные</string>
+    <string name="ratings_users_most_spiteful">Самые злобные</string>
+    <string name="ratings_users_most_preoccupied">Самые зацикленные</string>
+    <string name="ratings_comments_most_tenderhearted">Самые поддерживаемые</string>
+    <string name="ratings_comments_most_preoccupied">Самые осуждаемые</string>
+    <string name="ratings_comments_most_spiteful">Самые комментируемые</string>
+    <string name="users">Пользователи</string>
 </resources>

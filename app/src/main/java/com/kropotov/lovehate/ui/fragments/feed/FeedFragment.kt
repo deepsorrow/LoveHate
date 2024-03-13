@@ -12,25 +12,24 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kropotov.lovehate.R
 import com.google.android.material.R as RMaterial
-import com.kropotov.lovehate.data.OpinionType
+import com.kropotov.lovehate.data.OpinionSortType
 import com.kropotov.lovehate.databinding.FragmentFeedBinding
-import com.kropotov.lovehate.ui.MainScreenActivity.Companion.CHANGE_CONTAINER_COLOR
-import com.kropotov.lovehate.ui.MainScreenActivity.Companion.NEW_FEELING_TYPE
-import com.kropotov.lovehate.ui.adapters.FeelingsViewPagerAdapter
+import com.kropotov.lovehate.MainScreenActivity.Companion.CHANGE_CONTAINER_COLOR
+import com.kropotov.lovehate.MainScreenActivity.Companion.NEW_FEELING_TYPE
+import com.kropotov.lovehate.ui.adapters.OpinionsViewPagerAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
-import com.kropotov.lovehate.ui.utils.getColorAttr
-import com.kropotov.lovehate.ui.vm.feed.FeedVm
+import com.kropotov.lovehate.ui.utilities.getColorAttr
+import com.kropotov.lovehate.ui.viewmodels.feed.FeedViewModel
 
-class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment_feed) {
+class FeedFragment : BaseFragment<FeedViewModel, FragmentFeedBinding>(R.layout.fragment_feed) {
 
-    override val vmClass = FeedVm::class.java
+    override val vmClass = FeedViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.feelingsPagerContainer.apply {
-            adapter = FeelingsViewPagerAdapter(this@FeedFragment)
-            offscreenPageLimit = 4 // To load all fragments in advance
+        binding.opinionsPagerContainer.apply {
+            adapter = OpinionsViewPagerAdapter(this@FeedFragment)
         }
 
         initTabLayout()
@@ -48,11 +47,11 @@ class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment
     }
 
     private fun initTabLayout() {
-        TabLayoutMediator(binding.feelingsTabLayout, binding.feelingsPagerContainer) { tab, position ->
+        TabLayoutMediator(binding.opinionsTabLayout, binding.opinionsPagerContainer) { tab, position ->
             val tabView = LayoutInflater.from(requireContext()).inflate(R.layout.list_item_tab, null, false)
             val textView = tabView.findViewById<TextView>(R.id.tab_text)
 
-            textView.text = resources.getString(OpinionType.entries[position].title)
+            textView.text = resources.getString(OpinionSortType.entries[position].title)
             if (position == 0) { // UNION
                 val iconsFont = ResourcesCompat.getFont(requireContext(), R.font.icons)
                 textView.typeface = iconsFont
@@ -62,24 +61,24 @@ class FeedFragment : BaseFragment<FeedVm, FragmentFeedBinding>(R.layout.fragment
             tab.setCustomView(tabView)
         }.attach()
 
-        binding.feelingsTabLayout.setNeutralTabWidth()
-        binding.feelingsTabLayout.setTabWidthAsWrapContent(0)
+        binding.opinionsTabLayout.setNeutralTabWidth()
+        binding.opinionsTabLayout.setTabWidthAsWrapContent(0)
     }
 
     private fun setOnTabSelectedListener() {
         // On select tab highlight it with color and change statusBarColor
-        binding.feelingsTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        binding.opinionsTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val textColor = requireContext().getColorAttr(RMaterial.attr.colorOnPrimary)
 
                 tab?.run {
-                    val colorAttr = OpinionType.entries[position].color
+                    val colorAttr = OpinionSortType.entries[position].color
                     viewModel.toolbar.toolbarColor.set(colorAttr)
 
                     val tabColor = requireContext().getColorAttr(colorAttr)
                     view.findViewById<TextView>(R.id.tab_text)?.setTextColor(textColor)
 
-                    val wrappedDrawable = DrawableCompat.wrap(binding.feelingsTabLayout.background)
+                    val wrappedDrawable = DrawableCompat.wrap(binding.opinionsTabLayout.background)
                     DrawableCompat.setTint(wrappedDrawable, tabColor)
 
                     val params = bundleOf(NEW_FEELING_TYPE to tab.position)

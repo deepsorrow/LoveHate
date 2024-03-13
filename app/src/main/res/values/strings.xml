@@ -46,6 +46,7 @@
     <string name="icon_dislike" translatable="false">&#xe926;</string>
     <string name="icon_like" translatable="false">&#xe927;</string>
     <string name="icon_upload" translatable="false">&#xe928;</string>
+
     <string name="pick_media_hint">Pick media by search or\n upload from your device</string>
     <string name="carousel_indicator_hint">Carousel indicator</string>
     <string name="contribute_topic_name_hint">Topic title</string>
@@ -53,10 +54,22 @@
     <string name="contribute_publish_button_text">Contribute</string>
     <string name="messages_count_template_multiple">out of %s opinions</string>
     <string name="messages_count_template_single">out of 1 opinion</string>
-    <string name="feelings">Opinions</string>
+    <string name="opinions">Opinions</string>
     <string name="write_opinion">Post</string>
     <string name="similar_topics">Similar topics</string>
     <string name="posted_with_love">Created with love by</string>
     <string name="posted_with_neutral">Created with indifference by</string>
     <string name="posted_with_hate">Created with hate by</string>
+    <string name="opinion_loves">loves</string>
+    <string name="opinion_neutral">is indifferent to</string>
+    <string name="opinion_hate">hates</string>
+    <string name="ratings_users_most_active">Most active</string>
+    <string name="ratings_users_most_indifferent">Most indifferent</string>
+    <string name="ratings_users_most_tenderhearted">Most tenderhearted</string>
+    <string name="ratings_users_most_spiteful">Most spiteful</string>
+    <string name="ratings_users_most_preoccupied">Most obsessed</string>
+    <string name="ratings_comments_most_tenderhearted">Most loved</string>
+    <string name="ratings_comments_most_preoccupied">Most commented</string>
+    <string name="ratings_comments_most_spiteful">Most hated</string>
+    <string name="users">Users</string>
 </resources>

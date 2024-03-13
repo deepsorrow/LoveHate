@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.vm.feed.FeedVm" />
+            type="com.kropotov.lovehate.ui.viewmodels.feed.FeedViewModel" />
 
     </data>
 
@@ -29,7 +29,7 @@
             tools:context=".ui.fragments.feed.FeedFragment">
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/feelings_tab_layout"
+                android:id="@+id/opinions_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/tab_layout_background"
@@ -38,7 +38,7 @@
                 app:tabSelectedTextColor="?colorOnPrimary" />
 
             <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/feelings_pager_container"
+                android:id="@+id/opinions_pager_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/small_offset" />
