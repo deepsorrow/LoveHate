@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="router"
+            type="com.kropotov.lovehate.ui.screens.auth.AuthRouter" />
+
+        <variable
+            name="viewModel"
+            type="com.kropotov.lovehate.ui.screens.auth.SharedAuthViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_offset"
+            android:background="@drawable/auth_logo_gradient"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/arrow_back"
+                style="@style/IconText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_offset"
+                android:text="@string/icon_arrow_back"
+                app:onClick="@{router::goBack}" />
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/auth_logo" />
+
+            <TextView
+                android:id="@+id/welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/enormous_offset"
+                android:fontFamily="@font/medium"
+                android:text="@string/registration"
+                android:textSize="@dimen/toolbar_title_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_offset"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/text_field_height"
+                    android:autofillHints="emailAddress"
+                    android:background="@drawable/selector_text_field"
+                    android:drawableStart="@drawable/icon_profile"
+                    android:drawablePadding="@dimen/medium_offset"
+                    android:hint="@string/login_signup"
+                    android:inputType="text|textPersonName"
+                    android:paddingStart="@dimen/standard_offset"
+                    android:text="@={viewModel.login}"
+                    app:boxBackgroundMode="none"
+                    tools:ignore="RtlSymmetry"
+                    tools:text="test@mail.ru" />
+
+                <TextView
+                    android:id="@+id/validation_name_taken"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.validationNameText}"
+                    android:visibility="gone"
+                    app:colorByAttr="@{viewModel.validationNameTextColor}"
+                    app:isNotGone="@{viewModel.validationNameIsVisible}"
+                    tools:text="@string/the_name_is_already_taken"
+                    tools:textColor="@color/light_red_700"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/password_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_offset"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/text_field_height"
+                    android:background="@null"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true">
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/text_field_height"
+                        android:autofillHints="password"
+                        android:background="@drawable/selector_text_field"
+                        android:drawableStart="@drawable/icon_lock"
+                        android:drawablePadding="@dimen/medium_offset"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:paddingStart="@dimen/standard_offset"
+                        android:paddingTop="12dp"
+                        android:text="@={viewModel.password}"
+                        tools:ignore="RtlSymmetry"
+                        tools:text="test@mail.ru" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/validation_minimum_length"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/must_be_at_least_6_characters"
+                    android:visibility="gone"
+                    app:isNotGone="@{viewModel.validationPasswordIsVisible}"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/password_confirm_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_offset"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/text_field_height"
+                    android:background="@null"
+                    app:boxStrokeWidth="0dp"
+                    app:boxStrokeWidthFocused="0dp"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true">
+
+                    <EditText
+                        android:id="@+id/password_confirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/text_field_height"
+                        android:autofillHints="password"
+                        android:background="@drawable/selector_text_field"
+                        android:drawableStart="@drawable/icon_lock"
+                        android:drawablePadding="@dimen/medium_offset"
+                        android:hint="@string/confirm_password"
+                        android:inputType="textPassword"
+                        android:paddingStart="@dimen/standard_offset"
+                        android:paddingTop="12dp"
+                        android:text="@={viewModel.confirmPassword}"
+                        tools:ignore="RtlSymmetry"
+                        tools:text="test@mail.ru" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/validation_match"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/passwords_do_not_match"
+                    android:visibility="gone"
+                    app:isNotGone="@{viewModel.validationPasswordConfirmIsVisible}"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_field_height"
+                android:layout_marginTop="@dimen/enormous_offset"
+                android:text="@string/login_signup_button"
+                android:textAllCaps="false"
+                app:cornerRadius="@dimen/default_corner_radius"
+                app:onClick="@{viewModel::register}" />
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

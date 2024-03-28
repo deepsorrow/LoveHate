@@ -17,12 +17,13 @@ interface ToolbarContract {
 
     val title: ObservableField<Int>
     val subtitle: ObservableField<Int>
-    val subtitleIsVisible: ObservableBoolean
+    val isSubtitleVisible: ObservableBoolean
 
     val searchIconIsVisible: ObservableBoolean
     val searchText: MutableStateFlow<String>
 
     val arrowBackIsVisible: ObservableBoolean
+    val arrowBackAction: ObservableField<(() -> Unit)?>
     val isBottomOffsetVisible: ObservableBoolean
 
 }

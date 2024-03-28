@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.viewmodels.topics.TopicListItemVm" />
+            type="com.kropotov.lovehate.data.items.TopicListItem" />
 
         <variable
             name="clickListener"
@@ -18,24 +18,26 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/small_offset"
         android:onClick="@{clickListener}"
         app:cardCornerRadius="@dimen/default_corner_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?colorSurface"
+            android:background="?surface_color"
             android:paddingHorizontal="@dimen/standard_offset"
             android:paddingVertical="@dimen/big_offset">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_preview"
+                style="@style/ThumbnailImageStyle"
                 android:layout_width="@dimen/topic_list_item_image_size"
                 android:layout_height="@dimen/topic_list_item_image_size"
                 android:src="@drawable/image_dummy"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:shapeAppearanceOverlay="@style/RoundedImageView"
                 tools:src="@drawable/image_dummy" />
 
             <TextView
@@ -64,7 +66,7 @@
 
 
             <TextView
-                android:id="@+id/comments_count"
+                android:id="@+id/opinions_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_offset"
@@ -79,13 +81,13 @@
                 android:id="@+id/feeling_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:feelingPercent="@{viewModel.percent}"
-                app:isLove="@{viewModel.loved}"
-                app:isLoveTextColor="@{viewModel.loved}"
+                app:opinionPercent="@{viewModel.percent}"
+                app:isLove="@{viewModel.opinionType}"
+                app:isLoveTextColor="@{viewModel.opinionType}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="60% love"
-                tools:textColor="@color/light_love" />
+                tools:textColor="?love_color" />
 
             <TextView
                 android:id="@+id/heart_icon"
@@ -93,12 +95,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/small_offset"
-                app:isLoveTextColor="@{viewModel.loved}"
+                app:isLoveTextColor="@{viewModel.opinionType}"
                 app:layout_constraintEnd_toStartOf="@+id/feeling_percent"
                 app:layout_constraintTop_toTopOf="@+id/feeling_percent"
                 app:textRes="@{viewModel.heartIcon}"
                 tools:text="@string/icon_heart"
-                tools:textColor="@color/light_love" />
+                tools:textColor="?love_color" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kropotov.lovehate.ui.dialogs.SendFeedbackViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_surface"
+        android:orientation="vertical"
+        android:padding="@dimen/standard_offset">
+
+        <EditText
+            android:id="@+id/send_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_text_field"
+            android:hint="@string/send_feedback_hint"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:maxHeight="@dimen/max_comment_height"
+            android:maxLength="@integer/opinion_max_length"
+            android:padding="@dimen/standard_offset"
+            android:text="@={viewModel.text}"
+            android:textColorHint="?unaccented_text_color" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/small_offset"
+            android:gravity="center"
+            android:text="@string/send_button"
+            android:textAllCaps="false"
+            app:icon="@drawable/icon_send"
+            app:iconGravity="textStart"
+            app:onClick="@{viewModel::onSendClicked}" />
+
+    </LinearLayout>
+</layout>

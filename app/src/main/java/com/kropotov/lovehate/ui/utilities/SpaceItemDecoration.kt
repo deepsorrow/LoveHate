@@ -10,7 +10,7 @@ import com.kropotov.lovehate.R
 
 class SpaceItemDecoration(
     context: Context,
-    @DimenRes offset: Int = R.dimen.small_offset
+    @DimenRes offset: Int = R.dimen.tiny_offset
 ) : ItemDecoration() {
     private val decorationHeight: Int = context.resources.getDimensionPixelSize(offset)
 
@@ -24,7 +24,7 @@ class SpaceItemDecoration(
         val itemPosition = parent.getChildAdapterPosition(view)
         val totalCount = parent.adapter!!.itemCount
         if (itemPosition >= 0 && itemPosition <= totalCount - 1) {
-            outRect.bottom = decorationHeight
+            outRect.top = decorationHeight
         }
     }
 }

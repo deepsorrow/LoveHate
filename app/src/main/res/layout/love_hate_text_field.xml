@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toggle_input_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:parentTag="android.widget.LinearLayout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/love_toggle_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_love_button"
+            android:checked="true"
+            android:textAllCaps="false"
+            android:textColor="@drawable/selector_lovehate_text_color"
+            android:textOff="@string/love"
+            android:textOn="@string/love" />
+
+        <ToggleButton
+            android:id="@+id/neutral_toggle_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_indifference_button"
+            android:textAllCaps="false"
+            android:textColor="@drawable/selector_lovehate_text_color"
+            android:textOff="@string/neutral"
+            android:textOn="@string/neutral" />
+
+        <ToggleButton
+            android:id="@+id/hate_toggle_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_hate_button"
+            android:textAllCaps="false"
+            android:textColor="@drawable/selector_lovehate_text_color"
+            android:textOff="@string/hate"
+            android:textOn="@string/hate" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?surface_color">
+
+        <EditText
+            android:id="@+id/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/text_field_height"
+            android:background="@drawable/stroke_love"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="@integer/title_max_length"
+            android:paddingStart="@dimen/big_offset"
+            android:textColor="?text_color"
+            android:textColorHint="?unaccented_text_color"
+            android:textCursorDrawable="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry, LabelFor" />
+
+        <TextView
+            android:id="@+id/title_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/small_offset"
+            android:layout_marginBottom="@dimen/tiny_offset"
+            android:textColor="?text_color"
+            android:textSize="@dimen/character_countdown_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="70" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

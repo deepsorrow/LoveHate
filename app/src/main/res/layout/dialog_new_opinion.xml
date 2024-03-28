@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kropotov.lovehate.ui.screens.topicpage.NewOpinionViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.kropotov.lovehate.ui.views.LoveHateTextField
+            android:id="@+id/text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:hint="@string/your_opinion_hint"
+            app:inputText="@={viewModel.text}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maxLength="@integer/opinion_max_length"
+            app:maxLines="10"
+            app:opinionStateListener="@{viewModel}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?surface_color"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/medium_offset"
+            app:layout_constraintStart_toStartOf="@id/text_field"
+            app:layout_constraintTop_toBottomOf="@id/text_field">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/medium_offset"
+                android:text="@string/add_up_to_4_photo"
+                android:textColor="?unaccented_text_color" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/media_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@id/text_field"
+                app:layout_constraintTop_toBottomOf="@id/text_field"
+                tools:itemCount="1"
+                tools:listitem="@layout/list_item_add_media" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_field_height"
+                android:layout_marginTop="@dimen/standard_offset"
+                android:backgroundTint="?love_color"
+                android:text="@string/contribute_publish_button_text"
+                android:textAllCaps="false"
+                app:cornerRadius="@dimen/default_corner_radius"
+                app:layout_constraintStart_toStartOf="@id/media_list"
+                app:layout_constraintTop_toBottomOf="@id/media_list"
+                app:onClick="@{viewModel::onSendClicked}" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

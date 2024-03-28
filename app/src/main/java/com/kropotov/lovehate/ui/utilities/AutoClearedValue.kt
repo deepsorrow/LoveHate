@@ -6,9 +6,8 @@ import androidx.core.os.postDelayed
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import kotlin.properties.Delegates
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -18,15 +17,12 @@ import kotlin.reflect.KProperty
  *
  * Доступ к этой переменной в уничтоженном lifecycleOwner вызовет [IllegalStateException]
  */
-class AutoClearedValue<T : Any>(val lifecycleOwner: LifecycleOwner) :
+class AutoClearedValue<T : Any>(private val lifecycleOwner: LifecycleOwner) :
     ReadWriteProperty<LifecycleOwner, T>,
-    LifecycleObserver {
+    LifecycleEventObserver {
 
     private var _value: T? by Delegates.vetoable(null) { _, old, new ->
         if (old != new && new != null) {
-            /** Удаление коллбэка предотвращает возможный [NullPointerException] вызванный удалением нового [_value], когда
-             * [clearBindingHandler] отрабатывает уже после создания нового экземпляра так как не получил времни выполнения на
-             * главном потоке сразу после [Fragment.onDestroy] */
             clearBindingHandler.removeCallbacksAndMessages(TOKEN)
             lifecycleOwner.setLifecycleObserver(new)
         }
@@ -35,18 +31,20 @@ class AutoClearedValue<T : Any>(val lifecycleOwner: LifecycleOwner) :
     private val clearBindingHandler by lazy(LazyThreadSafetyMode.NONE) { Handler(Looper.getMainLooper()) }
 
     override fun getValue(thisRef: LifecycleOwner, property: KProperty<*>): T =
-        _value ?: throw IllegalStateException("Should never call auto-cleared-value get when it might not be available")
+        _value ?: throw IllegalStateException("Should never call auto-cleared-value get" +
+                " when it might not be available")
 
     override fun setValue(thisRef: LifecycleOwner, property: KProperty<*>, value: T) {
         _value = value
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    private fun destroy() {
-        // Вызывается раньше onDestroyView во фрагменте.
-        // Для использования view binding в onDestroyView необходимо выполнить очистку позже
-        clearBindingHandler.postDelayed(0L, TOKEN) {
-            _value = null
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        if (event == Lifecycle.Event.ON_DESTROY) {
+            // Вызывается раньше onDestroyView во фрагменте.
+            // Для использования view binding в onDestroyView необходимо выполнить очистку позже
+            clearBindingHandler.postDelayed(0L, TOKEN) {
+                _value = null
+            }
         }
     }
 

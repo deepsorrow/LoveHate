@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/default_corner_radius">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kropotov.lovehate.data.items.RatingListItem" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/standard_offset"
-        android:layout_marginVertical="@dimen/medium_offset"
-        android:background="?colorSurface">
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_surface"
+        android:foreground="?selectableItemBackground"
+        android:paddingHorizontal="@dimen/standard_offset"
+        android:paddingVertical="@dimen/medium_offset"
+        app:onClick="@{viewModel.action}">
 
         <TextView
             android:id="@+id/title"
@@ -20,12 +26,34 @@
             android:textSize="@dimen/regular_text_size"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:textRes="@{viewModel.title}"
             tools:text="Most active" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/subtitle_shimmer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/standard_offset"
+            app:layout_constraintBottom_toBottomOf="@+id/subtitle"
+            app:layout_constraintEnd_toStartOf="@id/icon"
+            app:layout_constraintStart_toStartOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_placeholder" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_offset"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.subtitle}"
             android:textColor="?unaccented_text_color"
             android:textSize="@dimen/small_text_size"
             app:layout_constraintStart_toStartOf="@id/title"
@@ -33,6 +61,7 @@
             tools:text="konfetka0806" />
 
         <TextView
+            android:id="@+id/icon"
             style="@style/IconText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,4 +71,4 @@
             app:layout_constraintTop_toTopOf="@id/title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+</layout>

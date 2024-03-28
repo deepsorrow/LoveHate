@@ -4,18 +4,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.kropotov.lovehate.R
-import com.kropotov.lovehate.ui.fragments.topicPage.TopicPageFragment
+import com.kropotov.lovehate.ui.screens.topicpage.fragments.TopicPageFragment
 
-open class BaseRouter(
+abstract class BaseRouter(
     private val fragmentManager: FragmentManager
 ) {
 
-    fun navigateToNewTopic(topicId: Int)
-        = navigateWithSlideUpTransition(fragment = TopicPageFragment.newInstance(topicId))
+    fun goBack() {
+        if (fragmentManager.backStackEntryCount > 0) {
+            fragmentManager.popBackStack()
+        }
+    }
 
-    private fun navigateWithSlideUpTransition(
-        container: Int = R.id.overlay_container,
-        fragment: Fragment
+    fun navigateToNewTopic(topicId: Int)
+        = navigateWithSlideUpTransition(TopicPageFragment.newInstance(topicId))
+
+    protected fun navigateWithSlideUpTransition(
+        fragment: Fragment,
+        container: Int = R.id.overlay_container
     ) {
         fragmentManager.commit {
             setCustomAnimations(

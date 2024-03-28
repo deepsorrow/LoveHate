@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="router"
+            type="com.kropotov.lovehate.ui.screens.auth.AuthRouter" />
+
+        <variable
+            name="viewModel"
+            type="com.kropotov.lovehate.ui.screens.auth.SharedAuthViewModel" />
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_offset"
+            android:background="@drawable/auth_logo_gradient">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:contentDescription="@null"
+                android:src="@drawable/auth_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/enormous_offset"
+                android:fontFamily="@font/medium"
+                android:text="@string/welcome"
+                android:textSize="@dimen/toolbar_title_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+            <TextView
+                android:id="@+id/please_enter_credentials"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/please_enter_your_login_details"
+                app:layout_constraintStart_toStartOf="@+id/welcome"
+                app:layout_constraintTop_toBottomOf="@+id/welcome" />
+
+            <EditText
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_field_height"
+                android:layout_marginTop="@dimen/medium_offset"
+                android:autofillHints="emailAddress"
+                android:background="@drawable/selector_text_field"
+                android:drawableStart="@drawable/icon_profile"
+                android:drawablePadding="@dimen/medium_offset"
+                android:hint="@string/login_or_email"
+                android:inputType="text|textPersonName"
+                android:paddingStart="@dimen/standard_offset"
+                android:text="@={viewModel.login}"
+                app:layout_constraintTop_toBottomOf="@id/please_enter_credentials"
+                tools:ignore="RtlSymmetry"
+                tools:text="test@mail.ru" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_confirm_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_field_height"
+                android:layout_marginTop="@dimen/standard_offset"
+                android:background="@null"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/login"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/text_field_height"
+                    android:autofillHints="password"
+                    android:background="@drawable/selector_text_field"
+                    android:drawableStart="@drawable/icon_lock"
+                    android:drawablePadding="@dimen/medium_offset"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:paddingStart="@dimen/standard_offset"
+                    android:paddingTop="12dp"
+                    android:text="@={viewModel.password}"
+                    tools:ignore="RtlSymmetry"
+                    tools:text="test@mail.ru" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_field_height"
+                android:layout_marginTop="@dimen/enormous_offset"
+                android:text="@string/login_button"
+                android:textAllCaps="false"
+                app:cornerRadius="@dimen/default_corner_radius"
+                app:layout_constraintEnd_toEndOf="@id/password_confirm_layout"
+                app:layout_constraintStart_toStartOf="@id/password_confirm_layout"
+                app:layout_constraintTop_toBottomOf="@id/password_confirm_layout"
+                app:onClick="@{viewModel::login}" />
+
+            <!--    TDOO: Gmail OAuth 2.0 -->
+            <!--    <View-->
+            <!--        android:layout_width="0dp"-->
+            <!--        android:layout_height="1dp"-->
+            <!--        android:layout_marginEnd="@dimen/standard_offset"-->
+            <!--        android:background="?unaccented_text_color"-->
+            <!--        app:layout_constraintBottom_toBottomOf="@+id/or_with"-->
+            <!--        app:layout_constraintEnd_toStartOf="@id/or_with"-->
+            <!--        app:layout_constraintStart_toStartOf="parent"-->
+            <!--        app:layout_constraintTop_toTopOf="@+id/or_with" />-->
+
+            <!--    <TextView-->
+            <!--        android:id="@+id/or_with"-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:text="@string/or_with"-->
+            <!--        android:layout_marginTop="@dimen/standard_offset"-->
+            <!--        app:layout_constraintTop_toBottomOf="@id/login_button"-->
+            <!--        app:layout_constraintStart_toStartOf="parent"-->
+            <!--        app:layout_constraintEnd_toEndOf="parent"/>-->
+
+            <!--    <View-->
+            <!--        android:layout_width="0dp"-->
+            <!--        android:layout_height="1dp"-->
+            <!--        android:layout_marginStart="@dimen/standard_offset"-->
+            <!--        android:background="?unaccented_text_color"-->
+            <!--        app:layout_constraintBottom_toBottomOf="@+id/or_with"-->
+            <!--        app:layout_constraintEnd_toEndOf="parent"-->
+            <!--        app:layout_constraintStart_toEndOf="@id/or_with"-->
+            <!--        app:layout_constraintTop_toTopOf="@+id/or_with" />-->
+
+            <TextView
+                android:id="@+id/no_account_yet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_offset"
+                android:padding="@dimen/standard_offset"
+                android:text="@string/don_t_have_an_account_yet"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_button"
+                app:onClick="@{router::navigateToRegistration}" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

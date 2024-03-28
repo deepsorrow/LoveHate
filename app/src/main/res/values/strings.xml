@@ -13,7 +13,84 @@
     <string name="new_topic">New topic</string>
     <string name="love_percent_feeling">%s%% of love</string>
     <string name="hate_percent_feeling">%s%% of hate</string>
+    <string name="debating">Debating</string>
+    <string name="pick_media_hint">Pick media by search or\n upload from your device</string>
+    <string name="carousel_indicator_hint">Carousel indicator</string>
+    <string name="contribute_topic_name_hint">Topic</string>
+    <string name="contribute_your_comment_hint">Your opinion</string>
+    <string name="contribute_publish_button_text">Contribute</string>
+    <string name="messages_count_template_multiple">out of %s opinions</string>
+    <string name="messages_count_template_single">out of 1 opinion</string>
+    <string name="opinions">Opinions</string>
+    <string name="write_opinion">Post</string>
+    <string name="similar_topics">Similar topics</string>
+    <string name="posted_with_love">Created with love by</string>
+    <string name="posted_with_neutral">Created with indifference by</string>
+    <string name="posted_with_hate">Created with hate by</string>
+    <string name="opinion_loves">loves</string>
+    <string name="opinion_neutral">is indifferent to</string>
+    <string name="opinion_hate">hates</string>
+    <string name="most_active">Most active</string>
+    <string name="most_many_sided">Most many-sided</string>
+    <string name="most_tenderhearted">Most tenderhearted</string>
+    <string name="most_spiteful">Most spiteful</string>
+    <string name="most_obsessed">Most obsessed</string>
+    <string name="most_liked">Most liked</string>
+    <string name="most_disliked">Most disliked</string>
+    <string name="users">Users</string>
+    <string name="your_opinion_hint">Your opinion</string>
+    <string name="attach_media">Attach media</string>
+    <string name="ratings">Ratings</string>
+    <string name="profile">Profile</string>
+    <string name="add_up_to_4_photo">Attach up to 4 images</string>
+    <string name="welcome">Welcome!</string>
+    <string name="please_enter_your_login_details">Please enter your login details</string>
+    <string name="login_or_email">Login or Email</string>
+    <string name="login_signup">Login</string>
+    <string name="login_button">Login</string>
+    <string name="login_signup_button">Sign up</string>
+    <string name="or_with">OR WITH</string>
+    <string name="don_t_have_an_account_yet">Don\'t have an account yet? <b>Register</b></string>
+    <string name="register">Register</string>
+    <string name="registration">Create your account</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="password">Password</string>
+    <string name="login_error">Invalid login. ⚆_⚆</string>
+    <string name="password_error">Invalid password. ⚆_⚆</string>
+    <string name="passwords_match_error">Passwords do not match. ⚆_⚆</string>
+    <string name="invalid_token_error">Invalid token authorization.\nPlease try again later. ಥ_ಥ</string>
+    <string name="internet_connection_error">Please check your internet connection. (ʘ‿ʘ)</string>
+    <string name="unknown_error">Something went wrong.\nPlease try again later. ಥ_ಥ\nError: %s</string>
+    <string name="the_name_is_already_taken_error">That name is already taken. ◉_◉</string>
+    <string name="wrong_username_or_password_error">Wrong username or password. (⚆_⚆)</string>
+    <string name="passwords_do_not_match">Passwords do not match</string>
+    <string name="the_name_is_already_taken">The name is already taken</string>
+    <string name="the_name_is_available">The name is available</string>
+    <string name="must_be_at_least_6_characters">Must be at least 6 characters</string>
+    <string name="my_topics">My topics</string>
+    <string name="my_opinions">My opinions</string>
+    <string name="my_comments">My comments</string>
+    <string name="my_achievements">My achievements</string>
+    <string name="favorites">Favorites</string>
+    <string name="app_settings">Settings</string>
+    <string name="theme">App theme</string>
+    <string name="light_theme">Light</string>
+    <string name="notifications">Notifications</string>
+    <string name="log_out">Log out</string>
+    <string name="send_feedback">Send feedback</string>
+    <string name="dark_theme">Dark</string>
+    <string name="send_feedback_hint">Any questions, suggestions for improvement or bug reports are welcome</string>
+    <string name="send_button">Send</string>
+    <string name="send_feedback_error_min_length">Please type at least 10 characters</string>
+    <string name="surveyour">Surveyor</string>
+    <string name="instigator">Instigator</string>
+    <string name="enlightened">Enlightened</string>
+    <string name="judge">Judge</string>
+    <string name="forseti">Forseti</string>
 
+    <string name="icon_palette" translatable="false">&#xe904;</string>
+    <string name="icon_cup" translatable="false">&#xe905;</string>
+    <string name="icon_done" translatable="false">&#xe906;</string>
     <string name="icon_favorite_filled" translatable="false">&#xe903;</string>
     <string name="icon_like_filled" translatable="false">&#xe902;</string>
     <string name="icon_dislike_filled" translatable="false">&#xe901;</string>
@@ -37,6 +114,7 @@
     <string name="icon_messages" translatable="false">&#xe91c;</string>
     <string name="icon_more" translatable="false">&#xe91d;</string>
     <string name="icon_topics" translatable="false">&#xe91e;</string>
+    <string name="icon_notification" translatable="false">&#xe91f;</string>
     <string name="icon_add_circle" translatable="false">&#xe920;</string>
     <string name="icon_profile" translatable="false">&#xe921;</string>
     <string name="icon_reply" translatable="false">&#xe922;</string>
@@ -46,30 +124,6 @@
     <string name="icon_dislike" translatable="false">&#xe926;</string>
     <string name="icon_like" translatable="false">&#xe927;</string>
     <string name="icon_upload" translatable="false">&#xe928;</string>
-
-    <string name="pick_media_hint">Pick media by search or\n upload from your device</string>
-    <string name="carousel_indicator_hint">Carousel indicator</string>
-    <string name="contribute_topic_name_hint">Topic title</string>
-    <string name="contribute_your_comment_hint">Your comment</string>
-    <string name="contribute_publish_button_text">Contribute</string>
-    <string name="messages_count_template_multiple">out of %s opinions</string>
-    <string name="messages_count_template_single">out of 1 opinion</string>
-    <string name="opinions">Opinions</string>
-    <string name="write_opinion">Post</string>
-    <string name="similar_topics">Similar topics</string>
-    <string name="posted_with_love">Created with love by</string>
-    <string name="posted_with_neutral">Created with indifference by</string>
-    <string name="posted_with_hate">Created with hate by</string>
-    <string name="opinion_loves">loves</string>
-    <string name="opinion_neutral">is indifferent to</string>
-    <string name="opinion_hate">hates</string>
-    <string name="ratings_users_most_active">Most active</string>
-    <string name="ratings_users_most_indifferent">Most indifferent</string>
-    <string name="ratings_users_most_tenderhearted">Most tenderhearted</string>
-    <string name="ratings_users_most_spiteful">Most spiteful</string>
-    <string name="ratings_users_most_preoccupied">Most obsessed</string>
-    <string name="ratings_comments_most_tenderhearted">Most loved</string>
-    <string name="ratings_comments_most_preoccupied">Most commented</string>
-    <string name="ratings_comments_most_spiteful">Most hated</string>
-    <string name="users">Users</string>
+    <string name="users_avatar">User\'s avatar</string>
+    <string name="search">Search</string>
 </resources>

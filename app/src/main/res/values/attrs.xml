@@ -2,8 +2,8 @@
 <resources>
     <attr name="background_color" format="color"/>
     <attr name="surface_color" format="color|reference"/>
-    <attr name="reaction_background_color" format="color"/>
-    <attr name="reaction_selected_background_color" format="color"/>
+    <attr name="chip_background_color" format="color"/>
+    <attr name="chip_selected_background_color" format="color"/>
 
     <attr name="text_color" format="color"/>
     <attr name="unaccented_text_color" format="color"/>
@@ -20,4 +20,14 @@
     <attr name="neutral_background_color" format="color"/>
     <attr name="hate_background_color" format="color"/>
 
+    <attr name="placeholder_color" format="color"/>
+
+    <attr name="border_color" format="color"/>
+    <attr name="transparent_color" format="color"/>
+
+    <declare-styleable name="LoveHateTextField">
+        <attr name="hint" />
+        <attr name="maxLength" />
+        <attr name="maxLines" />
+    </declare-styleable>
 </resources>

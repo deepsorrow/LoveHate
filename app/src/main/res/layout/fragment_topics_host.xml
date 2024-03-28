@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.viewmodels.topics.TopicsViewModel" />
+            type="com.kropotov.lovehate.ui.screens.topics.TopicsHostViewModel" />
 
     </data>
 
@@ -28,13 +28,14 @@
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="?union_background_color">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/topics_tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/tab_layout_background"
+                    android:background="@drawable/round_primary_tab"
                     app:tabIndicatorColor="?colorOnPrimary"
                     app:tabMode="scrollable"
                     app:tabPaddingTop="0dp"

@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="light_primary">#57467B</color>
-    <color name="light_onPrimary">@android:color/white</color>
-    <color name="light_background">#F8F8F8</color>
-    <color name="light_surface">@android:color/white</color>
-    <color name="light_onSurface">#1E212B</color>
-    <color name="light_onSurfaceVariant1">#555555</color>
-    <color name="light_onSurfaceVariant2">#DCDCDC</color>
-    <color name="light_onSurfaceVariant3">#E9D758</color>
-    <color name="light_surfaceVariant1">#F4F4F4</color>
-    <color name="light_surfaceVariant2">#E4E4E4</color>
-    <color name="light_secondary">#4A3C68</color>
+    <!-- Light theme -->
+    <color name="light_violet_400">#4A3C68</color>
+    <color name="light_violet_500">#5A4980</color>
+    <color name="light_violet_960">#F3F1F6</color>
+    <color name="light_black_170">#1E212B</color>
+    <color name="light_black_330">#555555</color>
+    <color name="light_gray_560">#909090</color>
+    <color name="light_gray_760">#C2C2C2</color>
+    <color name="light_gray_860">#DCDCDC</color>
+    <color name="light_gray_900">#E4E4E4</color>
+    <color name="light_gray_940">#F0F0F0</color>
+    <color name="light_white_960">#F4F4F4</color>
+    <color name="light_white_970">#F8F8F8</color>
+    <color name="light_yellow_910">#E9D758</color>
+    <color name="light_green_440">#226F54</color>
+    <color name="light_green_950">#E9F3E9</color>
+    <color name="light_red_700">#B33529</color>
+    <color name="light_red_900">#E5DBDB</color>
+    <color name="light_blue_910">#E1E3E7</color>
 
-    <color name="light_union_container">#F6F2FF</color>
-    <color name="light_love">#226F54</color>
-    <color name="light_love_container">#E9F3E9</color>
-    <color name="light_neutral">#909090</color>
-    <color name="light_neutral_container">#F0F0F0</color>
-    <color name="light_neutral_onContainer">#DCDCDC</color>
-    <color name="light_hate">#AB3428</color>
-    <color name="light_hate_container">#E5DBDB</color>
+    <!-- Dark theme -->
+    <color name="dark_black_150">#22262a</color>
+    <color name="dark_violet_100">#5d4f78</color>
+    <color name="dark_black_120">#01111E</color>
+    <color name="dark_grey_220">#353739</color>
+    <color name="dark_grey_600">#BCBFC1</color>
+    <color name="dark_grey_660">#A2A5A8</color>
+    <color name="dark_grey_350">#505259</color>
+    <color name="dark_grey_820">#CFD0D1</color>
+    <color name="dark_blue_240">#373a3e</color>
+    <color name="dark_white_1000">#FDFFFC</color>
+    <color name="dark_green_570">#219168</color>
+    <color name="dark_green_170">#002C25</color>
+    <color name="dark_red_700">#B31729</color>
+    <color name="dark_red_150">#260000</color>
+    <color name="dark_yellow_790">#DAC746</color>
+    <color name="dark_blue_330">#4D5053</color>
+    <color name="dark_blue_510">#7A7D81</color>
 </resources>

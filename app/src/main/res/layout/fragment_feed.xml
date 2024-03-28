@@ -5,14 +5,15 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.viewmodels.feed.FeedViewModel" />
+            type="com.kropotov.lovehate.ui.screens.feed.FeedViewModel" />
 
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/opinions_root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?union_background_color"
         android:orientation="vertical">
 
         <include
@@ -22,27 +23,22 @@
             app:layout_constraintTop_toTopOf="parent"
             app:toolbarContract="@{viewModel.toolbar}"/>
 
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/opinions_tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".ui.fragments.feed.FeedFragment">
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_primary_tab"
+            app:topPaddingRes="@{viewModel.topPadding}"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
+            app:tabIndicatorColor="?colorOnPrimary"
+            app:tabPaddingTop="0dp"
+            app:tabSelectedTextColor="?colorOnPrimary" />
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/opinions_tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tab_layout_background"
-                app:tabIndicatorColor="?colorOnPrimary"
-                app:tabPaddingTop="0dp"
-                app:tabSelectedTextColor="?colorOnPrimary" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/opinions_pager_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/small_offset" />
-
-        </LinearLayout>
-    </LinearLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/opinions_pager_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/opinions_tab_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

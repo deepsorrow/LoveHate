@@ -2,15 +2,20 @@ package com.kropotov.lovehate.ui.utilities
 
 import android.util.TypedValue
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kropotov.lovehate.R
-import com.kropotov.lovehate.data.OpinionSortType
 import com.kropotov.lovehate.type.OpinionType
+
 
 @BindingAdapter("textRes")
 internal fun TextView.textRes(@StringRes textId: Int?) {
@@ -45,28 +50,36 @@ internal fun setBackgroundColorByAttr(view: View, @AttrRes attrResId: Int) {
     }
 }
 
-@BindingAdapter("backgroundRes")
-internal fun View.setBackgroundRes(@DrawableRes drawableRes: Int) {
-    background = ResourcesCompat.getDrawable(resources, drawableRes, context.theme)
+@BindingAdapter("isNotGone")
+internal fun View.isNotGone(predicate: Boolean) {
+    visibility = if (predicate) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("isVisible")
-internal fun View.isVisible(isVisible: Boolean) {
-    visibility = if (isVisible) View.VISIBLE else View.GONE
+internal fun View.isVisible(predicate: Boolean) {
+    visibility = if (predicate) View.VISIBLE else View.INVISIBLE
 }
 
 @BindingAdapter("isLoveTextColor")
-internal fun TextView.setLoveHateTextColor(isLove: Boolean) {
-    val attrColor = if (isLove) R.attr.love_color else R.attr.hate_color
+internal fun TextView.setLoveHateTextColor(opinionType: OpinionType?) {
+    opinionType == null && return
+
+    val attrColor = when(opinionType) {
+        OpinionType.LOVE -> R.attr.love_color
+        OpinionType.HATE -> R.attr.hate_color
+        else -> R.attr.unaccented_text_color
+    }
     setColorByAttr(this, attrColor)
 }
 
-@BindingAdapter("isLove", "feelingPercent")
-internal fun TextView.formatFeelingPercent(isLove: Boolean, percent: String) {
-    val template = if (isLove) {
-        context.getString(R.string.love_percent_feeling)
-    } else {
-        context.getString(R.string.hate_percent_feeling)
+@BindingAdapter("isLove", "opinionPercent")
+internal fun TextView.formatFeelingPercent(opinionType: OpinionType?, percent: String) {
+    opinionType == null && return
+
+    val template = when(opinionType) {
+        OpinionType.LOVE -> context.getString(R.string.love_percent_feeling)
+        OpinionType.HATE -> context.getString(R.string.hate_percent_feeling)
+        else -> context.getString(R.string.debating)
     }
     text = String.format(template, percent)
 }
@@ -89,4 +102,20 @@ internal fun TextView.formatAuthorOpinion(opinionSortType: OpinionType?) {
         else -> R.string.posted_with_neutral
     }
     text = context.getString(stringRes)
+}
+
+@BindingAdapter("imageUrl")
+fun setImageUrl(imageView: ImageView, url: String?) {
+    Glide.with(imageView)
+        .load(url)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .into(imageView)
+}
+
+@BindingAdapter("topPaddingRes")
+fun View.setTopPadding(paddingTopRes: Int) {
+    if (paddingTopRes != 0) {
+        val topPadding = resources.getDimension(paddingTopRes)
+        setPadding(0, topPadding.toInt(), 0, 0)
+    }
 }

@@ -6,276 +6,298 @@
     <data>
 
         <variable
+            name="router"
+            type="com.kropotov.lovehate.ui.screens.topicpage.TopicPageRouter" />
+
+        <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.viewmodels.topicPage.TopicPageViewModel" />
+            type="com.kropotov.lovehate.ui.screens.topicpage.TopicPageViewModel" />
 
     </data>
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?background_color"
-            android:paddingBottom="@dimen/small_offset">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/main_block"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bottom_corners"
-                android:paddingBottom="@dimen/small_offset"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:background="?background_color"
+                android:paddingBottom="@dimen/small_offset">
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/image"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/main_block"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/topic_image_preview_height"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/image_dummy"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_bottom_surface"
+                    android:paddingBottom="@dimen/small_offset"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:shapeAppearance="@style/TopicImagePreviewStyle" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/back_button"
-                    style="@style/IconText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/status_bar_height"
-                    android:padding="@dimen/standard_offset"
-                    android:text="@string/icon_arrow_back"
-                    android:textColor="?colorOnPrimary"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/favorite_button"
-                    style="@style/IconText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/status_bar_height"
-                    android:padding="@dimen/standard_offset"
-                    android:textColor="?colorOnPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:onClick="@{viewModel::onFavoriteClick}"
-                    app:textRes="@{viewModel.favoriteIcon}"
-                    tools:text="@string/icon_favorite" />
-
-                <ImageView
-                    android:id="@+id/carousel_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/medium_offset"
-                    android:contentDescription="@string/carousel_indicator_hint"
-                    android:src="@drawable/carousel_indicator"
-                    app:layout_constraintEnd_toEndOf="@id/image"
-                    app:layout_constraintStart_toStartOf="@id/image"
-                    app:layout_constraintTop_toBottomOf="@id/image" />
-
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/standard_offset"
-                    android:layout_marginTop="@dimen/big_offset"
-                    android:fontFamily="@font/medium"
-                    android:includeFontPadding="false"
-                    android:text="@{viewModel.title}"
-                    android:textSize="@dimen/topic_page_title"
-                    app:layout_constraintEnd_toStartOf="@+id/heart_icon"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/carousel_indicator"
-                    tools:text="Long hair on men" />
-
-                <TextView
-                    android:id="@+id/love_percent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/medium"
-                    app:feelingPercent="@{viewModel.feelingPercent}"
-                    app:isLove="@{viewModel.loved}"
-                    app:isLoveTextColor="@{viewModel.loved}"
-                    app:layout_constraintStart_toStartOf="@+id/title"
-                    app:layout_constraintTop_toBottomOf="@+id/title"
-                    tools:text="67% of love" />
-
-                <TextView
-                    android:id="@+id/messages_count"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/tiny_offset"
-                    app:layout_constraintBottom_toBottomOf="@id/love_percent"
-                    app:layout_constraintEnd_toEndOf="@+id/title"
-                    app:layout_constraintStart_toEndOf="@+id/love_percent"
-                    app:layout_constraintTop_toTopOf="@+id/love_percent"
-                    app:messagesCount="@{viewModel.opinionsCount}"
-                    tools:text="67% of love" />
-
-                <TextView
-                    android:id="@+id/heart_icon"
-                    style="@style/IconText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/standard_offset"
-                    android:textSize="34sp"
-                    app:isLoveTextColor="@{viewModel.loved}"
-                    app:layout_constraintBottom_toBottomOf="@+id/love_percent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/title"
-                    app:textRes="@{viewModel.heartIcon}"
-                    tools:text="@string/icon_heart_filled" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <LinearLayout
-                android:id="@+id/buttons_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small_offset"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@id/main_block"
-                app:layout_constraintTop_toBottomOf="@id/main_block">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_surface"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="@dimen/big_offset">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/image"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/topic_image_preview_height"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/image_dummy"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearance="@style/TopicImagePreviewStyle" />
 
                     <TextView
+                        android:id="@+id/back_button"
                         style="@style/IconText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/icon_messages" />
+                        android:layout_marginTop="@dimen/toolbar_status_bar_padding"
+                        android:padding="@dimen/standard_offset"
+                        android:text="@string/icon_arrow_back"
+                        android:textColor="?colorOnPrimary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:onClick="@{router::popBackStack}" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/small_offset"
-                        android:text="@string/opinions" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_offset"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_surface"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="@dimen/big_offset">
-
-                    <TextView
+                        android:id="@+id/favorite_button"
                         style="@style/IconText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/icon_write" />
+                        android:layout_marginTop="@dimen/toolbar_status_bar_padding"
+                        android:padding="@dimen/standard_offset"
+                        android:textColor="?colorOnPrimary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:onClick="@{viewModel::onFavoriteClick}"
+                        app:textRes="@{viewModel.favoriteIcon}"
+                        tools:text="@string/icon_favorite" />
+
+                    <ImageView
+                        android:id="@+id/carousel_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/medium_offset"
+                        android:contentDescription="@string/carousel_indicator_hint"
+                        android:src="@drawable/carousel_indicator"
+                        app:layout_constraintEnd_toEndOf="@id/image"
+                        app:layout_constraintStart_toStartOf="@id/image"
+                        app:layout_constraintTop_toBottomOf="@id/image" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/standard_offset"
+                        android:layout_marginTop="@dimen/big_offset"
+                        android:fontFamily="@font/medium"
+                        android:includeFontPadding="false"
+                        android:text="@{viewModel.title}"
+                        android:textSize="@dimen/topic_page_title"
+                        app:layout_constraintEnd_toStartOf="@+id/heart_icon"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/carousel_indicator"
+                        tools:text="Long hair on men" />
+
+                    <TextView
+                        android:id="@+id/love_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/medium"
+                        app:opinionPercent="@{viewModel.feelingPercent}"
+                        app:isLove="@{viewModel.opinionType}"
+                        app:isLoveTextColor="@{viewModel.opinionType}"
+                        app:layout_constraintStart_toStartOf="@+id/title"
+                        app:layout_constraintTop_toBottomOf="@+id/title"
+                        tools:text="67% of love" />
+
+                    <TextView
+                        android:id="@+id/messages_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/tiny_offset"
+                        app:layout_constraintBottom_toBottomOf="@id/love_percent"
+                        app:layout_constraintEnd_toEndOf="@+id/title"
+                        app:layout_constraintStart_toEndOf="@+id/love_percent"
+                        app:layout_constraintTop_toTopOf="@+id/love_percent"
+                        app:messagesCount="@{viewModel.opinionsCount}"
+                        tools:text="67% of love" />
+
+                    <TextView
+                        android:id="@+id/heart_icon"
+                        style="@style/IconText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/standard_offset"
+                        android:textSize="34sp"
+                        app:isLoveTextColor="@{viewModel.opinionType}"
+                        app:layout_constraintBottom_toBottomOf="@+id/love_percent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/title"
+                        app:textRes="@{viewModel.heartIcon}"
+                        tools:text="@string/icon_heart_filled" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/buttons_block"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_offset"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="@id/main_block"
+                    app:layout_constraintTop_toBottomOf="@id/main_block">
+
+                    <LinearLayout
+                        android:id="@+id/opinion_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_surface"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/big_offset"
+                        app:onClick="@{router::showOpinions}">
+
+                        <TextView
+                            style="@style/IconText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/icon_messages" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/small_offset"
+                            android:text="@string/opinions" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/post_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/small_offset"
+                        android:layout_weight="1"
+                        android:background="@drawable/round_surface"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/big_offset"
+                        app:onClick="@{router::showNewPostDialog}">
+
+                        <TextView
+                            style="@style/IconText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/icon_write" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/small_offset"
+                            android:text="@string/write_opinion" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/similar_topics_block"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_offset"
+                    android:background="@drawable/round_surface"
+                    android:minHeight="252dp"
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/big_offset"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/buttons_block">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/small_offset"
-                        android:text="@string/write_opinion" />
+                        android:paddingHorizontal="@dimen/standard_offset"
+                        android:text="@string/similar_topics"
+                        android:textColor="?unaccented_text_color" />
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/similar_topics_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="LinearLayoutManager"
+                        tools:itemCount="3" />
                 </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/similar_topics_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small_offset"
-                android:background="@drawable/round_surface"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/big_offset"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttons_block">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/author_block"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_offset"
+                    android:background="@drawable/round_surface"
                     android:paddingHorizontal="@dimen/standard_offset"
-                    android:text="@string/similar_topics"
-                    android:textColor="?unaccented_text_color" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/similar_topics_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:itemCount="5" />
-            </LinearLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/author_block"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small_offset"
-                android:background="@drawable/round_surface"
-                android:paddingHorizontal="@dimen/standard_offset"
-                android:paddingVertical="@dimen/big_offset"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/similar_topics_block">
-
-                <TextView
-                    android:id="@+id/made_by_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="?unaccented_text_color"
-                    app:authorOpinion="@{viewModel.authorOpinionType}"
-                    app:layout_constraintEnd_toStartOf="@+id/textView"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    android:paddingVertical="@dimen/big_offset"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Created with love by" />
+                    app:layout_constraintTop_toBottomOf="@id/similar_topics_block"
+                    app:onClick="@{router::showAuthorOpinion}">
 
-                <TextView
-                    android:id="@+id/author"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/medium"
-                    android:text="@{viewModel.author}"
-                    android:textColor="?unaccented_text_color"
-                    app:layout_constraintStart_toStartOf="@id/made_by_text"
-                    app:layout_constraintTop_toBottomOf="@id/made_by_text"
-                    tools:text="kOnFetka" />
+                    <TextView
+                        android:id="@+id/made_by_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="?unaccented_text_color"
+                        app:authorOpinion="@{viewModel.authorOpinionType}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Created with love by" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/tiny_offset"
-                    android:text="@{viewModel.date}"
-                    android:textColor="?unaccented_text_color"
-                    app:layout_constraintEnd_toStartOf="@+id/textView"
-                    app:layout_constraintStart_toEndOf="@id/author"
-                    app:layout_constraintTop_toTopOf="@id/author"
-                    tools:text="03/02/2023 Wd 11:05:13" />
+                    <TextView
+                        android:id="@+id/author"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/medium"
+                        android:text="@{viewModel.author}"
+                        android:textColor="?unaccented_text_color"
+                        app:layout_constraintStart_toStartOf="@id/made_by_text"
+                        app:layout_constraintTop_toBottomOf="@id/made_by_text"
+                        tools:text="kOnFetka" />
 
-                <TextView
-                    android:id="@+id/textView"
-                    style="@style/IconText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/icon_arrow_next"
-                    android:textColor="?unaccented_text_color"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/tiny_offset"
+                        android:text="@{viewModel.date}"
+                        android:textColor="?unaccented_text_color"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/author"
+                        app:layout_constraintTop_toTopOf="@id/author"
+                        tools:text="03/02/2023 Wd 11:05:13" />
 
+                    <!-- TODO: View author opinion -->
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView"-->
+<!--                        style="@style/IconText"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/icon_arrow_next"-->
+<!--                        android:textColor="?unaccented_text_color"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        android:visibility="gone"/>-->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/overlay_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/overlay_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 </layout>

@@ -11,15 +11,26 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorPrimary"
+        android:background="@drawable/round_primary_tab"
         android:paddingStart="@dimen/standard_offset"
-        android:paddingTop="@dimen/standard_offset"
         android:paddingEnd="@dimen/standard_offset"
         app:backgroundColorByAttr="@{toolbarContract.toolbarColor}"
-        app:isVisible="@{toolbarContract.toolbarVisibility}">
+        app:isNotGone="@{toolbarContract.toolbarVisibility}"
+        app:layoutDescription="@xml/toolbar_xml_constraintlayout_scene">
+
+        <!-- Motion layout doesn't support top padding,
+        so here is the use of the dummy view. -->
+        <View
+            android:id="@+id/top_padding"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_status_bar_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/arrow_back"
@@ -30,10 +41,11 @@
             android:text="@string/icon_arrow_back"
             android:textColor="?colorOnPrimary"
             android:visibility="gone"
-            app:isVisible="@{toolbarContract.arrowBackIsVisible}"
+            app:isNotGone="@{toolbarContract.arrowBackIsVisible}"
             app:layout_constraintBottom_toBottomOf="@+id/title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/title"
+            app:onClick="@{toolbarContract.arrowBackAction}"
             tools:ignore="RtlSymmetry"
             tools:visibility="visible" />
 
@@ -46,9 +58,6 @@
             android:text="@string/app_name"
             android:textColor="?colorOnPrimary"
             android:textSize="@dimen/toolbar_title_size"
-            app:layout_constraintEnd_toStartOf="@id/title_icon"
-            app:layout_constraintStart_toEndOf="@id/arrow_back"
-            app:layout_constraintTop_toTopOf="parent"
             app:textRes="@{toolbarContract.title}" />
 
         <TextView
@@ -57,31 +66,50 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:textColor="?unaccented_light_text_color"
-            app:layout_constraintEnd_toStartOf="@id/title_icon"
-            app:layout_constraintStart_toEndOf="@+id/arrow_back"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:isNotGone="@{toolbarContract.isSubtitleVisible}"
             app:textRes="@{toolbarContract.subtitle}"
-            app:isVisible="@{toolbarContract.subtitleIsVisible}"
             tools:text="New messages" />
 
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:autofillHints="search"
+            android:background="@drawable/round_surface"
+            android:hint="@string/search"
+            android:inputType="text"
+            android:paddingStart="56dp"
+            android:paddingEnd="@dimen/small_offset"
+            app:boxBackgroundMode="none"
+            tools:ignore="LabelFor,RtlSymmetry" />
+
         <TextView
-            android:id="@+id/title_icon"
+            android:id="@+id/search_arrow_back"
             style="@style/IconText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/standard_offset"
+            android:text="@string/icon_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@id/search_edit_text"
+            app:layout_constraintStart_toStartOf="@id/search_edit_text"
+            app:layout_constraintTop_toTopOf="@id/search_edit_text"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/search_icon"
+            style="@style/IconText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium_offset"
             android:text="@string/icon_search"
             android:textColor="?colorOnPrimary"
-            app:isVisible="@{toolbarContract.searchIconIsVisible}"
-            app:layout_constraintBottom_toBottomOf="@+id/title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title" />
+            app:isNotGone="@{toolbarContract.searchIconIsVisible}" />
 
         <View
+            android:id="@+id/bottom_padding"
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_offset"
-            app:isVisible="@{toolbarContract.isBottomOffsetVisible}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/subtitle" />
+            app:isNotGone="@{toolbarContract.isBottomOffsetVisible}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

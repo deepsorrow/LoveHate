@@ -7,20 +7,24 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.viewmodels.feed.OpinionViewModel" />
+            type="com.kropotov.lovehate.ui.screens.feed.OpinionListItem" />
 
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?background_color"
+        android:foreground="?selectableItemBackground"
+        android:layout_marginHorizontal="@dimen/small_offset"
         app:cardCornerRadius="@dimen/default_corner_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/standard_offset">
+            android:background="?surface_color"
+            android:paddingHorizontal="@dimen/standard_offset"
+            android:paddingTop="@dimen/standard_offset"
+            android:paddingBottom="@dimen/medium_offset">
 
             <TextView
                 android:id="@+id/username"
@@ -33,6 +37,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="arabesque" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.position}"
+                app:isNotGone="@{viewModel.positionVisible}"
+                android:textColor="?unaccented_text_color"
+                app:layout_constraintBottom_toBottomOf="@+id/like_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="# 1" />
 
             <TextView
                 android:id="@+id/date"
@@ -50,15 +64,15 @@
                 android:id="@+id/feeling"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
                 android:layout_marginTop="@dimen/tiny_offset"
+                android:includeFontPadding="false"
                 android:text="@{viewModel.opinionTypeFormatted}"
                 android:textColor="?unaccented_text_color"
                 app:colorByAttr="@{viewModel.opinionColor}"
                 app:layout_constraintStart_toStartOf="@id/username"
                 app:layout_constraintTop_toBottomOf="@id/username"
                 tools:text="loves"
-                tools:textColor="@color/light_love" />
+                tools:textColor="@color/light_green_440" />
 
             <TextView
                 android:id="@+id/topic"
@@ -73,7 +87,7 @@
                 app:layout_constraintStart_toEndOf="@id/feeling"
                 app:layout_constraintTop_toTopOf="@+id/feeling"
                 tools:text="cats"
-                tools:textColor="@color/light_love" />
+                tools:textColor="@color/light_green_440" />
 
             <TextView
                 android:id="@+id/favorite_icon"
@@ -106,96 +120,73 @@
                 android:layout_marginTop="@dimen/small_offset"
                 app:layout_constraintStart_toStartOf="@id/body_text"
                 app:layout_constraintTop_toBottomOf="@id/body_text"
-                tools:itemCount="3" />
+                tools:itemCount="1"
+                tools:listitem="@layout/list_item_add_media" />
 
-            <LinearLayout
+            <com.google.android.material.chip.ChipGroup
                 android:id="@+id/like_layout"
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingVertical="@dimen/medium_offset"
                 android:layout_marginTop="@dimen/small_offset"
-                app:backgroundRes="@{viewModel.likeDislikeChecker.likeBackground}"
                 app:layout_constraintStart_toStartOf="@id/images_recycler_view"
                 app:layout_constraintTop_toBottomOf="@id/images_recycler_view"
-                app:onClick="@{viewModel.likeDislikeChecker::onLikeClick}"
-                tools:background="@drawable/reaction_background">
+                app:singleSelection="true">
 
-                <TextView
-                    android:id="@+id/like_icon"
-                    style="@style/IconText"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/like_chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="@{viewModel.isLikeChecked}"
+                    android:onCheckedChanged="@{viewModel}"
+                    android:text="@{viewModel.likeCount}"
                     android:textColor="?unaccented_text_color"
-                    app:textRes="@{viewModel.likeDislikeChecker.likeIcon}"
-                    tools:text="&#xe927;" />
-
-                <TextView
-                    android:id="@+id/like_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_offset"
-                    android:text="@{viewModel.likeDislikeChecker.likeCount}"
-                    android:textColor="?unaccented_text_color"
+                    app:checkedIcon="@drawable/icon_thumbup_bold"
+                    app:chipCornerRadius="@dimen/default_corner_radius"
+                    app:chipIcon="@drawable/icon_thumbup"
+                    app:chipMinHeight="35dp"
+                    app:chipStartPadding="10dp"
+                    app:textEndPadding="4dp"
                     tools:text="3" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/dislike_layout"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_offset"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingVertical="@dimen/medium_offset"
-                app:backgroundRes="@{viewModel.likeDislikeChecker.dislikeBackground}"
-                app:layout_constraintBottom_toBottomOf="@+id/like_layout"
-                app:layout_constraintStart_toEndOf="@id/like_layout"
-                app:layout_constraintTop_toTopOf="@+id/like_layout"
-                app:onClick="@{viewModel.likeDislikeChecker::onDislikeClick}"
-                tools:background="@drawable/reaction_background">
-
-                <TextView
-                    android:id="@+id/dislike_icon"
-                    style="@style/IconText"
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/dislike_chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:checked="@{viewModel.isDislikeChecked}"
+                    android:onCheckedChanged="@{viewModel}"
+                    android:text="@{viewModel.dislikeCount}"
                     android:textColor="?unaccented_text_color"
-                    app:textRes="@{viewModel.likeDislikeChecker.dislikeIcon}"
-                    tools:text="&#xe926;" />
-
-                <TextView
-                    android:id="@+id/dislike_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_offset"
-                    android:text="@{viewModel.likeDislikeChecker.dislikeCount}"
-                    android:textColor="?unaccented_text_color"
+                    app:checkedIcon="@drawable/icon_thumbdown_bold"
+                    app:chipCornerRadius="@dimen/default_corner_radius"
+                    app:chipIcon="@drawable/icon_thumbdown"
+                    app:chipMinHeight="35dp"
+                    app:chipStartPadding="10dp"
+                    app:textEndPadding="4dp"
                     tools:text="1" />
-            </LinearLayout>
+            </com.google.android.material.chip.ChipGroup>
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/small_offset"
-                android:background="@drawable/reaction_background"
-                app:layout_constraintBottom_toBottomOf="@+id/like_layout"
-                app:layout_constraintStart_toEndOf="@id/dislike_layout"
-                app:layout_constraintTop_toTopOf="@+id/like_layout">
+            <!-- TODO Comments feature -->
+            <!--            <FrameLayout-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="0dp"-->
+            <!--                android:layout_marginStart="@dimen/small_offset"-->
+            <!--                android:background="@drawable/reaction_background"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@+id/like_layout"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/dislike_layout"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/like_layout">-->
 
-                <TextView
-                    android:id="@+id/messages_btn"
-                    style="@style/IconText"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/icon_messages"
-                    android:textAlignment="center"
-                    android:textColor="?unaccented_text_color" />
-            </FrameLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/messages_btn"-->
+            <!--                    style="@style/IconText"-->
+            <!--                    android:layout_width="60dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_gravity="center"-->
+            <!--                    android:text="@string/icon_messages"-->
+            <!--                    android:textAlignment="center"-->
+            <!--                    android:textColor="?unaccented_text_color" />-->
+            <!--            </FrameLayout>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

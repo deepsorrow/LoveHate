@@ -17,14 +17,17 @@
     <dimen name="topic_page_title">20sp</dimen>
     <dimen name="toolbar_title_size">24sp</dimen>
     <dimen name="icon_text_size">24sp</dimen>
+    <dimen name="icon_button_text_size">30sp</dimen>
 
-    <dimen name="status_bar_height">24dp</dimen>
+    <!-- Heights -->
+    <dimen name="toolbar_status_bar_padding">40dp</dimen>
     <dimen name="default_corner_radius">9dp</dimen>
-    <dimen name="text_field_fat_stroke_width">2dp</dimen>
     <dimen name="topic_list_item_image_size">60dp</dimen>
     <dimen name="text_field_height">56dp</dimen>
     <dimen name="max_comment_height">120dp</dimen>
     <dimen name="topic_image_preview_height">300dp</dimen>
+    <dimen name="image_thumbnail_size">62dp</dimen>
 
     <dimen name="one_dp">1dp</dimen>
+    <dimen name="profile_text_size">24sp</dimen>
 </resources>

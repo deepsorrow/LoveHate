@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/IconText"
+    android:id="@+id/add_media"
+    android:layout_width="@dimen/image_thumbnail_size"
+    android:layout_height="@dimen/image_thumbnail_size"
+    android:background="@drawable/round_secondary"
+    android:padding="@dimen/standard_offset"
+    android:text="@string/icon_gallery"
+    android:textColor="?unaccented_text_color"
+    android:textSize="@dimen/icon_button_text_size" />
