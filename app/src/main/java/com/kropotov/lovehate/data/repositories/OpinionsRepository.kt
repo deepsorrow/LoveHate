@@ -20,6 +20,7 @@ class OpinionsRepository @Inject constructor(
     private val apolloClient: ApolloClient
 ) {
     fun getOpinionsStream(
+        searchQuery: String,
         topicId: Int?,
         opinionType: OpinionType,
         listType: OpinionsListType
@@ -28,6 +29,7 @@ class OpinionsRepository @Inject constructor(
         pagingSourceFactory = {
             OpinionsPagingSource(
                 apolloClient,
+                searchQuery,
                 topicId,
                 opinionType,
                 listType
@@ -54,7 +56,7 @@ class OpinionsRepository @Inject constructor(
     @WorkerThread
     suspend fun getFirstOpinion(listType: OpinionsListType) =
         apolloClient
-            .query(OpinionsQueryAdapter.getOpinions(true, listType, 0))
+            .query(OpinionsQueryAdapter.getOpinions(true, listType, "", 0))
             .execute()
             .dataAssertNoErrors
             .opinions

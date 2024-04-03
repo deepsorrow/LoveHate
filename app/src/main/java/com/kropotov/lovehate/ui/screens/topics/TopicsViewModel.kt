@@ -13,15 +13,21 @@ import javax.inject.Inject
 
 class TopicsViewModel @Inject constructor(
     resourceProvider: ResourceProvider,
-    repository: TopicsRepository,
-    sortType: TopicType,
-    val myTopicsToolbar: MyTopicsToolbar
+    private val sortType: TopicType,
+    private val repository: TopicsRepository,
+    val separateToolbar: MyTopicsToolbar
 ) : BaseViewModel(resourceProvider) {
 
-    var items: Flow<PagingData<TopicListItem>> =
-        repository.getTopicsStream(sortType).cachedIn(viewModelScope)
+    var currentSearchQuery: String? = null
 
     init {
-        myTopicsToolbar.toolbarVisibility.set(sortType == TopicType.BY_CURRENT_USER)
+        separateToolbar.toolbarVisibility.set(sortType == TopicType.BY_CURRENT_USER)
+    }
+
+    fun searchTopics(queryString: String): Flow<PagingData<TopicListItem>> {
+        currentSearchQuery = queryString
+        val newResult =
+            repository.getTopicsStream(queryString, sortType).cachedIn(viewModelScope)
+        return newResult
     }
 }

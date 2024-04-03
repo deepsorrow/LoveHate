@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+
     <application
         android:name=".LoveHateApplication"
         android:allowBackup="true"
@@ -12,15 +15,26 @@
         android:theme="@style/SplashTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <!-- TODO: Support landscape orientation -->
+        <!-- TODO: Support landscape orientation, layout-land -->
         <activity
             android:name=".ui.MainScreenActivity"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.screens.attachmentviewer.AttachmentViewerActivity2"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AttachmentViewerActivityTheme"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
 
         <activity
             android:name=".ui.AuthActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/new_image_thumbnail_size"
+    android:layout_height="@dimen/new_image_thumbnail_size">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/thumbnail"
+            style="@style/ThumbnailImageStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:textColor="?unaccented_text_color"
+            app:shapeAppearance="@style/RoundedImageView"
+            tools:src="@drawable/image_dummy" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/close_btn"
+        style="@style/IconText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/tiny_offset"
+        android:layout_gravity="end"
+        android:elevation="@dimen/cardview_default_elevation"
+        android:text="@string/icon_close"
+        android:textColor="?surface_color" />
+</FrameLayout>

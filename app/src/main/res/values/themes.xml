@@ -13,12 +13,16 @@
         <item name="text_color">@color/light_black_170</item>
         <item name="unaccented_text_color">@color/light_black_330</item>
         <item name="unaccented_light_text_color">@color/light_gray_860</item>
+        <item name="unaccented_light_text_color_variant1">@color/light_gray_860</item>
         <item name="favorite_icon_color">@color/light_yellow_910</item>
 
         <item name="union_color">?colorPrimary</item>
         <item name="love_color">@color/light_green_440</item>
+        <item name="love_container_color">?love_color</item>
         <item name="neutral_color">@color/light_gray_560</item>
+        <item name="neutral_container_color">?neutral_color</item>
         <item name="hate_color">@color/light_red_700</item>
+        <item name="hate_container_color">?hate_color</item>
 
         <item name="union_background_color">@color/light_violet_960</item>
         <item name="love_background_color">@color/light_green_950</item>
@@ -30,6 +34,7 @@
 
         <item name="placeholder_color">@color/light_gray_760</item>
         <item name="border_color">@color/light_blue_910</item>
+        <item name="android:windowContentTransitions">true</item>
 
         <item name="snackbarStyle">@style/ErrorSnackbarStyle</item>
         <item name="snackbarTextViewStyle">@style/ErrorSnackbarTextViewStyle</item>
@@ -51,11 +56,15 @@
         <item name="colorSecondary">@color/light_violet_400</item>
         <item name="colorSecondaryVariant">@color/light_violet_400</item>
         <item name="colorOnSecondary">@android:color/white</item>
+        <item name="colorSurface">?chip_background_color</item>
+        <item name="colorSecondaryContainer">@color/dark_blue_510</item>
 
         <item name="background_color">@color/dark_black_150</item>
         <item name="surface_color">@color/dark_blue_240</item>
         <item name="text_color">@color/dark_grey_600</item>
         <item name="unaccented_text_color">@color/dark_grey_660</item>
+        <item name="unaccented_light_text_color">@color/dark_grey_350</item>
+        <item name="unaccented_light_text_color_variant1">@color/dark_grey_660</item>
         <item name="favorite_icon_color">@color/dark_yellow_790</item>
 
         <item name="union_background_color">@color/dark_black_120</item>
@@ -63,16 +72,23 @@
         <item name="neutral_background_color">?background_color</item>
         <item name="hate_background_color">@color/dark_red_150</item>
 
-        <item name="love_color">@color/dark_green_570</item>
+        <item name="love_color">@color/dark_green_870</item>
+        <item name="love_container_color">@color/dark_green_570</item>
         <item name="neutral_color">@color/dark_grey_350</item>
-        <item name="hate_color">@color/dark_red_700</item>
+        <item name="neutral_container_color">?neutral_color</item>
+        <item name="hate_color">@color/dark_red_900</item>
+        <item name="hate_container_color">@color/dark_red_700</item>
 
-        <item name="border_color">@color/light_gray_760</item>
+        <item name="border_color">@color/dark_blue_590</item>
 
         <item name="android:navigationBarColor">?background_color</item>
-        <item name="chip_background_color">@color/dark_grey_220</item>
+        <item name="chip_background_color">#4F5153</item>
         <item name="chip_selected_background_color">@color/dark_blue_510</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+    </style>
+
+    <style name="AttachmentViewerActivityTheme" parent="Theme.LoveHate.Light">
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="TopicImagePreviewStyle" parent="">

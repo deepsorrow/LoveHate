@@ -12,8 +12,13 @@ import com.kropotov.lovehate.type.ReactionType
 
 object OpinionsQueryAdapter {
 
-    fun getLatestOpinions(topicId: Int?, opinionType: OpinionType?, page: Int): GetOpinionsQuery {
-        val sortType = if (opinionType == OpinionType.UNION)  {
+    fun getLatestOpinions(
+        topicId: Int?,
+        opinionType: OpinionType?,
+        searchQuery: String,
+        page: Int
+    ): GetOpinionsQuery {
+        val sortType = if (opinionType == OpinionType.UNION) {
             null
         } else {
             opinionType
@@ -23,19 +28,24 @@ object OpinionsQueryAdapter {
             onlyFirst = false,
             topicId = Optional.presentIfNotNull(topicId),
             opinionType = Optional.presentIfNotNull(sortType?.mapToGenerated()),
+            searchQuery = Optional.presentIfNotNull(searchQuery),
             page = page
         )
     }
 
-    fun getOpinions(onlyFirst: Boolean, listType: OpinionsListType, page: Int): GetOpinionsQuery =
-        GetOpinionsQuery(
-            onlyFirst = onlyFirst,
-            listType = Optional.presentIfNotNull(listType),
-            page = page
-        )
+    fun getOpinions(
+        onlyFirst: Boolean,
+        listType: OpinionsListType,
+        searchQuery: String,
+        page: Int
+    ): GetOpinionsQuery = GetOpinionsQuery(
+        onlyFirst = onlyFirst,
+        listType = Optional.presentIfNotNull(listType),
+        searchQuery = Optional.presentIfNotNull(searchQuery),
+        page = page
+    )
 
-    fun publishOpinion(topicId: Int, text: String, type: OpinionType)
-            = PublishOpinionMutation(
+    fun publishOpinion(topicId: Int, text: String, type: OpinionType) = PublishOpinionMutation(
         topicId = topicId,
         text = text,
         type = type.mapToGenerated()

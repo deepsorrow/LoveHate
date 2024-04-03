@@ -10,7 +10,7 @@ enum class OpinionType(
     @AttrRes val containerColor: Int
 ) {
     UNION(R.string.icon_union, R.attr.union_color, R.attr.union_background_color),
-    LOVE(R.string.love, R.attr.love_color, R.attr.love_background_color),
-    INDIFFERENCE(R.string.neutral, R.attr.neutral_color, R.attr.neutral_background_color),
-    HATE(R.string.hate, R.attr.hate_color, R.attr.hate_background_color)
+    LOVE(R.string.love, R.attr.love_container_color, R.attr.love_background_color),
+    INDIFFERENCE(R.string.neutral, R.attr.neutral_container_color, R.attr.neutral_background_color),
+    HATE(R.string.hate, R.attr.hate_container_color, R.attr.hate_background_color)
 }

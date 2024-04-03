@@ -21,6 +21,7 @@ class ProfileFragment : BaseFragment<ProfileViewModel, FragmentProfileBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.router = router
+        // Update current theme on activity recreate
         binding.currentTheme.text = getString(viewModel.sharedPrefs.getPreferredTheme().titleResId)
     }
 

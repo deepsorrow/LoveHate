@@ -7,67 +7,129 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.screens.topicpage.NewOpinionViewModel" />
+            type="com.kropotov.lovehate.ui.dialogs.newopinion.NewOpinionViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_top_corners_surface"
+        android:paddingBottom="@dimen/standard_offset">
+
+        <TextView
+            android:id="@+id/handle"
+            style="@style/IconText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:rotation="-180"
+            android:text="@string/icon_popup_handle"
+            android:textColor="?unaccented_light_text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="@dimen/standard_offset"
+            android:background="?unaccented_light_text_color"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toStartOf="@id/title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-6dp"
+            android:text="@string/your_opinion"
+            android:textColor="?unaccented_text_color"
+            android:textSize="@dimen/toolbar_subtitle_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/handle" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/standard_offset"
+            android:background="?unaccented_light_text_color"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/title"
+            app:layout_constraintTop_toTopOf="@id/title" />
 
         <com.kropotov.lovehate.ui.views.LoveHateTextField
             android:id="@+id/text_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_offset"
             android:orientation="vertical"
             app:hint="@string/your_opinion_hint"
             app:inputText="@={viewModel.text}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
             app:maxLength="@integer/opinion_max_length"
             app:maxLines="10"
             app:opinionStateListener="@{viewModel}" />
 
-        <LinearLayout
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/standard_offset"
+            android:background="?unaccented_light_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_field" />
+
+        <TextView
+            android:id="@+id/attach_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?surface_color"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/medium_offset"
-            app:layout_constraintStart_toStartOf="@id/text_field"
-            app:layout_constraintTop_toBottomOf="@id/text_field">
+            android:layout_marginHorizontal="@dimen/medium_offset"
+            android:paddingTop="@dimen/medium_offset"
+            android:text="@string/add_up_to_4_photo"
+            android:textColor="?unaccented_text_color"
+            app:layout_constraintTop_toBottomOf="@id/divider1" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/medium_offset"
-                android:text="@string/add_up_to_4_photo"
-                android:textColor="?unaccented_text_color" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/attachments_list"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="@dimen/tiny_offset"
+            android:orientation="horizontal"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@+id/attach_hint"
+            app:layout_constraintStart_toStartOf="@+id/attach_hint"
+            app:layout_constraintTop_toBottomOf="@id/attach_hint"
+            tools:itemCount="1"
+            tools:listitem="@layout/list_item_add_media" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/media_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="LinearLayoutManager"
-                app:layout_constraintStart_toStartOf="@id/text_field"
-                app:layout_constraintTop_toBottomOf="@id/text_field"
-                tools:itemCount="1"
-                tools:listitem="@layout/list_item_add_media" />
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/standard_offset"
+            android:background="?unaccented_light_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/attachments_list" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/text_field_height"
-                android:layout_marginTop="@dimen/standard_offset"
-                android:backgroundTint="?love_color"
-                android:text="@string/contribute_publish_button_text"
-                android:textAllCaps="false"
-                app:cornerRadius="@dimen/default_corner_radius"
-                app:layout_constraintStart_toStartOf="@id/media_list"
-                app:layout_constraintTop_toBottomOf="@id/media_list"
-                app:onClick="@{viewModel::onSendClicked}" />
-        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/text_field_height"
+            android:layout_marginTop="@dimen/standard_offset"
+            android:backgroundTint="?love_container_color"
+            android:text="@string/contribute_publish_button_text"
+            android:textAllCaps="false"
+            app:cornerRadius="@dimen/default_corner_radius"
+            app:layout_constraintEnd_toEndOf="@+id/attach_hint"
+            app:layout_constraintStart_toStartOf="@+id/attach_hint"
+            app:layout_constraintTop_toBottomOf="@id/divider2"
+            app:onClick="@{viewModel::onSendClicked}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,13 +13,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="?union_background_color">
+        android:background="?union_background_color"
+        android:orientation="vertical">
 
-        <include
+        <ViewStub
             android:id="@+id/toolbar_layout"
-            layout="@layout/toolbar"
-            app:toolbarContract="@{viewModel.myTopicsToolbar}" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout="@layout/toolbar" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"

@@ -12,11 +12,6 @@ import kotlin.properties.Delegates
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-/**
- * Ленивое свойство, которое очищается при уничтожении lifecycleOwner.
- *
- * Доступ к этой переменной в уничтоженном lifecycleOwner вызовет [IllegalStateException]
- */
 class AutoClearedValue<T : Any>(private val lifecycleOwner: LifecycleOwner) :
     ReadWriteProperty<LifecycleOwner, T>,
     LifecycleEventObserver {
@@ -40,8 +35,6 @@ class AutoClearedValue<T : Any>(private val lifecycleOwner: LifecycleOwner) :
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         if (event == Lifecycle.Event.ON_DESTROY) {
-            // Вызывается раньше onDestroyView во фрагменте.
-            // Для использования view binding в onDestroyView необходимо выполнить очистку позже
             clearBindingHandler.postDelayed(0L, TOKEN) {
                 _value = null
             }
@@ -58,12 +51,8 @@ class AutoClearedValue<T : Any>(private val lifecycleOwner: LifecycleOwner) :
     }
 
     private companion object {
-        /**@SelfDocumented*/
         const val TOKEN = "auto_cleared_token"
     }
 }
 
-/**
- * Реализация делегата для любого свойства, которое очищается при уничтожении [LifecycleOwner]
- */
 fun <T : Any> LifecycleOwner.autoCleared() = AutoClearedValue<T>(this)

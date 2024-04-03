@@ -22,17 +22,24 @@ abstract class BaseViewModel(
     protected val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
+    protected val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> =  _searchQuery
+
     private val _informMessageStream = MutableSharedFlow<InformMessage>()
     val informMessageStream: SharedFlow<InformMessage> = _informMessageStream
 
     val defaultExceptionHandler get() = CoroutineExceptionHandler { _, exception ->
         viewModelScope.launch {
-            emitErrorMessage(R.string.unknown_error, exception.extractErrorMessage())
+            emitMessage(
+                R.string.unknown_error,
+                InformType.ERROR,
+                exception.extractErrorMessage()
+            )
         }
     }
 
-    suspend fun emitErrorMessage(@StringRes stringRes: Int, vararg args: String) {
+    suspend fun emitMessage(@StringRes stringRes: Int, informType: InformType, vararg args: String) {
         val text = resourceProvider.getString(stringRes, *args)
-        _informMessageStream.emit(InformMessage(InformType.ERROR, text))
+        _informMessageStream.emit(InformMessage(informType, text))
     }
 }

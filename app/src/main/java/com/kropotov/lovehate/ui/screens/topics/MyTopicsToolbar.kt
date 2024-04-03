@@ -18,8 +18,7 @@ class MyTopicsToolbar @Inject constructor() : ToolbarContract {
     override val isSubtitleVisible = ObservableBoolean(false)
 
     override val searchIconIsVisible = ObservableBoolean(true)
-    override val searchText = MutableStateFlow("")
+    override val searchText = ObservableField("")
     override val arrowBackIsVisible = ObservableBoolean(true)
-    override val arrowBackAction = ObservableField { }
     override val isBottomOffsetVisible = ObservableBoolean(true)
 }

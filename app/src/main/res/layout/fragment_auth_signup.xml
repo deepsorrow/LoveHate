@@ -11,21 +11,23 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.screens.auth.SharedAuthViewModel" />
+            type="com.kropotov.lovehate.ui.screens.auth.SignUpViewModel" />
 
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/auth_logo_gradient"
         android:fillViewport="true"
+        android:paddingTop="@dimen/toolbar_status_bar_padding"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_offset"
-            android:background="@drawable/auth_logo_gradient"
+            android:layout_marginHorizontal="@dimen/standard_offset"
+            android:layout_marginBottom="@dimen/standard_offset"
             android:orientation="vertical">
 
             <TextView
@@ -33,6 +35,7 @@
                 style="@style/IconText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/standard_offset"
                 android:padding="@dimen/standard_offset"
                 android:text="@string/icon_arrow_back"
                 app:onClick="@{router::goBack}" />
@@ -111,6 +114,7 @@
                         android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/text_field_height"
+                        android:afterTextChanged="@{(v) -> viewModel.validateMinLengthPassword()}"
                         android:autofillHints="password"
                         android:background="@drawable/selector_text_field"
                         android:drawableStart="@drawable/icon_lock"
@@ -154,6 +158,7 @@
                         android:id="@+id/password_confirm"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/text_field_height"
+                        android:afterTextChanged="@{(v) -> viewModel.validateConfirmPassword()}"
                         android:autofillHints="password"
                         android:background="@drawable/selector_text_field"
                         android:drawableStart="@drawable/icon_lock"

@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.screens.PickMediaViewModel" />
+            type="com.kropotov.lovehate.ui.dialogs.pickmedia.PickMediaViewModel" />
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/round_top_corners_surface">
 
-        <FrameLayout
-            android:id="@+id/standard_bottom_sheet"
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/IconText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?surface_color"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+            android:layout_gravity="center"
+            android:text="@string/icon_popup_handle"
+            android:textColor="?unaccented_light_text_color" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/IconText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/icon_popup_handle"
-                    android:textColor="?unaccented_light_text_color" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/medium_offset"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
-            </LinearLayout>
-        </FrameLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/medium_offset"
+            tools:itemCount="3"
+            tools:listitem="@layout/list_item_selected_photo"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+    </LinearLayout>
 </layout>

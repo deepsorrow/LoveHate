@@ -21,6 +21,7 @@ import androidx.databinding.InverseBindingListener
 import com.kropotov.lovehate.R
 import com.kropotov.lovehate.databinding.LoveHateTextFieldBinding
 import com.kropotov.lovehate.ui.utilities.getColorAttr
+import com.kropotov.lovehate.ui.utilities.showKeyboard
 
 
 class LoveHateTextField @JvmOverloads constructor(
@@ -120,8 +121,7 @@ class LoveHateTextField @JvmOverloads constructor(
 
     fun requestKeyboardFocus() {
         binding.editText.requestFocus()
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+        showKeyboard()
     }
 
     private fun setOnCheckedListeners() {
@@ -144,21 +144,21 @@ class LoveHateTextField @JvmOverloads constructor(
 
                         neutralButton.isChecked = false
                         hateButton.isChecked = false
-                        R.attr.love_color
+                        R.attr.love_container_color
                     }
                     hateButton -> {
                         opinionStateListener?.onHateClicked()
 
                         loveButton.isChecked = false
                         neutralButton.isChecked = false
-                        R.attr.hate_color
+                        R.attr.hate_container_color
                     }
                     else -> {
                         opinionStateListener?.onNeutralClicked()
 
                         loveButton.isChecked = false
                         hateButton.isChecked = false
-                        R.attr.neutral_color
+                        R.attr.neutral_container_color
                     }
                 }
                 val colorTint = context.getColorAttr(strokeColorTintAttr)

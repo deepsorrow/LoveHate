@@ -5,31 +5,34 @@ import android.view.InflateException
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import com.google.android.material.snackbar.Snackbar
 import com.kropotov.lovehate.di.app.ViewModelFactory
 import com.kropotov.lovehate.BR
+import com.kropotov.lovehate.R
 import com.kropotov.lovehate.data.InformMessage
 import com.kropotov.lovehate.data.InformType
 import com.kropotov.lovehate.ui.dialogs.ProgressBarDialog
+import com.kropotov.lovehate.ui.utilities.SafeClickListener
 import com.kropotov.lovehate.ui.utilities.extractErrorMessage
+import com.kropotov.lovehate.ui.utilities.showKeyboard
 import dagger.android.support.DaggerFragment
-import kotlinx.coroutines.launch
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBinding>(
     private val layoutId: Int
-) : DaggerFragment() {
+) : DaggerFragment(), MessageInformer, LoadingInformer {
 
-    open val isActivityViewModelOwner = false
-    private var progressBarDialog: ProgressBarDialog? = null
+
+    override var progressBarDialog: ProgressBarDialog? = null
+
     private val viewModelDelegate = lazy {
-        ViewModelProvider(if (isActivityViewModelOwner) requireActivity() else this, viewModelFactory)[vmClass]
+        ViewModelProvider(this, viewModelFactory)[vmClass]
     }
 
     protected val viewModel: VIEW_MODEL by viewModelDelegate
@@ -49,17 +52,27 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
         if (!binding.setVariable(BR.viewModel, viewModel)) {
             throw InflateException("No data binding variable `viewModel` in layout!")
         }
-        initProgressBar()
-        initMessageInformer()
+        initProgressBar(viewModel)
+        initMessageInformer(viewModel)
         initBackPressedDispatcher()
 
         return binding.root
     }
 
-    protected open fun showError(message: InformMessage) {
-        Snackbar.make(requireView(), message.text, ERROR_SNACKBAR_DISMISS_TIMEOUT).apply {
-            setTextMaxLines(ERROR_SNACKBAR_MAX_LINES)
-            show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireView().setToolbarArrowBackAction()
+    }
+
+    protected fun subscribeToSearchClicked() {
+        requireView().findViewById<View>(R.id.search_icon)?.let { view ->
+            val action = SafeClickListener {
+                it?.let { view ->
+                    view.requestFocus()
+                    view.showKeyboard()
+                }
+            }
+            view.setOnClickListener(action)
         }
     }
 
@@ -67,7 +80,7 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
         (this as? LoadState.Error)?.error?.let {
             val errorText = it.extractErrorMessage()
             val informMessage = InformMessage(InformType.ERROR, errorText)
-            showError(informMessage)
+            showSnackbarMessage(informMessage)
         }
     }
 
@@ -83,29 +96,16 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
         }
     }
 
-    private fun initProgressBar() {
-        progressBarDialog = ProgressBarDialog(requireContext())
-        lifecycleScope.launch {
-            viewModel.isLoading.collect { isVisible ->
-                if (isVisible) {
-                    progressBarDialog?.show()
-                } else {
-                    progressBarDialog?.dismiss()
-                }
-            }
-        }
-    }
-
-    private fun initMessageInformer() {
-        lifecycleScope.launch {
-            viewModel.informMessageStream.collect {
-                showError(it)
+    protected fun View.setToolbarArrowBackAction() {
+        findViewById<TextView>(R.id.arrow_back)?.let {
+            it.setOnClickListener {
+                val weakThis = WeakReference(parentFragmentManager)
+                weakThis.get()?.popBackStack()
             }
         }
     }
 
     companion object {
-        const val ERROR_SNACKBAR_MAX_LINES = 6
-        const val ERROR_SNACKBAR_DISMISS_TIMEOUT = 6000
+        const val DEBOUNCE_TIME_MS = 500L
     }
 }

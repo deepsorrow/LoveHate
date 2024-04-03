@@ -5,7 +5,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.kropotov.lovehate.data.TopicType
 import com.kropotov.lovehate.type.OpinionsListType
 import com.kropotov.lovehate.ui.screens.favorites.FavoritesFragment
-import com.kropotov.lovehate.ui.screens.feed.fragments.OpinionsFragment
+import com.kropotov.lovehate.ui.screens.opinions.fragments.OpinionsFragment
 import com.kropotov.lovehate.ui.screens.topics.fragments.TopicsFragment
 import java.lang.IllegalArgumentException
 

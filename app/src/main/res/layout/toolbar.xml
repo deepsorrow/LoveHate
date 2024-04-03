@@ -11,7 +11,7 @@
 
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <com.kropotov.lovehate.ui.views.SavingStateMotionLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         android:paddingEnd="@dimen/standard_offset"
         app:backgroundColorByAttr="@{toolbarContract.toolbarColor}"
         app:isNotGone="@{toolbarContract.toolbarVisibility}"
-        app:layoutDescription="@xml/toolbar_xml_constraintlayout_scene">
+        app:layoutDescription="@xml/motion_scene_toolbar">
 
         <!-- Motion layout doesn't support top padding,
         so here is the use of the dummy view. -->
@@ -45,7 +45,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/title"
-            app:onClick="@{toolbarContract.arrowBackAction}"
             tools:ignore="RtlSymmetry"
             tools:visibility="visible" />
 
@@ -65,7 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:textColor="?unaccented_light_text_color"
+            android:textColor="?unaccented_light_text_color_variant1"
             app:isNotGone="@{toolbarContract.isSubtitleVisible}"
             app:textRes="@{toolbarContract.subtitle}"
             tools:text="New messages" />
@@ -73,13 +72,16 @@
         <EditText
             android:id="@+id/search_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:autofillHints="search"
             android:background="@drawable/round_surface"
             android:hint="@string/search"
             android:inputType="text"
             android:paddingStart="56dp"
             android:paddingEnd="@dimen/small_offset"
+            android:text="@={toolbarContract.searchText}"
+            android:textColor="?text_color"
+            android:textColorHint="?unaccented_text_color"
             app:boxBackgroundMode="none"
             tools:ignore="LabelFor,RtlSymmetry" />
 
@@ -93,6 +95,7 @@
             app:layout_constraintBottom_toBottomOf="@id/search_edit_text"
             app:layout_constraintStart_toStartOf="@id/search_edit_text"
             app:layout_constraintTop_toTopOf="@id/search_edit_text"
+            app:onTouchResetSearchQuery="@{true}"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -103,7 +106,8 @@
             android:padding="@dimen/medium_offset"
             android:text="@string/icon_search"
             android:textColor="?colorOnPrimary"
-            app:isNotGone="@{toolbarContract.searchIconIsVisible}" />
+            app:isNotGone="@{toolbarContract.searchIconIsVisible}"
+            app:onTouchShowKeyboard="@{true}" />
 
         <View
             android:id="@+id/bottom_padding"
@@ -111,5 +115,5 @@
             android:layout_height="@dimen/standard_offset"
             app:isNotGone="@{toolbarContract.isBottomOffsetVisible}" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </com.kropotov.lovehate.ui.views.SavingStateMotionLayout>
 </layout>

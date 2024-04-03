@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/thumbnail"
+    android:layout_width="match_parent"
+    android:layout_height="112dp"
+    android:contentDescription="@null"
+    android:foreground="?selectableItemBackground"
+    android:scaleType="centerCrop"
+    android:textColor="?unaccented_text_color"
+    tools:layout_width="112dp"
+    tools:src="@drawable/image_dummy" />

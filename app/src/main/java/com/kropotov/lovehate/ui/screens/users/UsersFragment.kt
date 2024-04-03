@@ -31,10 +31,6 @@ class UsersFragment : BaseFragment<UsersViewModel, FragmentUsersBinding>(R.layou
             addItemDecoration(SpaceItemDecoration(requireContext()))
         }
         binding.refreshLayout.setOnRefreshListener { adapter.refresh() }
-        viewModel.toolbar.arrowBackAction.set {
-            val weakThis = WeakReference(parentFragmentManager)
-            weakThis.get()?.popBackStack()
-        }
 
         initShimmerLayout(adapter)
         subscribeToListData(adapter)

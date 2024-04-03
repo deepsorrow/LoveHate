@@ -9,15 +9,14 @@ import com.kropotov.lovehate.databinding.FragmentAuthLoginBinding
 import com.kropotov.lovehate.ui.AuthActivity
 import com.kropotov.lovehate.ui.MainScreenActivity
 import com.kropotov.lovehate.ui.base.BaseFragment
-import com.kropotov.lovehate.ui.screens.auth.SharedAuthViewModel
+import com.kropotov.lovehate.ui.screens.auth.LoginViewModel
 import kotlinx.coroutines.launch
 
-class LoginFragment : BaseFragment<SharedAuthViewModel, FragmentAuthLoginBinding>(
+class LoginFragment : BaseFragment<LoginViewModel, FragmentAuthLoginBinding>(
     R.layout.fragment_auth_login
 ) {
 
-    override val isActivityViewModelOwner = true
-    override val vmClass = SharedAuthViewModel::class.java
+    override val vmClass = LoginViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -8,12 +8,16 @@
     <attr name="text_color" format="color"/>
     <attr name="unaccented_text_color" format="color"/>
     <attr name="unaccented_light_text_color" format="color"/>
+    <attr name="unaccented_light_text_color_variant1" format="color"/>
     <attr name="favorite_icon_color" format="color"/>
 
     <attr name="union_color" format="color"/>
-    <attr name="love_color" format="color|reference"/>
+    <attr name="love_color" format="color"/>
     <attr name="neutral_color" format="color"/>
     <attr name="hate_color" format="color"/>
+    <attr name="love_container_color" format="color"/>
+    <attr name="neutral_container_color" format="color"/>
+    <attr name="hate_container_color" format="color"/>
 
     <attr name="union_background_color" format="color"/>
     <attr name="love_background_color" format="color"/>

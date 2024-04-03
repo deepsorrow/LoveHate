@@ -1,33 +1,88 @@
 package com.kropotov.lovehate.ui.utilities
 
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.os.Handler
+import android.os.Looper
 import android.util.TypedValue
+import android.view.MotionEvent.ACTION_DOWN
+import android.view.MotionEvent.ACTION_UP
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.AttrRes
-import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kropotov.lovehate.R
+import com.google.android.material.R as RMaterial
 import com.kropotov.lovehate.type.OpinionType
+import com.kropotov.lovehate.ui.views.SavingStateMotionLayout
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @BindingAdapter("textRes")
 internal fun TextView.textRes(@StringRes textId: Int?) {
     text = when (textId) {
         null, 0 -> ""
-        else    -> context.getString(textId)
+        else -> context.getString(textId)
     }
 }
 
 @BindingAdapter("onClick")
-fun View.setActionOnClick(action: (() -> Unit)?) {
-    setOnClickListener { action?.invoke() }
+fun View.setActionOnClick(action: (() -> Unit)) {
+    setOnClickListener(SafeClickListener { action.invoke() })
+}
+
+// Useful for motion layout, because onClickListener overrides motion layout callback.
+@SuppressLint("ClickableViewAccessibility")
+@BindingAdapter("onTouchShowKeyboard")
+fun View.onTouchShowKeyboard(predicate: Boolean) {
+    !predicate && return
+
+    setOnClickListener {
+        (parent as SavingStateMotionLayout).transitionToEnd()
+
+        val delay =
+            context.resources.getInteger(RMaterial.integer.material_motion_duration_medium_2).toLong()
+        Handler(Looper.myLooper()!!).postDelayed({
+            (parent as ViewGroup).findViewById<EditText>(R.id.search_edit_text)?.let { editText ->
+                editText.requestFocus()
+                editText.showKeyboard()
+            }
+        }, delay)
+    }
+}
+
+@SuppressLint("ClickableViewAccessibility")
+@BindingAdapter("onTouchResetSearchQuery")
+fun View.onTouchResetSearchQuery(predicate: Boolean) {
+    !predicate && return
+
+    setOnClickListener {
+        (parent as SavingStateMotionLayout).transitionToStart()
+
+        val delay =
+            context.resources.getInteger(RMaterial.integer.material_motion_duration_medium_2).toLong()
+        Handler(Looper.myLooper()!!).postDelayed({
+            (parent as ViewGroup).findViewById<EditText>(R.id.search_edit_text)?.let { editText ->
+                editText.hideKeyboard()
+                editText.setText("")
+            }
+        }, delay)
+    }
+}
+
+@BindingAdapter("onClickPassView")
+fun View.setActionOnClickPassView(action: ((v: View?) -> Unit)) {
+    setOnClickListener(SafeClickListener(action))
 }
 
 @BindingAdapter("colorByAttr")
@@ -64,7 +119,7 @@ internal fun View.isVisible(predicate: Boolean) {
 internal fun TextView.setLoveHateTextColor(opinionType: OpinionType?) {
     opinionType == null && return
 
-    val attrColor = when(opinionType) {
+    val attrColor = when (opinionType) {
         OpinionType.LOVE -> R.attr.love_color
         OpinionType.HATE -> R.attr.hate_color
         else -> R.attr.unaccented_text_color
@@ -73,10 +128,10 @@ internal fun TextView.setLoveHateTextColor(opinionType: OpinionType?) {
 }
 
 @BindingAdapter("isLove", "opinionPercent")
-internal fun TextView.formatFeelingPercent(opinionType: OpinionType?, percent: String) {
+internal fun TextView.formatOpinionPercent(opinionType: OpinionType?, percent: String) {
     opinionType == null && return
 
-    val template = when(opinionType) {
+    val template = when (opinionType) {
         OpinionType.LOVE -> context.getString(R.string.love_percent_feeling)
         OpinionType.HATE -> context.getString(R.string.hate_percent_feeling)
         else -> context.getString(R.string.debating)
@@ -104,18 +159,11 @@ internal fun TextView.formatAuthorOpinion(opinionSortType: OpinionType?) {
     text = context.getString(stringRes)
 }
 
-@BindingAdapter("imageUrl")
-fun setImageUrl(imageView: ImageView, url: String?) {
-    Glide.with(imageView)
+@BindingAdapter("imageUrl", "thumbnailBitmap", requireAll = false)
+fun ImageView.setImageUrl(url: String?, thumbnailBitmap: Bitmap?) {
+    Glide.with(this)
         .load(url)
+        .placeholder(thumbnailBitmap?.toDrawable(resources))
         .diskCacheStrategy(DiskCacheStrategy.ALL)
-        .into(imageView)
-}
-
-@BindingAdapter("topPaddingRes")
-fun View.setTopPadding(paddingTopRes: Int) {
-    if (paddingTopRes != 0) {
-        val topPadding = resources.getDimension(paddingTopRes)
-        setPadding(0, topPadding.toInt(), 0, 0)
-    }
+        .into(this)
 }

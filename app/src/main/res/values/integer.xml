@@ -2,4 +2,5 @@
 <resources>
     <item type="integer" name="title_max_length">70</item>
     <item type="integer" name="opinion_max_length">1000</item>
+    <item type="integer" name="thumbnail_size">150</item>
 </resources>

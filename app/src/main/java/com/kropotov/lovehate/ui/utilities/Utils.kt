@@ -1,17 +1,28 @@
 package com.kropotov.lovehate.ui.utilities
 
+import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.os.CancellationSignal
+import android.os.Parcelable
+import android.provider.MediaStore
+import android.util.Size
+import android.view.View
 import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.AttrRes
 import androidx.annotation.CheckResult
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.WindowCompat
 import androidx.core.widget.doOnTextChanged
@@ -21,21 +32,28 @@ import com.apollographql.apollo3.exception.ApolloGraphQLException
 import com.google.android.material.color.MaterialColors
 import com.kropotov.lovehate.BuildConfig
 import com.kropotov.lovehate.R
+import com.kropotov.lovehate.data.items.MediaListItem
 import com.kropotov.lovehate.type.UserScoreTitle
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.onStart
 import java.io.Serializable
+import java.security.AccessController.getContext
 
-/** Returns Serializible in a new way for API 33+ and in the old way for previous API. */
+
 inline fun <reified T : Serializable> Bundle.serializable(key: String, clazz: Class<T>): T? {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    return if (SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         getSerializable(key, clazz)
     } else {
         @Suppress("DEPRECATION")
         getSerializable(key) as T
     }
+}
+
+inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
+    SDK_INT >= Build.VERSION_CODES.TIRAMISU -> getParcelable(key, T::class.java)
+    else -> @Suppress("DEPRECATION") getParcelable(key) as? T
 }
 
 inline fun <T : Fragment> T.withArgs(argsBuilder: Bundle.() -> Unit): T =
@@ -54,7 +72,8 @@ fun Bundle.getIntNullable(key: String): Int? = getInt(key).run {
 }
 
 fun Window.adjustSystemBarIconsColor() {
-    if (isColorDark(statusBarColor)) {
+    val backgroundColor = context.getColorAttr(R.attr.background_color)
+    if (isColorDark(backgroundColor)) {
         WindowCompat.getInsetsController(this, decorView).apply {
             isAppearanceLightStatusBars = false
             isAppearanceLightNavigationBars = false
@@ -93,6 +112,8 @@ fun Throwable.extractErrorMessage() = if (this is ApolloGraphQLException) {
 
 fun String.plusServerIp() = BuildConfig.SERVER_IP + "/" + this
 
+fun String.stripThumbnail() = replace("thumbnails/", "")
+
 @StringRes
 fun UserScoreTitle.localize() = when(this) {
     UserScoreTitle.SURVEYOR -> R.string.surveyour
@@ -102,3 +123,36 @@ fun UserScoreTitle.localize() = when(this) {
     UserScoreTitle.FORSETI -> R.string.forseti
     else -> 0
 }
+
+fun View.showKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+}
+
+fun View.hideKeyboard() {
+    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+}
+
+tailrec fun Context.getActivity(): AppCompatActivity? = this as? AppCompatActivity
+    ?: (this as? ContextWrapper)?.baseContext?.getActivity()
+
+fun Context.getBitmap(item: MediaListItem): Bitmap {
+    val thumbnailSize = resources.getInteger(R.integer.thumbnail_size)
+    return if (SDK_INT >= Build.VERSION_CODES.Q) {
+        val cancellationSignal = CancellationSignal()
+        contentResolver.loadThumbnail(
+            item.uri!!,
+            Size(thumbnailSize, thumbnailSize),
+            cancellationSignal
+        )
+    } else {
+        MediaStore.Images.Thumbnails.getThumbnail(
+            contentResolver,
+            item.id,
+            MediaStore.Images.Thumbnails.MINI_KIND,
+            null
+        )
+    }
+}
+

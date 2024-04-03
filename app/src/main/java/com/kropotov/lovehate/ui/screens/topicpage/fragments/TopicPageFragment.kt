@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import com.kropotov.lovehate.R
@@ -26,22 +28,32 @@ class TopicPageFragment @Inject constructor() :
     @Inject
     lateinit var router: TopicPageRouter
 
-    @SuppressLint("NotifyDataSetChanged")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(requireContext())
+            .inflateTransition(R.transition.shared_image_2)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val similarTopicsAdapter = ListDelegationAdapter(adapterDelegate())
+        val adapter = ListDelegationAdapter(adapterDelegate())
         binding.similarTopicsList.apply {
-            this.adapter = similarTopicsAdapter
+            this.adapter = adapter
             addItemDecoration(SpaceItemDecoration(context))
             setHasFixedSize(true)
         }
         binding.router = router
 
+        subscribeToSimilarTopics(adapter)
+    }
+
+    @SuppressLint("NotifyDataSetChanged") // data loads only once
+    private fun subscribeToSimilarTopics(adapter: ListDelegationAdapter<List<TopicListItem>>) {
         lifecycleScope.launch {
             viewModel.similarTopics.collect {
-                similarTopicsAdapter.items = it
-                similarTopicsAdapter.notifyDataSetChanged()
+                adapter.items = it
+                adapter.notifyDataSetChanged()
             }
         }
     }
@@ -54,7 +66,7 @@ class TopicPageFragment @Inject constructor() :
         ) {
             bind {
                 binding.viewModel = item
-                binding.clickListener = View.OnClickListener {
+                binding.clickListener = {
                     router.navigateToNewTopic(item.id)
                 }
             }

@@ -5,6 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.apollographql.apollo3.ApolloClient
+import com.kropotov.lovehate.CreateTopicMutation
 import com.kropotov.lovehate.api.main.TopicsQueryAdapter
 import com.kropotov.lovehate.data.OpinionType
 import com.kropotov.lovehate.data.items.TopicListItem
@@ -19,23 +20,19 @@ class TopicsRepository @Inject constructor(
     private val apolloClient: ApolloClient
 ) {
     fun getTopicsStream(
+        searchQuery: String,
         topicType: TopicType
     ): Flow<PagingData<com.kropotov.lovehate.fragment.TopicListItem>> = Pager(
         config = PagingConfig(enablePlaceholders = false, pageSize = TOPICS_PAGE_SIZE),
-        pagingSourceFactory = { TopicsPagingSource(apolloClient, topicType) }
+        pagingSourceFactory = { TopicsPagingSource(apolloClient, searchQuery, topicType) }
     ).flow
 
     @WorkerThread
-    suspend fun createTopic(
-        title: String,
-        opinionType: OpinionType,
-        comment: String
-    ): Int = apolloClient
-        .mutation(TopicsQueryAdapter.createTopic(title, opinionType, comment))
-        .execute()
-        .dataAssertNoErrors
-        .addTopic
-        .id
+    suspend fun createTopic(title: String, opinionType: OpinionType, comment: String) =
+        apolloClient.mutation(TopicsQueryAdapter.createTopic(title, opinionType, comment))
+            .execute()
+            .dataAssertNoErrors
+            .addTopic
 
     @WorkerThread
     suspend fun getSimilarTopics(topicId: Int) =

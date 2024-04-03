@@ -25,4 +25,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_bar" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/main_overlay_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

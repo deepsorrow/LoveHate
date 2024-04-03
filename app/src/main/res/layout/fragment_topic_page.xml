@@ -45,6 +45,7 @@
                         android:layout_height="@dimen/topic_image_preview_height"
                         android:scaleType="centerCrop"
                         android:src="@drawable/image_dummy"
+                        android:transitionName="Page image"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:shapeAppearance="@style/TopicImagePreviewStyle" />
@@ -54,7 +55,7 @@
                         style="@style/IconText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/toolbar_status_bar_padding"
+                        android:layout_marginTop="@dimen/enormous_offset"
                         android:padding="@dimen/standard_offset"
                         android:text="@string/icon_arrow_back"
                         android:textColor="?colorOnPrimary"
@@ -67,7 +68,7 @@
                         style="@style/IconText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/toolbar_status_bar_padding"
+                        android:layout_marginTop="@dimen/enormous_offset"
                         android:padding="@dimen/standard_offset"
                         android:textColor="?colorOnPrimary"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -241,8 +242,7 @@
                     android:paddingHorizontal="@dimen/standard_offset"
                     android:paddingVertical="@dimen/big_offset"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/similar_topics_block"
-                    app:onClick="@{router::showAuthorOpinion}">
+                    app:layout_constraintTop_toBottomOf="@id/similar_topics_block">
 
                     <TextView
                         android:id="@+id/made_by_text"

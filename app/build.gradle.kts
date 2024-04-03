@@ -96,6 +96,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.retrofit)
     implementation(libs.shimmer)
+    implementation(libs.photoview)
     debugImplementation(libs.squareup.leakcanary.android)
 
     // Testing dependencies

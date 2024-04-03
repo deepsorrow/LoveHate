@@ -16,8 +16,16 @@ abstract class BaseRouter(
         }
     }
 
-    fun navigateToNewTopic(topicId: Int)
-        = navigateWithSlideUpTransition(TopicPageFragment.newInstance(topicId))
+    fun navigateToNewTopic(topicId: Int) = fragmentManager.commit {
+        setCustomAnimations(
+            R.anim.slide_up,
+            R.anim.slide_down,
+            0,
+            R.anim.slide_down
+        )
+        add(R.id.overlay_container, TopicPageFragment.newInstance(topicId))
+        addToBackStack(null)
+    }
 
     protected fun navigateWithSlideUpTransition(
         fragment: Fragment,

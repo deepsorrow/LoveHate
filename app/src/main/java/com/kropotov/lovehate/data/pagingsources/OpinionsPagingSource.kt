@@ -10,6 +10,7 @@ import com.kropotov.lovehate.type.OpinionsListType
 
 class OpinionsPagingSource(
     private val apolloClient: ApolloClient,
+    private val searchQuery: String,
     private val topicId: Int?,
     private val sortType: OpinionType,
     private val listType: OpinionsListType
@@ -18,9 +19,9 @@ class OpinionsPagingSource(
         val page = params.key ?: 0
         return try {
             val query = if (listType == OpinionsListType.ALL) {
-                OpinionsQueryAdapter.getLatestOpinions(topicId, sortType, page)
+                OpinionsQueryAdapter.getLatestOpinions(topicId, sortType, searchQuery, page)
             } else {
-                OpinionsQueryAdapter.getOpinions(false, listType, page)
+                OpinionsQueryAdapter.getOpinions(false, listType, searchQuery, page)
             }
             val response = apolloClient
                 .query(query)
@@ -40,10 +41,6 @@ class OpinionsPagingSource(
 
     override fun getRefreshKey(state: PagingState<Int, OpinionListItem>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
-            // This loads starting from previous page, but since PagingConfig.initialLoadSize spans
-            // multiple pages, the initial load will still load items centered around
-            // anchorPosition. This also prevents needing to immediately launch prepend due to
-            // prefetchDistance.
             state.closestPageToPosition(anchorPosition)?.prevKey
         }
     }

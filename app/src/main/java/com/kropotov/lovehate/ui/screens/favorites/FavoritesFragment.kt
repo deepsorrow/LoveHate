@@ -9,7 +9,6 @@ import com.kropotov.lovehate.R
 import com.kropotov.lovehate.databinding.FragmentFavoritesBinding
 import com.kropotov.lovehate.ui.adapters.viewpagers.FavoritesViewPagerAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
-import java.lang.ref.WeakReference
 
 class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBinding>(
     R.layout.fragment_favorites
@@ -37,10 +36,6 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
                 }
                 tab.setCustomView(tabView)
             }.attach()
-        }
-        viewModel.toolbar.arrowBackAction.set {
-            val weakThis = WeakReference(parentFragmentManager)
-            weakThis.get()?.popBackStack()
         }
     }
 

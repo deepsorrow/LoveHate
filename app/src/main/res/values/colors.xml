@@ -3,6 +3,7 @@
     <!-- Light theme -->
     <color name="light_violet_400">#4A3C68</color>
     <color name="light_violet_500">#5A4980</color>
+    <color name="light_violet_910">#E1DCEA</color>
     <color name="light_violet_960">#F3F1F6</color>
     <color name="light_black_170">#1E212B</color>
     <color name="light_black_330">#555555</color>
@@ -21,21 +22,24 @@
     <color name="light_blue_910">#E1E3E7</color>
 
     <!-- Dark theme -->
-    <color name="dark_black_150">#22262a</color>
-    <color name="dark_violet_100">#5d4f78</color>
-    <color name="dark_black_120">#01111E</color>
+    <color name="dark_black_150">#323233</color>
+    <color name="dark_violet_100">#40345C</color>
+    <color name="dark_black_120">#19181c</color>
     <color name="dark_grey_220">#353739</color>
-    <color name="dark_grey_600">#BCBFC1</color>
-    <color name="dark_grey_660">#A2A5A8</color>
+    <color name="dark_grey_600">#F6F6F6</color>
+    <color name="dark_grey_660">#D3D5D6</color>
     <color name="dark_grey_350">#505259</color>
-    <color name="dark_grey_820">#CFD0D1</color>
-    <color name="dark_blue_240">#373a3e</color>
-    <color name="dark_white_1000">#FDFFFC</color>
-    <color name="dark_green_570">#219168</color>
+    <color name="dark_grey_820">#F6F6F6</color>
+    <color name="dark_blue_240">#2E2D32</color>
+    <color name="dark_white_1000">#F0F1EF</color>
+    <color name="dark_green_570">#195740</color>
+    <color name="dark_green_870">#0CCD87</color>
     <color name="dark_green_170">#002C25</color>
-    <color name="dark_red_700">#B31729</color>
+    <color name="dark_red_700">#752730</color>
+    <color name="dark_red_900">#F11A33</color>
     <color name="dark_red_150">#260000</color>
     <color name="dark_yellow_790">#DAC746</color>
     <color name="dark_blue_330">#4D5053</color>
-    <color name="dark_blue_510">#7A7D81</color>
+    <color name="dark_blue_510">#414243</color>
+    <color name="dark_blue_590">#2E2E32</color>
 </resources>

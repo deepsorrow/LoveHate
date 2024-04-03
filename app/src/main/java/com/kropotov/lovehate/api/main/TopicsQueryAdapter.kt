@@ -2,10 +2,8 @@ package com.kropotov.lovehate.api.main
 
 import com.apollographql.apollo3.api.Optional
 import com.kropotov.lovehate.CreateTopicMutation
-import com.kropotov.lovehate.EditTopicMutation
 import com.kropotov.lovehate.GetSimilarTopicsQuery
 import com.kropotov.lovehate.GetTopicPageQuery
-import com.kropotov.lovehate.GetTopicQuery
 import com.kropotov.lovehate.GetTopicsQuery
 import com.kropotov.lovehate.UpdateTopicFavoriteMutation
 import com.kropotov.lovehate.api.main.OpinionsQueryAdapter.mapToGenerated
@@ -16,8 +14,9 @@ object TopicsQueryAdapter {
 
     fun getTopicPage(id: Int) = GetTopicPageQuery(id)
 
-    fun getTopics(sortType: TopicsListType, page: Int) = GetTopicsQuery(
+    fun getTopics(sortType: TopicsListType, searchQuery: String, page: Int) = GetTopicsQuery(
         listType = Optional.presentIfNotNull(sortType),
+        searchQuery = Optional.presentIfNotNull(searchQuery),
         page = page
     )
 

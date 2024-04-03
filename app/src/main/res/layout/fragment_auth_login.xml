@@ -11,21 +11,22 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.screens.auth.SharedAuthViewModel" />
+            type="com.kropotov.lovehate.ui.screens.auth.LoginViewModel" />
 
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/auth_logo_gradient"
         android:fillViewport="true"
+        android:paddingTop="@dimen/toolbar_status_bar_padding"
         android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_offset"
-            android:background="@drawable/auth_logo_gradient">
+            android:layout_margin="@dimen/standard_offset">
 
             <ImageView
                 android:id="@+id/logo"
@@ -117,7 +118,7 @@
                 app:layout_constraintTop_toBottomOf="@id/password_confirm_layout"
                 app:onClick="@{viewModel::login}" />
 
-            <!--    TDOO: Gmail OAuth 2.0 -->
+            <!--    TODO: Gmail&Facebook OAuth 2.0 -->
             <!--    <View-->
             <!--        android:layout_width="0dp"-->
             <!--        android:layout_height="1dp"-->

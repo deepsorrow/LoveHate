@@ -1,7 +1,6 @@
 package com.kropotov.lovehate.ui.adapters.lists
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -40,7 +39,7 @@ class TopicsListAdapter @Inject constructor(
         fun bind(item: TopicListItem) {
             with(binding) {
                 viewModel = com.kropotov.lovehate.data.items.TopicListItem(item)
-                clickListener = View.OnClickListener {
+                clickListener = {
                     router.navigateToNewTopic(item.id)
                 }
                 executePendingBindings()

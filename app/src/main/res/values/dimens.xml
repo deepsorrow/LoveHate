@@ -27,6 +27,7 @@
     <dimen name="max_comment_height">120dp</dimen>
     <dimen name="topic_image_preview_height">300dp</dimen>
     <dimen name="image_thumbnail_size">62dp</dimen>
+    <dimen name="new_image_thumbnail_size">70dp</dimen>
 
     <dimen name="one_dp">1dp</dimen>
     <dimen name="profile_text_size">24sp</dimen>

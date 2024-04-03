@@ -1,9 +1,10 @@
 package com.kropotov.lovehate.ui.base
 
+import android.view.View
+import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import kotlinx.coroutines.flow.MutableStateFlow
 
 /**
  * @property toolbarColor toolbar attribute color
@@ -20,10 +21,16 @@ interface ToolbarContract {
     val isSubtitleVisible: ObservableBoolean
 
     val searchIconIsVisible: ObservableBoolean
-    val searchText: MutableStateFlow<String>
+    val searchText: ObservableField<String>
 
     val arrowBackIsVisible: ObservableBoolean
-    val arrowBackAction: ObservableField<(() -> Unit)?>
     val isBottomOffsetVisible: ObservableBoolean
 
+    fun subscribeToSearchTextQuery(onTextChanged: (String) -> Unit) {
+        searchText.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                onTextChanged(searchText.get().orEmpty())
+            }
+        })
+    }
 }

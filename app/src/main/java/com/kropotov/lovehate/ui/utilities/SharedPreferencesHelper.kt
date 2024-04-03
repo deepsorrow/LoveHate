@@ -6,6 +6,7 @@ import com.kropotov.lovehate.data.AppTheme
 import dagger.Reusable
 import javax.inject.Inject
 
+// TODO: Migrate to DataStore
 @Reusable
 class SharedPreferencesHelper @Inject constructor(
     private val applicationContext: Context

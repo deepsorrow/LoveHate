@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.dialogs.SendFeedbackViewModel" />
+            type="com.kropotov.lovehate.ui.dialogs.sendfeedback.SendFeedbackViewModel" />
     </data>
 
     <LinearLayout
@@ -28,6 +28,7 @@
             android:maxLength="@integer/opinion_max_length"
             android:padding="@dimen/standard_offset"
             android:text="@={viewModel.text}"
+            android:textColor="?text_color"
             android:textColorHint="?unaccented_text_color" />
 
         <Button

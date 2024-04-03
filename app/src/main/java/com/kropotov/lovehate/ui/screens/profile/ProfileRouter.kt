@@ -13,11 +13,12 @@ import com.kropotov.lovehate.data.TopicType
 import com.kropotov.lovehate.type.OpinionsListType
 import com.kropotov.lovehate.ui.AuthActivity
 import com.kropotov.lovehate.ui.base.BaseRouter
-import com.kropotov.lovehate.ui.dialogs.SendFeedbackDialog
+import com.kropotov.lovehate.ui.dialogs.sendfeedback.SendFeedbackDialog
 import com.kropotov.lovehate.ui.screens.favorites.FavoritesFragment
-import com.kropotov.lovehate.ui.screens.feed.fragments.OpinionsFragment
+import com.kropotov.lovehate.ui.screens.opinions.fragments.OpinionsFragment
 import com.kropotov.lovehate.ui.screens.profile.fragments.ProfileFragment
 import com.kropotov.lovehate.ui.screens.topics.fragments.TopicsFragment
+import com.kropotov.lovehate.ui.utilities.SafeClickListener
 import com.kropotov.lovehate.ui.utilities.SharedPreferencesHelper
 import javax.inject.Inject
 
@@ -37,7 +38,7 @@ class ProfileRouter @Inject constructor(
     }
 
     fun navigateToMyAchievements() {
-
+        TODO("Achievements feature")
     }
 
     fun navigateToFavorites() =
@@ -47,7 +48,7 @@ class ProfileRouter @Inject constructor(
         SendFeedbackDialog().show(fragment.parentFragmentManager, null)
     }
 
-    fun showAppThemePopupDialog(view: View) {
+    fun showAppThemePopupDialog(view: View): Boolean {
         val anchor = view.findViewById<TextView>(R.id.current_theme)
         val popupWindow = PopupWindow(anchor.context).apply {
             isFocusable = true
@@ -63,10 +64,12 @@ class ProfileRouter @Inject constructor(
                 }
             } else {
                 text = view.resources.getString(R.string.light_theme)
-                setOnClickListener {
-                    AppTheme.LIGHT.onAppThemeClicked()
-                    popupWindow.dismiss()
-                }
+                setOnClickListener(
+                    SafeClickListener {
+                        AppTheme.LIGHT.onAppThemeClicked()
+                        popupWindow.dismiss()
+                    }
+                )
             }
         }
 
@@ -82,6 +85,7 @@ class ProfileRouter @Inject constructor(
         val xOff = (anchor.measuredWidth - contentView.measuredWidth) / 2
         val yOff = 0
         PopupWindowCompat.showAsDropDown(popupWindow, anchor,  xOff, yOff, Gravity.BOTTOM)
+        return true
     }
 
     fun logOut() {

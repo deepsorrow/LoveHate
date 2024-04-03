@@ -6,9 +6,7 @@
     android:layout_height="wrap_content"
     android:fontFamily="@font/medium"
     android:textAlignment="center"
-    android:textColor="?unaccented_light_text_color"
-
-    tools:padding="10dp"
+    android:textColor="?unaccented_light_text_color_variant1"
     tools:background="?colorPrimary"
-    tools:text="Любовь"
-    tools:textColor="?colorOnPrimary" />
+    tools:padding="10dp"
+    tools:text="Recent" />

@@ -103,7 +103,8 @@
                             android:text="@string/my_topics"
                             app:drawableStartCompat="@drawable/icon_topics"
                             app:layout_constraintTop_toBottomOf="@+id/avatar"
-                            app:onClick="@{router::navigateToMyTopics}" />
+                            app:onClick="@{router::navigateToMyTopics}"
+                            app:drawableTint="?text_color" />
 
                         <LinearLayout
                             android:id="@+id/my_opinions"
@@ -240,7 +241,7 @@
                                 android:layout_marginTop="@dimen/standard_offset"
                                 android:foreground="?selectableItemBackground"
                                 android:gravity="start|center_vertical"
-                                android:onClick="@{(view) -> router.showAppThemePopupDialog(view)}"
+                                app:onClickPassView="@{() -> router.showAppThemePopupDialog(appTheme)}"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/medium_offset"
                                 app:layout_constraintTop_toTopOf="parent">

@@ -7,15 +7,15 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.screens.feed.OpinionListItem" />
+            type="com.kropotov.lovehate.ui.screens.opinions.OpinionListItemViewModel" />
 
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="?selectableItemBackground"
         android:layout_marginHorizontal="@dimen/small_offset"
+        android:foreground="?selectableItemBackground"
         app:cardCornerRadius="@dimen/default_corner_radius">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,8 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.position}"
-                app:isNotGone="@{viewModel.positionVisible}"
                 android:textColor="?unaccented_text_color"
+                app:isNotGone="@{viewModel.positionVisible}"
                 app:layout_constraintBottom_toBottomOf="@+id/like_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="# 1" />
@@ -96,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/small_offset"
                 android:paddingBottom="@dimen/small_offset"
+                android:textColor="?unaccented_text_color"
                 app:colorByAttr="@{viewModel.favoriteIconColor}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/date"
@@ -114,10 +115,12 @@
                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper risus mauris. Suspendisse potenti. Vivamus ut porta quam. Phasellus sed lacinia libero, vitae ullamcorper eros. Maecenas sit amet sapien non lacus condimentum consectetur sit amet nec mi. Praesent molestie semper auctor." />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/images_recycler_view"
+                android:id="@+id/attachmentsList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_offset"
+                android:orientation="horizontal"
+                app:layoutManager="LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="@id/body_text"
                 app:layout_constraintTop_toBottomOf="@id/body_text"
                 tools:itemCount="1"
@@ -128,8 +131,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_offset"
-                app:layout_constraintStart_toStartOf="@id/images_recycler_view"
-                app:layout_constraintTop_toBottomOf="@id/images_recycler_view"
+                app:layout_constraintStart_toStartOf="@id/attachmentsList"
+                app:layout_constraintTop_toBottomOf="@id/attachmentsList"
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kropotov.lovehate.ui.dialogs.newtopic.NewTopicViewModel" />
+
+        <variable
+            name="router"
+            type="com.kropotov.lovehate.ui.dialogs.newtopic.NewTopicRouter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_top_corners_surface"
+        android:paddingBottom="@dimen/standard_offset">
+
+        <TextView
+            android:id="@+id/handle"
+            style="@style/IconText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:rotation="-180"
+            android:text="@string/icon_popup_handle"
+            android:textColor="?unaccented_light_text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="@dimen/standard_offset"
+            android:background="?unaccented_light_text_color"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toStartOf="@id/title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-6dp"
+            android:text="@string/new_topic"
+            android:textColor="?unaccented_text_color"
+            android:textSize="@dimen/toolbar_subtitle_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/handle" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/standard_offset"
+            android:background="?unaccented_light_text_color"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/title"
+            app:layout_constraintTop_toTopOf="@id/title" />
+
+        <com.kropotov.lovehate.ui.views.LoveHateTextField
+            android:id="@+id/topic_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/medium_offset"
+            android:layout_marginTop="@dimen/medium_offset"
+            android:orientation="vertical"
+            app:hint="@string/contribute_topic_name_hint"
+            app:inputText="@={viewModel.title}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:maxLength="@integer/title_max_length"
+            app:maxLines="1"
+            app:opinionStateListener="@{viewModel}" />
+
+        <EditText
+            android:id="@+id/opinion_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/big_offset"
+            android:background="@drawable/round_top_primary_stroked"
+            android:hint="@string/contribute_your_comment_hint"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:maxHeight="@dimen/max_comment_height"
+            android:maxLength="@integer/opinion_max_length"
+            android:minHeight="@dimen/text_field_height"
+            android:paddingStart="@dimen/big_offset"
+            android:text="@={viewModel.opinion}"
+            android:textColor="?text_color"
+            android:textColorHint="?unaccented_text_color"
+            android:textCursorDrawable="@null"
+            app:layout_constraintEnd_toEndOf="@+id/topic_text_field"
+            app:layout_constraintStart_toStartOf="@+id/topic_text_field"
+            app:layout_constraintTop_toBottomOf="@+id/topic_text_field"
+            app:layout_constraintVertical_bias="0"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/opinion_text_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/small_offset"
+            android:layout_marginBottom="@dimen/tiny_offset"
+            android:textColor="?unaccented_text_color"
+            android:textSize="@dimen/character_countdown_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/opinion_edit_text"
+            app:layout_constraintEnd_toEndOf="@+id/opinion_edit_text"
+            tools:text="1000" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/standard_offset"
+            android:background="?unaccented_light_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/opinion_edit_text" />
+
+        <TextView
+            android:id="@+id/attach_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/medium_offset"
+            android:paddingTop="@dimen/medium_offset"
+            android:text="@string/add_up_to_4_photo"
+            android:textColor="?unaccented_text_color"
+            app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/attachments_list"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="@dimen/tiny_offset"
+            android:orientation="horizontal"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@+id/attach_hint"
+            app:layout_constraintStart_toStartOf="@+id/attach_hint"
+            app:layout_constraintTop_toBottomOf="@id/attach_hint"
+            tools:itemCount="1"
+            tools:listitem="@layout/list_item_add_media" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/standard_offset"
+            android:background="?unaccented_light_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/attachments_list" />
+
+        <TextView
+            android:id="@+id/rules"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_offset"
+            android:text="Просьба не писать в одном сообщении на несколько тем сразу.\nЕсли Вы любите Секс, Пиво и Жириновского, то, пожалуйста, не поленитесь сделать три отдельных письма."
+            android:textColor="?unaccented_text_color"
+            app:layout_constraintEnd_toEndOf="@+id/attachments_list"
+            app:layout_constraintStart_toStartOf="@+id/attachments_list"
+            app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/standard_offset"
+            android:background="?unaccented_light_text_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rules" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/text_field_height"
+            android:layout_marginTop="@dimen/standard_offset"
+            android:backgroundTint="?love_container_color"
+            android:text="@string/contribute_publish_button_text"
+            android:textAllCaps="false"
+            app:cornerRadius="@dimen/default_corner_radius"
+            app:layout_constraintEnd_toEndOf="@+id/attach_hint"
+            app:layout_constraintStart_toStartOf="@+id/attach_hint"
+            app:layout_constraintTop_toBottomOf="@id/divider3"
+            app:onClick="@{viewModel::onPublishClicked}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -18,9 +18,8 @@ class RatingsToolbar @Inject constructor() : ToolbarContract {
     override val isSubtitleVisible = ObservableBoolean(false)
 
     override val searchIconIsVisible = ObservableBoolean(false)
-    override val searchText = MutableStateFlow("")
+    override val searchText = ObservableField("")
     override val arrowBackIsVisible = ObservableBoolean(false)
-    override val arrowBackAction = ObservableField { }
     override val isBottomOffsetVisible = ObservableBoolean(true)
 
 }

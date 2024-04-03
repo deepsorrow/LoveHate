@@ -6,7 +6,6 @@ import com.kropotov.lovehate.R
 enum class UsersListType(
     @StringRes val title: Int
 ) {
-
     MOST_ACTIVE(R.string.most_active),
     MOST_TENDERHEARTED(R.string.most_tenderhearted),
     MOST_MANY_SIDED(R.string.most_many_sided),

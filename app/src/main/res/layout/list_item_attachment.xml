@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/thumbnail"
+    style="@style/ThumbnailImageStyle"
+    android:layout_width="@dimen/image_thumbnail_size"
+    android:layout_height="@dimen/image_thumbnail_size"
+    android:contentDescription="@null"
+    android:foreground="?selectableItemBackground"
+    android:scaleType="centerCrop"
+    android:textColor="?unaccented_text_color"
+    app:shapeAppearance="@style/RoundedImageView"
+    tools:src="@drawable/image_dummy" />

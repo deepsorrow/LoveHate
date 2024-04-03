@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.viewModelScope
 import com.kropotov.lovehate.R
+import com.kropotov.lovehate.data.InformType
 import com.kropotov.lovehate.data.repositories.TopicsRepository
 import com.kropotov.lovehate.type.OpinionType
 import com.kropotov.lovehate.ui.screens.topicpage.fragments.TopicPageFragment.Companion.TOPIC_PAGE_ID
@@ -86,7 +87,7 @@ class TopicPageViewModel @Inject constructor(
         isFavoriteFetching = true
         val handler = CoroutineExceptionHandler { _, exception ->
             viewModelScope.launch {
-                emitErrorMessage(R.string.unknown_error, exception.message.orEmpty())
+                emitMessage(R.string.unknown_error, InformType.ERROR, exception.message.orEmpty())
                 isFavorite = !isFavorite
             }
         }

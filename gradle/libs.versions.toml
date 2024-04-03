@@ -1,0 +1,81 @@
+[versions]
+adapterdelegates4KotlinDsl = "4.3.2"
+androidGradlePlugin = "8.3.0"
+apolloCoroutinesSupport = "2.5.14"
+apolloRuntime = "4.0.0-beta.4"
+appcompat = "1.6.1"
+# @keep
+compileSdk = "34"
+constraintlayout = "2.1.4"
+coreSplashscreen = "1.0.1"
+dagger = "2.50"
+firebaseAnalytics = "21.5.1"
+firebaseBom = "32.7.4"
+firebaseCrashlytics = "18.6.3"
+floatingsearchview = "2.1.1"
+fragmentKtx = "1.6.2"
+glide = "4.16.0"
+junit = "4.13.2"
+kotlin = "1.9.22"
+kotlinxCoroutinesCore = "1.7.3"
+leakcanaryAndroidVersion = "3.0-alpha-1"
+lifecycleViewmodelKtx = "2.7.0"
+material = "1.11.0"
+# @keep
+minSdk = "24"
+pagingRuntimeKtx = "3.2.1"
+parcelize = "2.0.0-Beta4"
+apollo3 = "4.0.0-beta.4"
+ktx = "1.12.0"
+# @keep
+photoview = "2.3.0"
+shimmer = "0.5.0"
+swiperefreshlayout = "1.1.0"
+targetSdk = "34"
+retrofit = "2.9.0"
+viewpager2 = "1.0.0"
+coordinatorlayout = "1.2.0"
+agp = "8.3.0"
+kotlinVersion = "1.9.0"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+
+[libraries]
+adapterdelegates4-kotlin-dsl = { module = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl", version.ref = "adapterdelegates4KotlinDsl" }
+adapterdelegates4-kotlin-dsl-viewbinding = { module = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding", version.ref = "adapterdelegates4KotlinDsl" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "ktx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
+androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
+apollo-coroutines-support = { module = "com.apollographql.apollo:apollo-coroutines-support", version.ref = "apolloCoroutinesSupport" }
+apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apolloRuntime" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "dagger" }
+dagger-android-processor = { module = "com.google.dagger:dagger-android-processor", version.ref = "dagger" }
+dagger-android-support = { module = "com.google.dagger:dagger-android-support", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics", version.ref = "firebaseAnalytics" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics", version.ref = "firebaseCrashlytics" }
+floatingsearchview = { module = "com.github.arimorty:floatingsearchview", version.ref = "floatingsearchview" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+junit = { module = "junit:junit", version.ref = "junit" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+photoview = { module = "com.github.chrisbanes:PhotoView", version.ref = "photoview" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
+squareup-leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroidVersion" }
+androidx-coordinatorlayout = { group = "androidx.coordinatorlayout", name = "coordinatorlayout", version.ref = "coordinatorlayout" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }

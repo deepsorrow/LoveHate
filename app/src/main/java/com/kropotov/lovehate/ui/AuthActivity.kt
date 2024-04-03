@@ -1,8 +1,10 @@
 package com.kropotov.lovehate.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.commit
 import com.kropotov.lovehate.R
 import com.kropotov.lovehate.databinding.ActivityAuthBinding
@@ -42,6 +44,8 @@ class AuthActivity : DaggerAppCompatActivity() {
             }
         }
 
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.statusBarColor = Color.TRANSPARENT
         window.adjustSystemBarIconsColor()
     }
 

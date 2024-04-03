@@ -10,6 +10,7 @@ import com.kropotov.lovehate.type.TopicsListType
 
 class TopicsPagingSource(
     private val apolloClient: ApolloClient,
+    private val searchQuery: String,
     private val sortType: TopicType
 ) : PagingSource<Int, TopicListItem>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, TopicListItem> {
@@ -17,7 +18,7 @@ class TopicsPagingSource(
         return try {
             val sortType = TopicsListType.valueOf(sortType.name)
             val response = apolloClient
-                .query(TopicsQueryAdapter.getTopics(sortType, page))
+                .query(TopicsQueryAdapter.getTopics(sortType, searchQuery, page))
                 .execute()
                 .dataAssertNoErrors
                 .topics
@@ -34,10 +35,6 @@ class TopicsPagingSource(
 
     override fun getRefreshKey(state: PagingState<Int, TopicListItem>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
-            // This loads starting from previous page, but since PagingConfig.initialLoadSize spans
-            // multiple pages, the initial load will still load items centered around
-            // anchorPosition. This also prevents needing to immediately launch prepend due to
-            // prefetchDistance.
             state.closestPageToPosition(anchorPosition)?.prevKey
         }
     }

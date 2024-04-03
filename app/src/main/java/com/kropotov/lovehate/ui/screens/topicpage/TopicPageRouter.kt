@@ -1,8 +1,8 @@
 package com.kropotov.lovehate.ui.screens.topicpage
 
 import com.kropotov.lovehate.ui.base.BaseRouter
-import com.kropotov.lovehate.ui.dialogs.NewOpinionDialog
-import com.kropotov.lovehate.ui.screens.feed.fragments.FeedFragment
+import com.kropotov.lovehate.ui.dialogs.newopinion.NewOpinionDialog
+import com.kropotov.lovehate.ui.screens.opinions.fragments.OpinionsHostFragment
 import com.kropotov.lovehate.ui.screens.topicpage.fragments.TopicPageFragment
 import com.kropotov.lovehate.ui.screens.topicpage.fragments.TopicPageFragment.Companion.TOPIC_PAGE_ID
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class TopicPageRouter @Inject constructor(
     }
 
     fun showOpinions() =
-        navigateWithSlideUpTransition(FeedFragment.newInstance(topicId))
+        navigateWithSlideUpTransition(OpinionsHostFragment.newInstance(topicId))
 
     fun showNewPostDialog() {
         NewOpinionDialog

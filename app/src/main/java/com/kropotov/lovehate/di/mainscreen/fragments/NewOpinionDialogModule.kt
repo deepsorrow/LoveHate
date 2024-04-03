@@ -1,6 +1,6 @@
 package com.kropotov.lovehate.di.mainscreen.fragments
 
-import com.kropotov.lovehate.ui.dialogs.NewOpinionDialog
+import com.kropotov.lovehate.ui.dialogs.newopinion.NewOpinionDialog
 import com.kropotov.lovehate.ui.screens.topicpage.fragments.TopicPageFragment
 import dagger.Module
 import dagger.Provides

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.kropotov.lovehate.ui.screens.feed.OpinionListItem" />
+            type="com.kropotov.lovehate.ui.screens.opinions.OpinionListItemViewModel" />
 
     </data>
 

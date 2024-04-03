@@ -2,15 +2,21 @@ package com.kropotov.lovehate.ui.adapters.lists
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kropotov.lovehate.databinding.ListItemOpinionBinding
 import com.kropotov.lovehate.fragment.OpinionListItem as GeneratedOpinionListItem
-import com.kropotov.lovehate.ui.screens.feed.OpinionListItem
-import com.kropotov.lovehate.ui.screens.feed.OpinionsViewModel
+import com.kropotov.lovehate.ui.screens.opinions.OpinionListItemViewModel
+import com.kropotov.lovehate.ui.screens.opinions.OpinionsRouter
+import com.kropotov.lovehate.ui.screens.opinions.OpinionsViewModel
+import com.kropotov.lovehate.ui.utilities.SpaceItemDecoration
+import com.kropotov.lovehate.ui.utilities.plusServerIp
 
 class OpinionsListAdapter(
+    private val router: OpinionsRouter,
     private val opinionsViewModel: OpinionsViewModel
 ) : PagingDataAdapter<GeneratedOpinionListItem, OpinionsListAdapter.ViewHolder>(
     OpinionDiffCallback()
@@ -18,7 +24,7 @@ class OpinionsListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            opinionsViewModel, ListItemOpinionBinding.inflate(
+            ListItemOpinionBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -33,15 +39,23 @@ class OpinionsListAdapter(
         }
     }
 
-    class ViewHolder(
-        private val opinionsViewModel: OpinionsViewModel,
+    inner class ViewHolder(
         private val binding: ListItemOpinionBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: GeneratedOpinionListItem) {
             with(binding) {
-                viewModel =
-                    OpinionListItem(item, opinionsViewModel)
+                viewModel = OpinionListItemViewModel(item, opinionsViewModel)
+
+                if (item.attachmentUrls.isNotEmpty()) {
+                    attachmentsList.apply {
+                        val items = item.attachmentUrls.map { it.plusServerIp() }
+
+                        adapter = OpinionAttachmentsListAdapter(router, items)
+                        addItemDecoration(SpaceItemDecoration(binding.root.context))
+                        setHasFixedSize(true)
+                    }
+                }
                 executePendingBindings()
             }
         }
