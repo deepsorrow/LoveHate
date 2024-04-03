@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.viewpager2)
     implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.adapterdelegates4.kotlin.dsl)
     implementation(libs.adapterdelegates4.kotlin.dsl.viewbinding)
     implementation(libs.apollo.runtime)
