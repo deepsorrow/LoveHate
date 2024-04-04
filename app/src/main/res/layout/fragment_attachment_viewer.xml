@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -18,6 +18,26 @@
         android:focusable="true"
         android:paddingTop="@dimen/toolbar_status_bar_padding">
 
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:transitionName="Full image"
+            app:imageUrl="@{viewModel.imageUrl}"
+            app:thumbnailBitmap="@{viewModel.thumbnail}"
+            tools:src="@drawable/image_dummy" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.title}"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/arrow_back"
+            app:layout_constraintStart_toEndOf="@id/arrow_back"
+            app:layout_constraintTop_toTopOf="@id/arrow_back"
+            tools:layout_editor_absoluteY="40dp"
+            tools:text="Maple syrup cat" />
+
         <TextView
             android:id="@+id/arrow_back"
             style="@style/IconText"
@@ -30,26 +50,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlSymmetry"
             tools:visibility="visible" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.title}"
-            android:textColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="@id/arrow_back"
-            app:layout_constraintBottom_toBottomOf="@id/arrow_back"
-            app:layout_constraintStart_toEndOf="@id/arrow_back"
-            tools:layout_editor_absoluteY="40dp"
-            tools:text="Maple syrup cat" />
-
-        <com.github.chrisbanes.photoview.PhotoView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:imageUrl="@{viewModel.imageUrl}"
-            app:thumbnailBitmap="@{viewModel.thumbnailBitmap}"
-            android:transitionName="Full image"
-            tools:src="@drawable/image_dummy" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

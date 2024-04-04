@@ -11,15 +11,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LoadState
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.kropotov.lovehate.di.app.ViewModelFactory
 import com.kropotov.lovehate.BR
 import com.kropotov.lovehate.R
 import com.kropotov.lovehate.data.InformMessage
 import com.kropotov.lovehate.data.InformType
 import com.kropotov.lovehate.ui.dialogs.ProgressBarDialog
-import com.kropotov.lovehate.ui.utilities.SafeClickListener
 import com.kropotov.lovehate.ui.utilities.extractErrorMessage
-import com.kropotov.lovehate.ui.utilities.showKeyboard
 import dagger.android.support.DaggerFragment
 import java.lang.ref.WeakReference
 import javax.inject.Inject
@@ -43,6 +44,9 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
 
     protected lateinit var binding: BINDING
 
+    private val shimmer: ShimmerFrameLayout? by lazy { requireView().findViewById(R.id.shimmer) }
+    private val shimmerList: ViewGroup? by lazy { requireView().findViewById(R.id.shimmer_list) }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,18 +66,6 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireView().setToolbarArrowBackAction()
-    }
-
-    protected fun subscribeToSearchClicked() {
-        requireView().findViewById<View>(R.id.search_icon)?.let { view ->
-            val action = SafeClickListener {
-                it?.let { view ->
-                    view.requestFocus()
-                    view.showKeyboard()
-                }
-            }
-            view.setOnClickListener(action)
-        }
     }
 
     protected fun LoadState.extractAndShowError() {
@@ -103,6 +95,37 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
                 weakThis.get()?.popBackStack()
             }
         }
+    }
+
+    protected fun PagingDataAdapter<*, *>.registerPagingAdapter() {
+        addLoadStateListener { loadState ->
+            loadState.refresh.extractAndShowError()
+            loadState.append.extractAndShowError()
+            loadState.prepend.extractAndShowError()
+        }
+
+        val noDataStub: TextView? = requireView().findViewById(R.id.no_data_stub)
+        addOnPagesUpdatedListener {
+            hideShimmer()
+
+            noDataStub?.visibility = if (itemCount == 0) View.VISIBLE else View.GONE
+        }
+
+        val list: RecyclerView? = requireView().findViewById(R.id.list)
+        registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                if (positionStart == 0) {
+                    list?.layoutManager?.scrollToPosition(0)
+                }
+            }
+        })
+
+        shimmer?.showShimmer(true)
+    }
+
+    protected fun hideShimmer() {
+        shimmer?.hideShimmer()
+        shimmerList?.visibility = View.GONE
     }
 
     companion object {

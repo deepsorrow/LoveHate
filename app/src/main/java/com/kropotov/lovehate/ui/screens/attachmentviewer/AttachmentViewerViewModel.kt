@@ -8,7 +8,7 @@ import javax.inject.Inject
 class AttachmentViewerViewModel @Inject constructor(
     resourceProvider: ResourceProvider,
     val imageUrl: String?,
-    val thumbnailBitmap: Bitmap?,
+    val thumbnail: Bitmap?,
 ) : BaseViewModel(resourceProvider) {
 
     val title: String = imageUrl?.substringAfterLast("/").orEmpty()

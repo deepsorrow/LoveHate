@@ -7,6 +7,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.kropotov.lovehate.R
+import com.kropotov.lovehate.data.InformMessage
 import com.kropotov.lovehate.data.TopicType
 import com.kropotov.lovehate.databinding.FragmentTopicsBinding
 import com.kropotov.lovehate.databinding.ToolbarBinding
@@ -29,24 +30,19 @@ class TopicsFragment : BaseFragment<TopicsViewModel, FragmentTopicsBinding>(
 
     @Inject
     lateinit var adapter: TopicsListAdapter
+
+    private var currentSearchQuery: String? = null
     private var searchJob: Job? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter.registerPagingAdapter()
         binding.topicsList.apply {
             this.adapter = this@TopicsFragment.adapter
             addItemDecoration(SpaceItemDecoration(context))
         }
         binding.refreshLayout.setOnRefreshListener { adapter.refresh() }
-
-        initShimmerLayout()
-        adapter.addLoadStateListener { loadState ->
-            loadState.refresh.extractAndShowError()
-            loadState.append.extractAndShowError()
-            loadState.prepend.extractAndShowError()
-        }
-
         binding.toolbarLayout.setOnInflateListener { _, inflated ->
             val binding: ToolbarBinding? = DataBindingUtil.bind(inflated)
             binding?.toolbarContract = viewModel.separateToolbar
@@ -68,12 +64,13 @@ class TopicsFragment : BaseFragment<TopicsViewModel, FragmentTopicsBinding>(
         }
     }
 
-    override fun onSnackbarMessageShow() {
-        hideShimmerLayout()
+    override fun onSnackbarMessageShow(message: InformMessage) {
+        hideShimmer()
     }
 
     private fun searchTopics(query: String) {
-        viewModel.currentSearchQuery == query && return
+        currentSearchQuery == query && return
+        currentSearchQuery = query
 
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
@@ -82,21 +79,6 @@ class TopicsFragment : BaseFragment<TopicsViewModel, FragmentTopicsBinding>(
                 adapter.submitData(it)
             }
         }
-    }
-
-    private fun initShimmerLayout() {
-        binding.shimmerLayout.showShimmer(true)
-        adapter.addOnPagesUpdatedListener { hideShimmerLayout() }
-        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                binding.topicsList.layoutManager?.scrollToPosition(0)
-            }
-        })
-    }
-
-    private fun hideShimmerLayout() {
-        binding.shimmerLayout.hideShimmer()
-        binding.placeholderList.root.visibility = View.GONE
     }
 
     companion object {

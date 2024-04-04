@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="kotlin.jvm.functions.Function0" />
+
         <import type="kotlin.Unit" />
 
         <variable
@@ -21,8 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/small_offset"
-        app:onClick="@{clickListener}"
-        app:cardCornerRadius="@dimen/default_corner_radius">
+        app:cardCornerRadius="@dimen/default_corner_radius"
+        app:onClick="@{clickListener}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -36,7 +38,9 @@
                 style="@style/ThumbnailImageStyle"
                 android:layout_width="@dimen/topic_list_item_image_size"
                 android:layout_height="@dimen/topic_list_item_image_size"
+                android:scaleType="centerCrop"
                 android:src="@drawable/image_dummy"
+                app:imageUrl="@{viewModel.thumbnailUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/RoundedImageView"
@@ -83,11 +87,11 @@
                 android:id="@+id/feeling_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:opinionPercent="@{viewModel.percent}"
                 app:isLove="@{viewModel.opinionType}"
                 app:isLoveTextColor="@{viewModel.opinionType}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:opinionPercent="@{viewModel.percent}"
                 tools:text="60% love"
                 tools:textColor="?love_color" />
 

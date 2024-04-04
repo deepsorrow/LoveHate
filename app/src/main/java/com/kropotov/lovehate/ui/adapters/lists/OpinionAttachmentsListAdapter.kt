@@ -46,10 +46,9 @@ class OpinionAttachmentsListAdapter(
         itemView: View,
         private val router: OpinionsRouter
     ) : RecyclerView.ViewHolder(itemView) {
+        private val imageView: ImageView = itemView.findViewById(R.id.thumbnail)
 
         fun bind(url: String) {
-            val imageView = itemView.findViewById<ImageView>(R.id.thumbnail)
-
             Glide.with(imageView)
                 .asBitmap()
                 .load(url)

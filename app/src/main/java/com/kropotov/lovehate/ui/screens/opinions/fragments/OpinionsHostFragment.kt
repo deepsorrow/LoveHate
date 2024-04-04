@@ -10,6 +10,7 @@ import com.kropotov.lovehate.ui.adapters.viewpagers.OpinionsViewPagerAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.utilities.OpinionsTabLayoutInitializer
 import com.kropotov.lovehate.ui.screens.opinions.OpinionsHostViewModel
+import com.kropotov.lovehate.ui.utilities.reduceDragSensitivity
 import com.kropotov.lovehate.ui.utilities.withArgs
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
@@ -27,6 +28,7 @@ class OpinionsHostFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.opinionsPagerContainer.apply {
             adapter = OpinionsViewPagerAdapter(this@OpinionsHostFragment, viewModel.topicId)
+            reduceDragSensitivity()
 
             initTabLayout(
                 toolbarContract = viewModel.toolbar,
@@ -36,7 +38,6 @@ class OpinionsHostFragment :
             )
         }
 
-        subscribeToSearchClicked()
         startDispatchingSearchQuery()
     }
 

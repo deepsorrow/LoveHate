@@ -47,16 +47,12 @@ class OpinionsListAdapter(
             with(binding) {
                 viewModel = OpinionListItemViewModel(item, opinionsViewModel)
 
-                if (item.attachmentUrls.isNotEmpty()) {
-                    attachmentsList.apply {
-                        val items = item.attachmentUrls.map { it.plusServerIp() }
+                attachmentsList.apply {
+                    val items = item.attachmentUrls.map { it.plusServerIp() }
 
-                        adapter = OpinionAttachmentsListAdapter(router, items)
-                        addItemDecoration(SpaceItemDecoration(binding.root.context))
-                        setHasFixedSize(true)
-                    }
+                    adapter = OpinionAttachmentsListAdapter(router, items)
+                    setHasFixedSize(true)
                 }
-                executePendingBindings()
             }
         }
     }

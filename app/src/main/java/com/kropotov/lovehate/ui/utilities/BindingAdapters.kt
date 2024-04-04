@@ -5,8 +5,6 @@ import android.graphics.Bitmap
 import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
-import android.view.MotionEvent.ACTION_DOWN
-import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -14,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.annotation.StringRes
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -22,10 +21,6 @@ import com.kropotov.lovehate.R
 import com.google.android.material.R as RMaterial
 import com.kropotov.lovehate.type.OpinionType
 import com.kropotov.lovehate.ui.views.SavingStateMotionLayout
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 @BindingAdapter("textRes")
@@ -161,9 +156,14 @@ internal fun TextView.formatAuthorOpinion(opinionSortType: OpinionType?) {
 
 @BindingAdapter("imageUrl", "thumbnailBitmap", requireAll = false)
 fun ImageView.setImageUrl(url: String?, thumbnailBitmap: Bitmap?) {
+    val placeholder = thumbnailBitmap?.toDrawable(resources) ?: ResourcesCompat.getDrawable(
+        resources,
+        R.drawable.no_image_placeholder,
+        null
+    )
     Glide.with(this)
         .load(url)
-        .placeholder(thumbnailBitmap?.toDrawable(resources))
+        .placeholder(placeholder)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(this)
 }

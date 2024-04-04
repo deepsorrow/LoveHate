@@ -5,8 +5,8 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import com.kropotov.lovehate.R
+import com.kropotov.lovehate.data.InformMessage
 import com.kropotov.lovehate.data.OpinionType
 import com.kropotov.lovehate.databinding.FragmentOpinionsBinding
 import com.kropotov.lovehate.databinding.ToolbarBinding
@@ -33,29 +33,25 @@ class OpinionsFragment : BaseFragment<OpinionsViewModel, FragmentOpinionsBinding
     lateinit var router: OpinionsRouter
 
     private val adapter by lazy { OpinionsListAdapter(router, viewModel) }
+
+    private var currentSearchQuery: String? = null
     private var searchJob: Job? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.opinionsList.apply {
+        adapter.registerPagingAdapter()
+        binding.list.apply {
             adapter = this@OpinionsFragment.adapter
             addItemDecoration(SpaceItemDecoration(context))
         }
         binding.refreshLayout.setOnRefreshListener { adapter.refresh() }
-
-        initShimmerLayout()
-        adapter.addLoadStateListener { loadState ->
-            loadState.refresh.extractAndShowError()
-            loadState.append.extractAndShowError()
-            loadState.prepend.extractAndShowError()
-        }
-
         binding.toolbarLayout.setOnInflateListener { _, inflated ->
             val binding: ToolbarBinding? = DataBindingUtil.bind(inflated)
             binding?.toolbarContract = viewModel.separateToolbar
             binding?.root?.setToolbarArrowBackAction()
         }
+
         if (viewModel.separateToolbar.toolbarVisibility.get()) {
             binding.toolbarLayout.viewStub?.inflate()
         }
@@ -70,15 +66,15 @@ class OpinionsFragment : BaseFragment<OpinionsViewModel, FragmentOpinionsBinding
             val query = bundle.getString(OPINIONS_SEARCH_QUERY_KEY)
             searchOpinions(query.orEmpty())
         }
-
     }
 
-    override fun onSnackbarMessageShow() {
-        hideShimmerLayout()
+    override fun onSnackbarMessageShow(message: InformMessage) {
+        hideShimmer()
     }
 
     private fun searchOpinions(query: String) {
-        viewModel.currentSearchQuery == query && return
+        currentSearchQuery == query && return
+        currentSearchQuery = query
 
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
@@ -87,21 +83,6 @@ class OpinionsFragment : BaseFragment<OpinionsViewModel, FragmentOpinionsBinding
                 adapter.submitData(it)
             }
         }
-    }
-
-    private fun initShimmerLayout() {
-        binding.shimmerLayout.showShimmer(true)
-        adapter.addOnPagesUpdatedListener { hideShimmerLayout() }
-        adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
-            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                binding.opinionsList.layoutManager?.scrollToPosition(0)
-            }
-        })
-    }
-
-    private fun hideShimmerLayout() {
-        binding.shimmerLayout.hideShimmer()
-        binding.placeholderList.root.visibility = View.GONE
     }
 
     companion object {

@@ -12,17 +12,10 @@ class OpinionsRouter @Inject constructor(
     val fragment: OpinionsFragment
 ) : BaseRouter(fragment.parentFragmentManager) {
 
-    fun navigateToAttachmentViewer(thumbnailBitmap: Bitmap, url: String) {
-        val viewerFragment = AttachmentViewerFragment.newInstance(thumbnailBitmap, url)
-        fragment.requireActivity().supportFragmentManager.commit {
-            setCustomAnimations(
-                R.anim.slide_up,
-                R.anim.slide_down,
-                0,
-                R.anim.slide_down
-            )
-            add(R.id.main_overlay_container, viewerFragment)
-            addToBackStack(null)
-        }
-    }
+    fun navigateToAttachmentViewer(thumbnailBitmap: Bitmap, url: String) =
+        navigateWithSlideUpTransition(
+            fragment = AttachmentViewerFragment.newInstance(thumbnailBitmap, url),
+            usedFragmentManager = fragment.requireActivity().supportFragmentManager,
+            container = R.id.main_overlay_container
+        )
 }

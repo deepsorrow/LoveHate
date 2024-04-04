@@ -5,6 +5,12 @@
         <item name="android:textSize">@dimen/icon_text_size</item>
     </style>
 
+    <style name="RoundedBottomImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">@dimen/default_corner_radius</item>
+        <item name="cornerSizeBottomRight">@dimen/default_corner_radius</item>
+    </style>
+
     <style name="RoundedImageView">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">20%</item>
@@ -34,5 +40,16 @@
 
     <style name="ErrorSnackbarTextViewStyle" parent="Widget.MaterialComponents.Snackbar.TextView">
         <item name="android:textColor">?colorOnPrimary</item>
+    </style>
+
+    <style name="ImagesCarouselCardStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/CarouselShapeAppearanceOverlay</item>
+    </style>
+
+
+    <style name="CarouselShapeAppearanceOverlay" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomRight">@dimen/default_corner_radius</item>
+        <item name="cornerSizeBottomLeft">@dimen/default_corner_radius</item>
     </style>
 </resources>

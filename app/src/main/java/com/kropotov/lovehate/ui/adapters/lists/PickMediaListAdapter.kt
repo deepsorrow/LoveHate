@@ -37,11 +37,12 @@ class PickMediaListAdapter(
         itemView: View,
         private val onClickAction: (MediaListItem) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
+        private val imageView = itemView.findViewById<ShapeableImageView>(R.id.thumbnail)
 
         fun bind(item: MediaListItem, position: Int) {
             val thumbnail = itemView.context.getBitmap(item)
 
-            itemView.findViewById<ShapeableImageView>(R.id.thumbnail).apply {
+            imageView.apply {
                 setImageBitmap(thumbnail)
 
                 val cornerRadius = resources.getDimension(R.dimen.default_corner_radius)

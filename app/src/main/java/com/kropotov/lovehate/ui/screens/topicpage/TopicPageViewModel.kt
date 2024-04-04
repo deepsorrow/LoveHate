@@ -1,5 +1,6 @@
 package com.kropotov.lovehate.ui.screens.topicpage
 
+import android.graphics.Bitmap
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.viewModelScope
@@ -12,9 +13,12 @@ import com.kropotov.lovehate.ui.base.BaseViewModel
 import com.kropotov.lovehate.ui.utilities.Favorite
 import com.kropotov.lovehate.ui.utilities.ResourceProvider
 import com.kropotov.lovehate.data.items.TopicListItem
+import com.kropotov.lovehate.ui.utilities.plusServerIp
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -47,6 +51,9 @@ class TopicPageViewModel @Inject constructor(
     private val _similarTopics: MutableStateFlow<List<TopicListItem>> = MutableStateFlow(listOf())
     val similarTopics: StateFlow<List<TopicListItem>> = _similarTopics
 
+    private val _carouselImages: MutableSharedFlow<List<String>> = MutableStateFlow(listOf())
+    val carouselImages: SharedFlow<List<String>> = _carouselImages
+
     init {
         loadTopicPage()
         loadSimilarTopics()
@@ -70,6 +77,8 @@ class TopicPageViewModel @Inject constructor(
                     R.string.icon_heart_filled
                 }
                 heartIcon.set(icon)
+
+                _carouselImages.emit(it.attachmentsUrls.map { url -> url.plusServerIp() })
             }
         }
     }

@@ -23,13 +23,6 @@
             tools:ignore="DiscouragedApi,LockedOrientationActivity" />
 
         <activity
-            android:name=".ui.screens.attachmentviewer.AttachmentViewerActivity2"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AttachmentViewerActivityTheme"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity"/>
-
-        <activity
             android:name=".ui.AuthActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize"

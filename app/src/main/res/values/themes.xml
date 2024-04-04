@@ -79,7 +79,8 @@
         <item name="hate_color">@color/dark_red_900</item>
         <item name="hate_container_color">@color/dark_red_700</item>
 
-        <item name="border_color">@color/dark_blue_590</item>
+        <item name="placeholder_color">#737373</item>
+        <item name="border_color">@color/dark_grey_350</item>
 
         <item name="android:navigationBarColor">?background_color</item>
         <item name="chip_background_color">#4F5153</item>

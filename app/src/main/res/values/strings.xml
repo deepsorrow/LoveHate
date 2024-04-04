@@ -125,10 +125,17 @@
     <string name="icon_dislike" translatable="false">&#xe926;</string>
     <string name="icon_like" translatable="false">&#xe927;</string>
     <string name="icon_upload" translatable="false">&#xe928;</string>
-    <string name="topic_was_created_success">Topic was successfully created!</string>
     <string name="users_avatar">User\'s avatar</string>
     <string name="search">Search</string>
     <string name="your_opinion">Your opinion</string>
+    <string name="at_least_1_photo">Please attach at least 1 photo for new topic</string>
     <string name="at_least_3_characters_is_required">Topic title must contain at least 3 characters</string>
-    <string name="at_least_20_characters_is_required">Opinion must contain at least 20 characters</string>
+    <string name="at_least_20_characters_is_required">Opinion must contain at least 15 characters</string>
+    <string name="no_data_here">No data here</string>
+    <string name="no_opinions_was_found">No opinions were found</string>
+    <string name="no_topics_was_found">No topics were found</string>
+    <string name="no_love_opinions_here_yet">No love opinions here yet</string>
+    <string name="no_neutral_opinions_here_yet">No indifferent opinions here yet</string>
+    <string name="no_hate_opinions_here_yet">No hate opinions here yet</string>
+
 </resources>

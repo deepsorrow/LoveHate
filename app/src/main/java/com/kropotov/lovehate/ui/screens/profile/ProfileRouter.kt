@@ -28,10 +28,10 @@ class ProfileRouter @Inject constructor(
 ) : BaseRouter(fragment.childFragmentManager) {
 
     fun navigateToMyTopics() =
-        navigateWithSlideUpTransition(TopicsFragment.newInstance(TopicType.BY_CURRENT_USER))
+        navigateWithSlideRightTransition(TopicsFragment.newInstance(TopicType.BY_CURRENT_USER))
 
     fun navigateToMyOpinions() =
-        navigateWithSlideUpTransition(OpinionsFragment.newInstance(OpinionsListType.BY_CURRENT_USER))
+        navigateWithSlideRightTransition(OpinionsFragment.newInstance(OpinionsListType.BY_CURRENT_USER))
 
     fun navigateToMyComments() {
         TODO("Comments feature")
@@ -42,7 +42,7 @@ class ProfileRouter @Inject constructor(
     }
 
     fun navigateToFavorites() =
-        navigateWithSlideUpTransition(FavoritesFragment.newInstance())
+        navigateWithSlideRightTransition(FavoritesFragment.newInstance())
 
     fun showFeedbackDialog() {
         SendFeedbackDialog().show(fragment.parentFragmentManager, null)
@@ -99,7 +99,10 @@ class ProfileRouter @Inject constructor(
 
     private fun AppTheme.onAppThemeClicked() = run {
         sharedPrefs.savePreferredTheme(this)
-        fragment.requireActivity().recreate()
+        fragment.requireActivity().run {
+            finish()
+            startActivity(intent) // TODO: Migrate to .recreate() / Circular theme reveal
+        }
     }
 
     private companion object {

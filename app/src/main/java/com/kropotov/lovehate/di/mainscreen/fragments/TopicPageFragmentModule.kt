@@ -11,5 +11,5 @@ class TopicPageFragmentModule {
 
     @Provides
     @Named(TOPIC_PAGE_ID)
-    fun provideForPageTopicId(fragment: TopicPageFragment) = fragment.arguments?.getInt(TOPIC_PAGE_ID) ?: 0
+    fun provideTopicId(fragment: TopicPageFragment) = fragment.arguments?.getInt(TOPIC_PAGE_ID) ?: 0
 }

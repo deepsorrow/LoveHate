@@ -38,7 +38,8 @@ class NewTopicDialog : BaseBottomSheetDialogFragment<NewTopicViewModel, DialogNe
         binding.attachmentsList.adapter = adapter
         lifecycleScope.launch {
             viewModel.navigateToNewTopic.collect { id ->
-                router.navigateToNewTopic(id)
+                router.navigateToTopicPage(id)
+                dismiss()
             }
         }
 

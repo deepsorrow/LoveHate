@@ -38,8 +38,8 @@ class NewOpinionViewModel @Inject constructor(
     private val _opinionState = MutableStateFlow(OpinionType.LOVE)
     val opinionState: StateFlow<OpinionType> = _opinionState
 
-    private val _dismissDialog = MutableSharedFlow<Unit>()
-    val dismissDialog: SharedFlow<Unit> = _dismissDialog
+    private val _navigateToNewOpinion = MutableSharedFlow<Unit>()
+    val navigateToNewOpinion: SharedFlow<Unit> = _navigateToNewOpinion
 
     override fun onLoveClicked() {
         viewModelScope.launch {
@@ -65,14 +65,21 @@ class NewOpinionViewModel @Inject constructor(
                 emitMessage(R.string.at_least_20_characters_is_required, InformType.ERROR)
                 return@launch
             }
-
             _isLoading.emit(true)
 
             val opinionId = sendOpinion()
-            sendAttachments(opinionId)
+            val response = sendAttachments(opinionId)
 
             _isLoading.emit(false)
-            _dismissDialog.emit(Unit)
+            if (response.isSuccessful) {
+                _navigateToNewOpinion.emit(Unit)
+            } else {
+                emitMessage(
+                    R.string.unknown_error,
+                    InformType.ERROR,
+                    "code ${response.code()}, ${response.message()}"
+                )
+            }
         }
     }
 
@@ -85,15 +92,14 @@ class NewOpinionViewModel @Inject constructor(
             )
         ).execute().dataAssertNoErrors.publishOpinion!!.opinion.id
 
-    private fun sendAttachments(id: Int) {
+    private fun sendAttachments(id: Int) =
         service.uploadOpinionAttachments(
             opinionId = id.toString().toRequestBody("text/plain".toMediaTypeOrNull()),
             files = mediaPaths.toMultiparts()
         ).execute()
-    }
 
     companion object {
         const val MAX_MEDIA_COUNT = 4
-        const val MINIMUM_OPINION_LENGTH = 25
+        const val MINIMUM_OPINION_LENGTH = 15
     }
 }

@@ -27,6 +27,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.WindowCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.apollographql.apollo3.exception.ApolloException
 import com.apollographql.apollo3.exception.ApolloGraphQLException
 import com.google.android.material.color.MaterialColors
@@ -137,6 +139,7 @@ fun View.hideKeyboard() {
 tailrec fun Context.getActivity(): AppCompatActivity? = this as? AppCompatActivity
     ?: (this as? ContextWrapper)?.baseContext?.getActivity()
 
+@Suppress("DEPRECATION")
 fun Context.getBitmap(item: MediaListItem): Bitmap {
     val thumbnailSize = resources.getInteger(R.integer.thumbnail_size)
     return if (SDK_INT >= Build.VERSION_CODES.Q) {
@@ -154,5 +157,16 @@ fun Context.getBitmap(item: MediaListItem): Bitmap {
             null
         )
     }
+}
+
+fun ViewPager2.reduceDragSensitivity(f: Int = 6) {
+    val recyclerViewField = ViewPager2::class.java.getDeclaredField("mRecyclerView")
+    recyclerViewField.isAccessible = true
+    val recyclerView = recyclerViewField.get(this) as RecyclerView
+
+    val touchSlopField = RecyclerView::class.java.getDeclaredField("mTouchSlop")
+    touchSlopField.isAccessible = true
+    val touchSlop = touchSlopField.get(recyclerView) as Int
+    touchSlopField.set(recyclerView, touchSlop*f) // "7" was obtained experimentally
 }
 

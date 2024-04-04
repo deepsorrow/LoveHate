@@ -28,6 +28,8 @@ abstract class BaseViewModel(
     private val _informMessageStream = MutableSharedFlow<InformMessage>()
     val informMessageStream: SharedFlow<InformMessage> = _informMessageStream
 
+    open val noDataTextRes: Int = R.string.no_data_here
+
     val defaultExceptionHandler get() = CoroutineExceptionHandler { _, exception ->
         viewModelScope.launch {
             emitMessage(
@@ -41,5 +43,8 @@ abstract class BaseViewModel(
     suspend fun emitMessage(@StringRes stringRes: Int, informType: InformType, vararg args: String) {
         val text = resourceProvider.getString(stringRes, *args)
         _informMessageStream.emit(InformMessage(informType, text))
+        if (informType == InformType.ERROR) {
+            _isLoading.emit(false)
+        }
     }
 }

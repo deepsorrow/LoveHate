@@ -23,7 +23,7 @@ interface BackendMainService {
     fun uploadOpinionAttachments(
         @Part("id") opinionId: RequestBody,
         @Part files: List<MultipartBody.Part>
-    ): Call<String>
+    ): Call<Unit>
 
     companion object {
         fun createApolloClient(sharedPrefs: SharedPreferencesHelper): ApolloClient {

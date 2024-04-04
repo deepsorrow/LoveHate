@@ -89,6 +89,7 @@ dependencies {
     implementation(libs.dagger)
     implementation(libs.dagger.android)
     implementation(libs.dagger.android.support)
+    implementation(libs.scrollingpagerindicator)
     implementation(libs.glide)
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)

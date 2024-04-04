@@ -10,45 +10,66 @@
             type="com.kropotov.lovehate.ui.screens.opinions.OpinionsViewModel" />
 
     </data>
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:backgroundColorByAttr="@{viewModel.backgroundColor}">
+        android:layout_height="match_parent">
 
-        <ViewStub
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/no_data_stub"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout="@layout/toolbar" />
+            android:gravity="center"
+            android:textColor="?unaccented_light_text_color"
+            android:textSize="@dimen/profile_text_size"
+            android:visibility="gone"
+            app:drawableTopCompat="@drawable/icon_coronavirus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textRes="@{viewModel.noDataTextRes}"
+            tools:text="@string/no_data_here"
+            tools:visibility="visible" />
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/refresh_layout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:backgroundColorByAttr="@{viewModel.backgroundColor}">
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_layout"
+            <ViewStub
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout="@layout/toolbar" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refresh_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <include
-                    android:id="@+id/placeholder_list"
-                    layout="@layout/placeholder_opinions_list"
-                    tools:visibility="gone"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/opinions_list"
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/list_item_opinion"
-                    app:layoutManager="LinearLayoutManager" />
+                    android:layout_height="match_parent">
 
-            </com.facebook.shimmer.ShimmerFrameLayout>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </LinearLayout>
-</FrameLayout>
+                    <include
+                        android:id="@+id/shimmer_list"
+                        layout="@layout/placeholder_opinions_list"
+                        tools:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:paddingBottom="@dimen/tiny_offset"
+                        app:layoutManager="LinearLayoutManager"
+                        tools:listitem="@layout/list_item_opinion" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

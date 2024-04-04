@@ -9,6 +9,7 @@ import com.kropotov.lovehate.R
 import com.kropotov.lovehate.databinding.FragmentFavoritesBinding
 import com.kropotov.lovehate.ui.adapters.viewpagers.FavoritesViewPagerAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
+import com.kropotov.lovehate.ui.utilities.reduceDragSensitivity
 
 class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBinding>(
     R.layout.fragment_favorites
@@ -19,6 +20,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         super.onViewCreated(view, savedInstanceState)
         binding.favoritesPagerContainer.apply {
             adapter = FavoritesViewPagerAdapter(this@FavoritesFragment)
+            reduceDragSensitivity()
 
             TabLayoutMediator(binding.favoritesTabLayout, this) { tab, position ->
                 val tabView = LayoutInflater.from(requireContext()).inflate(

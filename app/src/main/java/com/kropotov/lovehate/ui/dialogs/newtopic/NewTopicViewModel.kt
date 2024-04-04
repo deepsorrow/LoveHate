@@ -66,8 +66,10 @@ class NewTopicViewModel @Inject constructor(
             } else if (opinion.get()!!.length < NewOpinionViewModel.MINIMUM_OPINION_LENGTH) {
                 emitMessage(R.string.at_least_20_characters_is_required, InformType.ERROR)
                 return@launch
+            } else if (mediaPaths.none { !it.isEmpty }) {
+                emitMessage(R.string.at_least_1_photo, InformType.ERROR)
+                return@launch
             }
-
             _isLoading.emit(true)
 
             withContext(Dispatchers.IO) {
@@ -77,23 +79,29 @@ class NewTopicViewModel @Inject constructor(
                     comment = opinion.get().orEmpty()
                 ).let {
                     val (topicId, opinionId) = it
-                    sendAttachments(opinionId)
 
-                    emitMessage(R.string.topic_was_created_success, InformType.SUCCESS)
-                    _navigateToNewTopic.emit(topicId)
-
+                    val response = sendAttachments(opinionId)
                     _isLoading.emit(false)
+
+                    if (response.isSuccessful) {
+                        _navigateToNewTopic.emit(topicId)
+                    } else {
+                        emitMessage(
+                            R.string.unknown_error,
+                            InformType.ERROR,
+                            "code ${response.code()}, ${response.message()}"
+                        )
+                    }
                 }
             }
         }
     }
 
-    private fun sendAttachments(id: Int) {
+    private fun sendAttachments(id: Int) =
         service.uploadOpinionAttachments(
             opinionId = id.toString().toRequestBody("text/plain".toMediaTypeOrNull()),
             files = mediaPaths.toMultiparts()
         ).execute()
-    }
 
     companion object {
         const val MINIMUM_TOPIC_LENGTH = 3

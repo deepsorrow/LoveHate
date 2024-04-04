@@ -3,9 +3,10 @@ package com.kropotov.lovehate.ui.screens.topicpage.fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.TransitionInflater
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import com.kropotov.lovehate.R
@@ -17,6 +18,8 @@ import com.kropotov.lovehate.ui.utilities.withArgs
 import com.kropotov.lovehate.ui.screens.topicpage.TopicPageRouter
 import com.kropotov.lovehate.ui.screens.topicpage.TopicPageViewModel
 import com.kropotov.lovehate.data.items.TopicListItem
+import com.kropotov.lovehate.ui.adapters.lists.ImagesCarouselAdapter
+import com.kropotov.lovehate.ui.utilities.plusServerIp
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,24 +31,30 @@ class TopicPageFragment @Inject constructor() :
     @Inject
     lateinit var router: TopicPageRouter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(requireContext())
-            .inflateTransition(R.transition.shared_image_2)
-    }
+    private val firstImageUrl by lazy { arguments?.getString(IMAGE_URL_KEY).orEmpty() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ListDelegationAdapter(adapterDelegate())
+        val similarTopicsAdapter = ListDelegationAdapter(adapterDelegate())
         binding.similarTopicsList.apply {
-            this.adapter = adapter
+            this.adapter = similarTopicsAdapter
             addItemDecoration(SpaceItemDecoration(context))
             setHasFixedSize(true)
         }
+
+        val imagesCarouselAdapter = ImagesCarouselAdapter(listOf(firstImageUrl))
+        binding.carouselList.apply {
+            this.adapter = imagesCarouselAdapter
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            binding.carouselIndicator.attachToRecyclerView(this)
+            PagerSnapHelper().attachToRecyclerView(this)
+        }
         binding.router = router
 
-        subscribeToSimilarTopics(adapter)
+        subscribeToSimilarTopics(similarTopicsAdapter)
+        subscribeToCarouselImages(imagesCarouselAdapter)
+        subscribeToNewOpinionCreated()
     }
 
     @SuppressLint("NotifyDataSetChanged") // data loads only once
@@ -58,6 +67,22 @@ class TopicPageFragment @Inject constructor() :
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged") // data loads only once
+    private fun subscribeToCarouselImages(adapter: ImagesCarouselAdapter) {
+        lifecycleScope.launch {
+            viewModel.carouselImages.collect {
+                adapter.images = it
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
+    private fun subscribeToNewOpinionCreated() {
+        childFragmentManager.setFragmentResultListener(NAVIGATE_TO_OPINIONS_EVENT, this) { _, _ ->
+            router.showOpinions()
+        }
+    }
+
     private fun adapterDelegate() =
         adapterDelegateViewBinding<TopicListItem, TopicListItem, ListItemTopicBinding>(
             { layoutInflater, parent ->
@@ -67,7 +92,7 @@ class TopicPageFragment @Inject constructor() :
             bind {
                 binding.viewModel = item
                 binding.clickListener = {
-                    router.navigateToNewTopic(item.id)
+                    router.navigateToSimilarTopic(item.id, item.thumbnailUrl.plusServerIp())
                 }
             }
         }
@@ -75,8 +100,12 @@ class TopicPageFragment @Inject constructor() :
     companion object {
 
         const val TOPIC_PAGE_ID = "arg_topic_page_id"
-        fun newInstance(id: Int) = TopicPageFragment().withArgs {
-            putInt(TOPIC_PAGE_ID, id)
-        }
+        const val NAVIGATE_TO_OPINIONS_EVENT = "navigate_to_opinions_event"
+        const val IMAGE_URL_KEY = "image_url_key"
+        fun newInstance(id: Int, thumbnailUrl: String? = null) =
+            TopicPageFragment().withArgs {
+                putInt(TOPIC_PAGE_ID, id)
+                thumbnailUrl?.let { putString(IMAGE_URL_KEY, thumbnailUrl) }
+            }
     }
 }

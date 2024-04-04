@@ -13,21 +13,31 @@ import kotlinx.coroutines.launch
 interface MessageInformer {
 
     fun Fragment.showSnackbarMessage(message: InformMessage) {
-        Snackbar.make(requireView(), message.text, ERROR_SNACKBAR_DISMISS_TIMEOUT).apply {
-            setTextMaxLines(ERROR_SNACKBAR_MAX_LINES)
-            if (this@showSnackbarMessage !is DialogFragment) {
-                anchorView = requireActivity().findViewById(R.id.bottom_bar)
-            }
+        val isDialog = this@showSnackbarMessage is DialogFragment
+        if (isDialog) {
+            (this as DialogFragment).dialog?.window?.decorView
+        } else {
+            requireView()
+        }?.let { view ->
+            Snackbar.make(view, message.text, ERROR_SNACKBAR_DISMISS_TIMEOUT).apply {
+                setTextMaxLines(ERROR_SNACKBAR_MAX_LINES)
+                anchorView = if (isDialog) {
+                    requireView().findViewById(R.id.button)
+                } else {
+                    requireActivity().findViewById(R.id.bottom_bar)
+                }
 
-            val color = if (message.type == InformType.SUCCESS) {
-                context.getColorAttr(R.attr.love_container_color)
-            } else {
-                context.getColorAttr(R.attr.hate_container_color)
+                val color = if (message.type == InformType.SUCCESS) {
+                    context.getColorAttr(R.attr.love_container_color)
+                } else {
+                    context.getColorAttr(R.attr.hate_container_color)
+                }
+                setBackgroundTint(color)
+                show()
+                onSnackbarMessageShow(message)
             }
-            setBackgroundTint(color)
-            show()
-            onSnackbarMessageShow()
         }
+
     }
 
     fun <T: BaseViewModel> Fragment.initMessageInformer(viewModel: T) {
@@ -38,7 +48,7 @@ interface MessageInformer {
         }
     }
 
-    fun onSnackbarMessageShow() {
+    fun onSnackbarMessageShow(message: InformMessage) {
 
     }
 

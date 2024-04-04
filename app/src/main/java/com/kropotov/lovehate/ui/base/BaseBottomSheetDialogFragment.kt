@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kropotov.lovehate.BR
 import com.kropotov.lovehate.R
+import com.kropotov.lovehate.data.InformMessage
+import com.kropotov.lovehate.data.InformType
 import com.kropotov.lovehate.di.app.ViewModelFactory
 import com.kropotov.lovehate.ui.dialogs.ProgressBarDialog
 import dagger.android.AndroidInjector

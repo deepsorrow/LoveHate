@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,17 +11,35 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?union_background_color"
-        android:orientation="vertical">
+        android:background="?union_background_color">
+
+        <TextView
+            android:id="@+id/no_data_stub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="?unaccented_light_text_color"
+            android:textSize="@dimen/profile_text_size"
+            android:visibility="gone"
+            app:drawableTopCompat="@drawable/icon_coronavirus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textRes="@{viewModel.noDataTextRes}"
+            tools:text="@string/no_data_here"
+            tools:visibility="visible" />
 
         <ViewStub
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout="@layout/toolbar" />
+            android:layout="@layout/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
@@ -28,21 +47,24 @@
             android:layout_height="match_parent">
 
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_layout"
+                android:id="@+id/shimmer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <include
-                    android:id="@+id/placeholder_list"
+                    android:id="@+id/shimmer_list"
                     layout="@layout/placeholder_topics_list" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/topics_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layoutManager="LinearLayoutManager" />
+                    android:clipToPadding="false"
+                    android:paddingBottom="@dimen/tiny_offset"
+                    app:layoutManager="LinearLayoutManager"
+                    tools:listitem="@layout/list_item_topic" />
 
             </com.facebook.shimmer.ShimmerFrameLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

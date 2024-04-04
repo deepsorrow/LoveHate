@@ -1,5 +1,7 @@
 package com.kropotov.lovehate.ui.screens.topicpage
 
+import androidx.fragment.app.commit
+import com.kropotov.lovehate.R
 import com.kropotov.lovehate.ui.base.BaseRouter
 import com.kropotov.lovehate.ui.dialogs.newopinion.NewOpinionDialog
 import com.kropotov.lovehate.ui.screens.opinions.fragments.OpinionsHostFragment
@@ -18,11 +20,15 @@ class TopicPageRouter @Inject constructor(
     }
 
     fun showOpinions() =
-        navigateWithSlideUpTransition(OpinionsHostFragment.newInstance(topicId))
+        navigateWithSlideRightTransition(OpinionsHostFragment.newInstance(topicId))
 
     fun showNewPostDialog() {
         NewOpinionDialog
             .newInstance(topicId)
             .show(fragment.childFragmentManager, fragment::class.simpleName)
     }
+
+    fun navigateToSimilarTopic(topicId: Int, thumbnailUrl: String) =
+        navigateWithSlideUpTransition(TopicPageFragment.newInstance(topicId, thumbnailUrl))
+
 }

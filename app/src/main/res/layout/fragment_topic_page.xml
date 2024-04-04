@@ -39,16 +39,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/image"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/carousel_list"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/topic_image_preview_height"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/image_dummy"
-                        android:transitionName="Page image"
+                        android:orientation="horizontal"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:shapeAppearance="@style/TopicImagePreviewStyle" />
+                        tools:background="#C1C1C1"
+                        tools:listitem="@layout/list_item_carousel_image" />
 
                     <TextView
                         android:id="@+id/back_button"
@@ -77,16 +76,19 @@
                         app:textRes="@{viewModel.favoriteIcon}"
                         tools:text="@string/icon_favorite" />
 
-                    <ImageView
+                    <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
                         android:id="@+id/carousel_indicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/medium_offset"
-                        android:contentDescription="@string/carousel_indicator_hint"
-                        android:src="@drawable/carousel_indicator"
-                        app:layout_constraintEnd_toEndOf="@id/image"
-                        app:layout_constraintStart_toStartOf="@id/image"
-                        app:layout_constraintTop_toBottomOf="@id/image" />
+                        app:layout_constraintEnd_toEndOf="@id/carousel_list"
+                        app:layout_constraintStart_toStartOf="@id/carousel_list"
+                        app:layout_constraintTop_toBottomOf="@id/carousel_list"
+                        app:spi_dotColor="?unaccented_light_text_color"
+                        app:spi_dotSelectedColor="?unaccented_text_color"
+                        app:spi_dotSize="10dp"
+                        app:spi_dotSpacing="10dp"
+                        app:spi_visibleDotCount="7" />
 
                     <TextView
                         android:id="@+id/title"
@@ -108,11 +110,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/medium"
-                        app:opinionPercent="@{viewModel.feelingPercent}"
                         app:isLove="@{viewModel.opinionType}"
                         app:isLoveTextColor="@{viewModel.opinionType}"
                         app:layout_constraintStart_toStartOf="@+id/title"
                         app:layout_constraintTop_toBottomOf="@+id/title"
+                        app:opinionPercent="@{viewModel.feelingPercent}"
                         tools:text="67% of love" />
 
                     <TextView
@@ -229,6 +231,8 @@
                         android:id="@+id/similar_topics_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:paddingBottom="@dimen/tiny_offset"
                         app:layoutManager="LinearLayoutManager"
                         tools:itemCount="3" />
                 </LinearLayout>
@@ -279,17 +283,17 @@
                         tools:text="03/02/2023 Wd 11:05:13" />
 
                     <!-- TODO: View author opinion -->
-<!--                    <TextView-->
-<!--                        android:id="@+id/textView"-->
-<!--                        style="@style/IconText"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/icon_arrow_next"-->
-<!--                        android:textColor="?unaccented_text_color"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"-->
-<!--                        android:visibility="gone"/>-->
+                    <!--                    <TextView-->
+                    <!--                        android:id="@+id/textView"-->
+                    <!--                        style="@style/IconText"-->
+                    <!--                        android:layout_width="0dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:text="@string/icon_arrow_next"-->
+                    <!--                        android:textColor="?unaccented_text_color"-->
+                    <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                        app:layout_constraintTop_toTopOf="parent"-->
+                    <!--                        android:visibility="gone"/>-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

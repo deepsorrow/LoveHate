@@ -17,6 +17,7 @@ import com.kropotov.lovehate.ui.adapters.viewpagers.TopicsViewPagerAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.screens.topics.TopicsHostViewModel
 import com.kropotov.lovehate.ui.utilities.getColorAttr
+import com.kropotov.lovehate.ui.utilities.reduceDragSensitivity
 import com.google.android.material.R as RMaterial
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
@@ -33,10 +34,10 @@ class TopicsHostFragment : BaseFragment<TopicsHostViewModel, FragmentTopicsHostB
 
         binding.pager.apply {
             adapter = TopicsViewPagerAdapter(this@TopicsHostFragment)
+            reduceDragSensitivity()
         }
 
         setTabLayout()
-        subscribeToSearchClicked()
         startDispatchingSearchQuery()
     }
 

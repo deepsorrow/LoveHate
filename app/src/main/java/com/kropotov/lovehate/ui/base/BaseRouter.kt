@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.kropotov.lovehate.R
-import com.kropotov.lovehate.ui.screens.topicpage.fragments.TopicPageFragment
 
 abstract class BaseRouter(
     private val fragmentManager: FragmentManager
@@ -16,27 +15,33 @@ abstract class BaseRouter(
         }
     }
 
-    fun navigateToNewTopic(topicId: Int) = fragmentManager.commit {
-        setCustomAnimations(
-            R.anim.slide_up,
-            R.anim.slide_down,
-            0,
-            R.anim.slide_down
-        )
-        add(R.id.overlay_container, TopicPageFragment.newInstance(topicId))
-        addToBackStack(null)
+    protected fun navigateWithSlideUpTransition(
+        fragment: Fragment,
+        usedFragmentManager: FragmentManager = fragmentManager,
+        container: Int = R.id.overlay_container
+    ) {
+        usedFragmentManager.commit {
+            setCustomAnimations(
+                R.anim.slide_up,
+                R.anim.slide_down,
+                R.anim.slide_up,
+                R.anim.slide_down
+            )
+            add(container, fragment)
+            addToBackStack(null)
+        }
     }
 
-    protected fun navigateWithSlideUpTransition(
+    protected fun navigateWithSlideRightTransition(
         fragment: Fragment,
         container: Int = R.id.overlay_container
     ) {
         fragmentManager.commit {
             setCustomAnimations(
-                R.anim.slide_up,
-                R.anim.slide_down,
-                0,
-                R.anim.slide_down
+                R.anim.slide_in_from_right,
+                R.anim.slide_out_to_right,
+                R.anim.slide_in_from_right,
+                R.anim.slide_out_to_right
             )
             add(container, fragment)
             addToBackStack(null)

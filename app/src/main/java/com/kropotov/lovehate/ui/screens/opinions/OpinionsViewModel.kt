@@ -29,18 +29,24 @@ class OpinionsViewModel @Inject constructor(
     val separateToolbar: OpinionsToolbar
 ) : BaseViewModel(resourceProvider) {
 
+    private var currentSearchQuery: String? = null
+    override val noDataTextRes: Int =
+        if (topicId == null || currentSearchQuery != null) {
+            R.string.no_opinions_was_found
+        } else when {
+            (sortType == OpinionType.LOVE) -> R.string.no_love_opinions_here_yet
+            (sortType == OpinionType.HATE) -> R.string.no_hate_opinions_here_yet
+            (sortType == OpinionType.INDIFFERENCE) -> R.string.no_neutral_opinions_here_yet
+            else -> R.string.no_opinions_was_found
+        }
     private val isWithoutHostScreen =
         listType == BY_CURRENT_USER || listType == MOST_LIKED || listType == MOST_DISLIKED
-
     val isRatingScreen = listType == MOST_LIKED || listType == MOST_DISLIKED
-
     val backgroundColor = if (isWithoutHostScreen) {
         R.attr.union_background_color
     } else {
         R.attr.transparent_color
     }
-
-    var currentSearchQuery: String? = null
 
     init {
         if (isWithoutHostScreen) {

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kropotov.lovehate.databinding.ListItemTopicBinding
 import com.kropotov.lovehate.fragment.TopicListItem
 import com.kropotov.lovehate.ui.screens.topics.TopicsRouter
+import com.kropotov.lovehate.ui.utilities.plusServerIp
 import javax.inject.Inject
 
 class TopicsListAdapter @Inject constructor(
@@ -40,7 +41,7 @@ class TopicsListAdapter @Inject constructor(
             with(binding) {
                 viewModel = com.kropotov.lovehate.data.items.TopicListItem(item)
                 clickListener = {
-                    router.navigateToNewTopic(item.id)
+                    router.navigateToTopicPage(item.id, item.thumbnailUrl.plusServerIp())
                 }
                 executePendingBindings()
             }

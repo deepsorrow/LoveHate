@@ -29,6 +29,7 @@ apollo3 = "4.0.0-beta.4"
 ktx = "1.12.0"
 # @keep
 photoview = "2.3.0"
+scrollingpagerindicator = "1.2.5"
 shimmer = "0.5.0"
 swiperefreshlayout = "1.1.0"
 targetSdk = "34"
@@ -73,6 +74,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 material = { module = "com.google.android.material:material", version.ref = "material" }
 photoview = { module = "com.github.chrisbanes:PhotoView", version.ref = "photoview" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+scrollingpagerindicator = { module = "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator", version.ref = "scrollingpagerindicator" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
 squareup-leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanaryAndroidVersion" }
 androidx-coordinatorlayout = { group = "androidx.coordinatorlayout", name = "coordinatorlayout", version.ref = "coordinatorlayout" }

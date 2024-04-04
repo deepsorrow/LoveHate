@@ -13,8 +13,8 @@ class RatingsRouter @Inject constructor(
 ) : BaseRouter(fragment.childFragmentManager) {
 
     fun navigateToOpinions(listType: OpinionsListType)
-        = navigateWithSlideUpTransition(OpinionsFragment.newInstance(listType))
+        = navigateWithSlideRightTransition(OpinionsFragment.newInstance(listType))
 
     fun navigateToUsers(listType: UsersListType)
-        = navigateWithSlideUpTransition(UsersFragment.newInstance(listType))
+        = navigateWithSlideRightTransition(UsersFragment.newInstance(listType))
 }

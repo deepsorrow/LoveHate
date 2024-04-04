@@ -8,5 +8,5 @@ import com.kropotov.lovehate.ui.screens.auth.fragments.SignUpFragment
 class AuthRouter(fragmentManager: FragmentManager) : BaseRouter(fragmentManager) {
 
     fun navigateToRegistration() =
-        navigateWithSlideUpTransition(SignUpFragment.newInstance(), R.id.container)
+        navigateWithSlideUpTransition(SignUpFragment.newInstance(), container = R.id.container)
 }
