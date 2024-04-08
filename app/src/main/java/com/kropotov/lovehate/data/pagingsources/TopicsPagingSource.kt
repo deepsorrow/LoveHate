@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.apollographql.apollo3.ApolloClient
 import com.kropotov.lovehate.api.main.TopicsQueryAdapter
 import com.kropotov.lovehate.data.TopicType
+import com.kropotov.lovehate.data.repositories.TopicsRepository.Companion.TOPICS_PAGE_SIZE
 import com.kropotov.lovehate.fragment.TopicListItem
 import com.kropotov.lovehate.type.TopicsListType
 
@@ -26,7 +27,9 @@ class TopicsPagingSource(
             LoadResult.Page(
                 data = response.results.map { it.topicListItem },
                 prevKey = if (page == 0) null else page - 1,
-                nextKey = if (page == response.totalPages) null else page + 1
+                nextKey = if (page == response.totalPages) null else page + 1,
+                itemsBefore = 0,
+                itemsAfter = (response.totalPages - page) * TOPICS_PAGE_SIZE
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

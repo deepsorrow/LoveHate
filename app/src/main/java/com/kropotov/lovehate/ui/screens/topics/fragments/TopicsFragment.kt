@@ -5,13 +5,12 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import com.kropotov.lovehate.R
 import com.kropotov.lovehate.data.InformMessage
 import com.kropotov.lovehate.data.TopicType
 import com.kropotov.lovehate.databinding.FragmentTopicsBinding
 import com.kropotov.lovehate.databinding.ToolbarBinding
-import com.kropotov.lovehate.ui.adapters.lists.TopicsListAdapter
+import com.kropotov.lovehate.ui.adapters.lists.paging.TopicsPagingListAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.utilities.SpaceItemDecoration
 import com.kropotov.lovehate.ui.utilities.withArgs
@@ -29,7 +28,7 @@ class TopicsFragment : BaseFragment<TopicsViewModel, FragmentTopicsBinding>(
     override val vmClass = TopicsViewModel::class.java
 
     @Inject
-    lateinit var adapter: TopicsListAdapter
+    lateinit var adapter: TopicsPagingListAdapter
 
     private var currentSearchQuery: String? = null
     private var searchJob: Job? = null

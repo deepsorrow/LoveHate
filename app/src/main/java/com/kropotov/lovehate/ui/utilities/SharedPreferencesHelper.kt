@@ -45,10 +45,10 @@ class SharedPreferencesHelper @Inject constructor(
     }
 
     companion object {
-        private const val SHARED_PREFERENCES_KEY = "settings"
-        private const val ENABLE_NOTIFICATIONS_KEY = "enable_notifications"
-        private const val APP_THEME_ORDINAL_KEY = "app_theme"
+        const val SHARED_PREFERENCES_KEY = "settings"
 
         const val TOKEN_KEY = "token"
+        private const val ENABLE_NOTIFICATIONS_KEY = "enable_notifications"
+        private const val APP_THEME_ORDINAL_KEY = "app_theme"
     }
 }

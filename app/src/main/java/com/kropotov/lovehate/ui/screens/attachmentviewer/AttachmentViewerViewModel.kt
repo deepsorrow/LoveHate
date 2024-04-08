@@ -12,5 +12,4 @@ class AttachmentViewerViewModel @Inject constructor(
 ) : BaseViewModel(resourceProvider) {
 
     val title: String = imageUrl?.substringAfterLast("/").orEmpty()
-
 }

@@ -23,7 +23,7 @@ class TopicsRepository @Inject constructor(
         searchQuery: String,
         topicType: TopicType
     ): Flow<PagingData<com.kropotov.lovehate.fragment.TopicListItem>> = Pager(
-        config = PagingConfig(enablePlaceholders = false, pageSize = TOPICS_PAGE_SIZE),
+        config = PagingConfig(enablePlaceholders = true, pageSize = TOPICS_PAGE_SIZE),
         pagingSourceFactory = { TopicsPagingSource(apolloClient, searchQuery, topicType) }
     ).flow
 
@@ -58,7 +58,7 @@ class TopicsRepository @Inject constructor(
             .updateTopicFavorite
             .newState
 
-    private companion object {
+    companion object {
         const val TOPICS_PAGE_SIZE = 25
     }
 }

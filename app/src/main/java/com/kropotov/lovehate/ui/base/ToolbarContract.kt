@@ -1,6 +1,5 @@
 package com.kropotov.lovehate.ui.base
 
-import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
@@ -17,6 +16,7 @@ interface ToolbarContract {
     val toolbarColor: ObservableInt
 
     val title: ObservableField<Int>
+    val titleTextSize: ObservableField<Int>
     val subtitle: ObservableField<Int>
     val isSubtitleVisible: ObservableBoolean
 

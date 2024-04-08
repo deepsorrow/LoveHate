@@ -11,12 +11,14 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.AttrRes
+import androidx.annotation.DimenRes
 import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.kropotov.lovehate.R
 import com.google.android.material.R as RMaterial
 import com.kropotov.lovehate.type.OpinionType
@@ -29,6 +31,15 @@ internal fun TextView.textRes(@StringRes textId: Int?) {
         null, 0 -> ""
         else -> context.getString(textId)
     }
+}
+
+@BindingAdapter("textSizeRes")
+internal fun TextView.textSizeRes(@DimenRes sizeRes: Int?) {
+    val textSize = when (sizeRes) {
+        null, 0 -> return
+        else -> resources.getDimension(sizeRes)
+    }
+    setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
 }
 
 @BindingAdapter("onClick")
@@ -136,6 +147,8 @@ internal fun TextView.formatOpinionPercent(opinionType: OpinionType?, percent: S
 
 @BindingAdapter("messagesCount")
 internal fun TextView.formatMessagesCount(messagesCount: String) {
+    messagesCount.isBlank() && return
+
     val template = if (messagesCount == "1") {
         context.getString(R.string.messages_count_template_single)
     } else {
@@ -158,12 +171,21 @@ internal fun TextView.formatAuthorOpinion(opinionSortType: OpinionType?) {
 fun ImageView.setImageUrl(url: String?, thumbnailBitmap: Bitmap?) {
     val placeholder = thumbnailBitmap?.toDrawable(resources) ?: ResourcesCompat.getDrawable(
         resources,
-        R.drawable.no_image_placeholder,
+        R.drawable.no_photo_sharp,
         null
     )
     Glide.with(this)
         .load(url)
-        .placeholder(placeholder)
+        .error(placeholder)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(this)
+}
+
+@BindingAdapter("isShimmerVisible")
+fun ShimmerFrameLayout.isShimmerEnabled(predicate: Boolean) {
+    if (predicate) {
+        startShimmer()
+    } else {
+        hideShimmer()
+    }
 }

@@ -25,7 +25,7 @@ class OpinionsRepository @Inject constructor(
         opinionType: OpinionType,
         listType: OpinionsListType
     ): Flow<PagingData<OpinionListItem>> = Pager(
-        config = PagingConfig(enablePlaceholders = false, pageSize = OPINIONS_PAGE_SIZE),
+        config = PagingConfig(enablePlaceholders = true, pageSize = OPINIONS_PAGE_SIZE),
         pagingSourceFactory = {
             OpinionsPagingSource(
                 apolloClient,
@@ -64,7 +64,7 @@ class OpinionsRepository @Inject constructor(
             .first()
             .opinionListItem
 
-    private companion object {
+    companion object {
         const val OPINIONS_PAGE_SIZE = 10
     }
 }

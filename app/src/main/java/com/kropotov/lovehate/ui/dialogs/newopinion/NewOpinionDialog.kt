@@ -31,23 +31,31 @@ class NewOpinionDialog : BaseBottomSheetDialogFragment<NewOpinionViewModel, Dial
         adapter = OpinionNewMediaListAdapter(viewModel.mediaPaths, childFragmentManager)
         binding.attachmentsList.adapter = adapter
 
+
+        subscribeToOpinionState()
+        subscribeToNavigationEvent()
+
+        childFragmentManager.setFragmentResultListener(MEDIA_PICKED_KEY, this) { _, bundle ->
+            bundle.parcelable<MediaListItem>(MEDIA_PICKED_KEY)?.let { item ->
+                adapter?.addMedia(item)
+            }
+        }
+    }
+
+    private fun subscribeToOpinionState() {
         lifecycleScope.launch {
             viewModel.opinionState.collect { opinionType ->
                 val colorInt = requireContext().getColorAttr(opinionType.color)
                 binding.button.setBackgroundColor(colorInt)
             }
         }
+    }
 
+    private fun subscribeToNavigationEvent() {
         lifecycleScope.launch {
             viewModel.navigateToNewOpinion.collect {
                 setFragmentResult(NAVIGATE_TO_OPINIONS_EVENT, bundleOf())
                 dismiss()
-            }
-        }
-
-        childFragmentManager.setFragmentResultListener(MEDIA_PICKED_KEY, this) { _, bundle ->
-            bundle.parcelable<MediaListItem>(MEDIA_PICKED_KEY)?.let { item ->
-                adapter?.addMedia(item)
             }
         }
     }

@@ -3,7 +3,6 @@ package com.kropotov.lovehate.ui.screens.topicpage.fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -36,19 +35,19 @@ class TopicPageFragment @Inject constructor() :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val similarTopicsAdapter = ListDelegationAdapter(adapterDelegate())
-        binding.similarTopicsList.apply {
-            this.adapter = similarTopicsAdapter
-            addItemDecoration(SpaceItemDecoration(context))
-            setHasFixedSize(true)
-        }
-
-        val imagesCarouselAdapter = ImagesCarouselAdapter(listOf(firstImageUrl))
+        val imagesCarouselAdapter = ImagesCarouselAdapter(mutableListOf(firstImageUrl))
         binding.carouselList.apply {
             this.adapter = imagesCarouselAdapter
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             binding.carouselIndicator.attachToRecyclerView(this)
             PagerSnapHelper().attachToRecyclerView(this)
+        }
+
+        val similarTopicsAdapter = ListDelegationAdapter(adapterDelegate())
+        binding.similarTopicsList.apply {
+            this.adapter = similarTopicsAdapter
+            addItemDecoration(SpaceItemDecoration(context))
+            setHasFixedSize(true)
         }
         binding.router = router
 
@@ -71,8 +70,7 @@ class TopicPageFragment @Inject constructor() :
     private fun subscribeToCarouselImages(adapter: ImagesCarouselAdapter) {
         lifecycleScope.launch {
             viewModel.carouselImages.collect {
-                adapter.images = it
-                adapter.notifyDataSetChanged()
+                adapter.setItems(it)
             }
         }
     }
@@ -94,6 +92,7 @@ class TopicPageFragment @Inject constructor() :
                 binding.clickListener = {
                     router.navigateToSimilarTopic(item.id, item.thumbnailUrl.plusServerIp())
                 }
+                binding.executePendingBindings()
             }
         }
 

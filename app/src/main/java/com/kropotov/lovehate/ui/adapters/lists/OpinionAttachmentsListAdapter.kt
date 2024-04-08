@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -49,9 +50,12 @@ class OpinionAttachmentsListAdapter(
         private val imageView: ImageView = itemView.findViewById(R.id.thumbnail)
 
         fun bind(url: String) {
+            val placeholder =
+                ResourcesCompat.getDrawable(itemView.resources, R.drawable.no_photo_sharp, null)
             Glide.with(imageView)
                 .asBitmap()
                 .load(url)
+                .error(placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .listener(onResourceReadyListener(router, imageView, url))
                 .submit()

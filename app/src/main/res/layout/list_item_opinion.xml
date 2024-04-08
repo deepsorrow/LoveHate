@@ -27,43 +27,49 @@
 
             <TextView
                 android:id="@+id/username"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/small_offset"
+                android:ellipsize="end"
                 android:fontFamily="@font/medium"
                 android:includeFontPadding="false"
+                android:maxLines="1"
                 android:text="@{viewModel.username}"
                 android:textColor="?unaccented_text_color"
+                app:layout_constraintEnd_toStartOf="@id/favorite_icon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="arabesque" />
 
             <TextView
+                android:id="@+id/position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.position}"
                 android:textColor="?unaccented_text_color"
                 app:isNotGone="@{viewModel.positionVisible}"
-                app:layout_constraintBottom_toBottomOf="@+id/like_layout"
+                app:layout_constraintBottom_toTopOf="@+id/date"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/like_layout"
                 tools:text="# 1" />
 
             <TextView
                 android:id="@+id/date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_offset"
+                android:layout_marginBottom="@dimen/small_offset"
                 android:includeFontPadding="false"
                 android:text="@{viewModel.date}"
-                android:textColor="?unaccented_text_color"
-                app:layout_constraintStart_toEndOf="@id/username"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="03/02/2023 Wd 23:54:41" />
+                android:textColor="?unaccented_light_text_color"
+                android:textSize="@dimen/small_text_size"
+                app:layout_constraintBottom_toBottomOf="@+id/like_layout"
+                app:layout_constraintEnd_toEndOf="@+id/position"
+                tools:text="03/02/2023" />
 
             <TextView
                 android:id="@+id/feeling"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/tiny_offset"
                 android:includeFontPadding="false"
                 android:text="@{viewModel.opinionTypeFormatted}"
                 android:textColor="?unaccented_text_color"
@@ -75,14 +81,18 @@
 
             <TextView
                 android:id="@+id/topic"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/tiny_offset"
+                android:layout_marginEnd="@dimen/small_offset"
+                android:ellipsize="end"
                 android:fontFamily="@font/medium"
                 android:includeFontPadding="false"
+                android:maxLines="1"
                 android:text="@{viewModel.topic}"
                 app:colorByAttr="@{viewModel.opinionColor}"
                 app:layout_constraintBottom_toBottomOf="@+id/feeling"
+                app:layout_constraintEnd_toStartOf="@id/favorite_icon"
                 app:layout_constraintStart_toEndOf="@id/feeling"
                 app:layout_constraintTop_toTopOf="@+id/feeling"
                 tools:text="cats"
@@ -98,7 +108,7 @@
                 android:textColor="?unaccented_text_color"
                 app:colorByAttr="@{viewModel.favoriteIconColor}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/date"
+                app:layout_constraintTop_toTopOf="@+id/username"
                 app:onClick="@{viewModel::onFavoriteClick}"
                 app:textRes="@{viewModel.favoriteIcon}"
                 tools:text="@string/icon_favorite" />

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -44,8 +45,8 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
 
     protected lateinit var binding: BINDING
 
-    private val shimmer: ShimmerFrameLayout? by lazy { requireView().findViewById(R.id.shimmer) }
     private val shimmerList: ViewGroup? by lazy { requireView().findViewById(R.id.shimmer_list) }
+    private var backPressedCallback: OnBackPressedCallback? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +59,7 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
         }
         initProgressBar(viewModel)
         initMessageInformer(viewModel)
-        initBackPressedDispatcher()
+        //initBackPressedDispatcher()
 
         return binding.root
     }
@@ -66,6 +67,16 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireView().setToolbarArrowBackAction()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initBackPressedDispatcher()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        backPressedCallback?.remove()
     }
 
     protected fun LoadState.extractAndShowError() {
@@ -91,6 +102,7 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
     protected fun View.setToolbarArrowBackAction() {
         findViewById<TextView>(R.id.arrow_back)?.let {
             it.setOnClickListener {
+                // Leaks because of parentFragmentManager capture from outer scope
                 val weakThis = WeakReference(parentFragmentManager)
                 weakThis.get()?.popBackStack()
             }
@@ -107,7 +119,6 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
         val noDataStub: TextView? = requireView().findViewById(R.id.no_data_stub)
         addOnPagesUpdatedListener {
             hideShimmer()
-
             noDataStub?.visibility = if (itemCount == 0) View.VISIBLE else View.GONE
         }
 
@@ -119,16 +130,13 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
                 }
             }
         })
-
-        shimmer?.showShimmer(true)
     }
 
     protected fun hideShimmer() {
-        shimmer?.hideShimmer()
         shimmerList?.visibility = View.GONE
     }
 
     companion object {
-        const val DEBOUNCE_TIME_MS = 500L
+        const val DEBOUNCE_TIME_MS = 800L
     }
 }

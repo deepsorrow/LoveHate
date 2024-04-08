@@ -8,7 +8,7 @@ import com.kropotov.lovehate.R
 import com.kropotov.lovehate.databinding.FragmentOpinionsHostBinding
 import com.kropotov.lovehate.ui.adapters.viewpagers.OpinionsViewPagerAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
-import com.kropotov.lovehate.ui.utilities.OpinionsTabLayoutInitializer
+import com.kropotov.lovehate.ui.utilities.TabLayoutInitializer
 import com.kropotov.lovehate.ui.screens.opinions.OpinionsHostViewModel
 import com.kropotov.lovehate.ui.utilities.reduceDragSensitivity
 import com.kropotov.lovehate.ui.utilities.withArgs
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class OpinionsHostFragment :
     BaseFragment<OpinionsHostViewModel, FragmentOpinionsHostBinding>(R.layout.fragment_opinions_host),
-    OpinionsTabLayoutInitializer {
+    TabLayoutInitializer {
 
     override val vmClass = OpinionsHostViewModel::class.java
 

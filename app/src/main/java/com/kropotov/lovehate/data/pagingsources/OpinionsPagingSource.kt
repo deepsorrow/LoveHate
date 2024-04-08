@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.apollographql.apollo3.ApolloClient
 import com.kropotov.lovehate.api.main.OpinionsQueryAdapter
 import com.kropotov.lovehate.data.OpinionType
+import com.kropotov.lovehate.data.repositories.OpinionsRepository.Companion.OPINIONS_PAGE_SIZE
 import com.kropotov.lovehate.fragment.OpinionListItem
 import com.kropotov.lovehate.type.OpinionsListType
 
@@ -32,7 +33,9 @@ class OpinionsPagingSource(
             LoadResult.Page(
                 data = response.results.map { it.opinionListItem },
                 prevKey = if (page == 0) null else page - 1,
-                nextKey = if (page == response.totalPages) null else page + 1
+                nextKey = if (page == response.totalPages) null else page + 1,
+                itemsBefore = 0,
+                itemsAfter = (response.totalPages - page) * OPINIONS_PAGE_SIZE
             )
         } catch (exception: Exception) {
             LoadResult.Error(exception)

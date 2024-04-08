@@ -39,7 +39,6 @@
                 android:layout_width="@dimen/topic_list_item_image_size"
                 android:layout_height="@dimen/topic_list_item_image_size"
                 android:scaleType="centerCrop"
-                android:src="@drawable/image_dummy"
                 app:imageUrl="@{viewModel.thumbnailUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -84,7 +83,7 @@
                 tools:text="13" />
 
             <TextView
-                android:id="@+id/feeling_percent"
+                android:id="@+id/opinion_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:isLove="@{viewModel.opinionType}"
@@ -96,14 +95,14 @@
                 tools:textColor="?love_color" />
 
             <TextView
-                android:id="@+id/heart_icon"
+                android:id="@+id/heart_icon_shimmer"
                 style="@style/IconText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/small_offset"
                 app:isLoveTextColor="@{viewModel.opinionType}"
-                app:layout_constraintEnd_toStartOf="@+id/feeling_percent"
-                app:layout_constraintTop_toTopOf="@+id/feeling_percent"
+                app:layout_constraintEnd_toStartOf="@+id/opinion_percent"
+                app:layout_constraintTop_toTopOf="@+id/opinion_percent"
                 app:textRes="@{viewModel.heartIcon}"
                 tools:text="@string/icon_heart"
                 tools:textColor="?love_color" />

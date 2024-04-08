@@ -7,7 +7,7 @@ import com.kropotov.lovehate.R
 import com.kropotov.lovehate.data.InformMessage
 import com.kropotov.lovehate.data.UsersListType
 import com.kropotov.lovehate.databinding.FragmentUsersBinding
-import com.kropotov.lovehate.ui.adapters.lists.UsersListAdapter
+import com.kropotov.lovehate.ui.adapters.lists.paging.UsersPagingListAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.utilities.SpaceItemDecoration
 import com.kropotov.lovehate.ui.utilities.withArgs
@@ -20,7 +20,7 @@ class UsersFragment : BaseFragment<UsersViewModel, FragmentUsersBinding>(R.layou
     override val vmClass = UsersViewModel::class.java
 
     @Inject
-    lateinit var adapter: UsersListAdapter
+    lateinit var adapter: UsersPagingListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +35,7 @@ class UsersFragment : BaseFragment<UsersViewModel, FragmentUsersBinding>(R.layou
         subscribeToListData(adapter)
     }
 
-    private fun subscribeToListData(adapter: UsersListAdapter) {
+    private fun subscribeToListData(adapter: UsersPagingListAdapter) {
         viewModel.items
             .onEach {
                 binding.refreshLayout.isRefreshing = false

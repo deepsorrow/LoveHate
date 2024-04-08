@@ -29,6 +29,7 @@
                 style="@style/ThumbnailImageStyle"
                 android:layout_width="@dimen/topic_list_item_image_size"
                 android:layout_height="@dimen/topic_list_item_image_size"
+                android:scaleType="centerCrop"
                 app:imageUrl="@{viewModel.photoUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -83,9 +84,9 @@
                 android:contentDescription="@string/users_avatar"
                 android:src="@drawable/icon_topics"
                 android:textColor="?unaccented_text_color"
-                app:isVisible="@{viewModel.topicsCountVisible}"
+                app:isNotGone="@{viewModel.topicsCountVisible}"
                 app:layout_constraintStart_toStartOf="@+id/avatar"
-                app:layout_constraintTop_toBottomOf="@+id/avatar" />
+                app:layout_constraintTop_toBottomOf="@+id/avatar"/>
 
             <TextView
                 android:id="@+id/topics_count"
@@ -95,7 +96,7 @@
                 android:text="@{viewModel.topicsCount}"
                 android:textColor="?unaccented_text_color"
                 android:textSize="@dimen/small_text_size"
-                app:isVisible="@{viewModel.topicsCountVisible}"
+                app:isNotGone="@{viewModel.topicsCountVisible}"
                 app:layout_constraintBottom_toBottomOf="@id/topics_icon"
                 app:layout_constraintStart_toEndOf="@id/topics_icon"
                 app:layout_constraintTop_toTopOf="@id/topics_icon"
@@ -106,14 +107,15 @@
                 style="@style/IconText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/medium_offset"
+                android:layout_marginTop="@dimen/small_offset"
                 android:text="@string/icon_messages"
                 android:textColor="?unaccented_text_color"
                 android:textSize="20sp"
                 app:isVisible="@{viewModel.opinionsCountVisible}"
-                app:layout_constraintBottom_toBottomOf="@id/topics_icon"
+                app:layout_goneMarginStart="0dp"
                 app:layout_constraintStart_toEndOf="@+id/topics_count"
-                app:layout_constraintTop_toTopOf="@+id/topics_icon" />
+                app:layout_constraintTop_toBottomOf="@+id/avatar" />
 
 
             <TextView
@@ -131,7 +133,7 @@
                 tools:text="13" />
 
             <TextView
-                android:id="@+id/feeling_percent"
+                android:id="@+id/opinion_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:isLove="@{viewModel.opinionType}"
@@ -143,14 +145,14 @@
                 tools:textColor="?love_color" />
 
             <TextView
-                android:id="@+id/heart_icon"
+                android:id="@+id/heart_icon_shimmer"
                 style="@style/IconText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/small_offset"
                 app:isLoveTextColor="@{viewModel.opinionType}"
-                app:layout_constraintEnd_toStartOf="@+id/feeling_percent"
-                app:layout_constraintTop_toTopOf="@+id/feeling_percent"
+                app:layout_constraintEnd_toStartOf="@+id/opinion_percent"
+                app:layout_constraintTop_toTopOf="@+id/opinion_percent"
                 app:textRes="@{viewModel.heartIcon}"
                 tools:text="@string/icon_heart"
                 tools:textColor="?love_color" />

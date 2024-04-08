@@ -52,7 +52,7 @@
     <style name="Theme.LoveHate.Dark" parent="Theme.LoveHate.Light">
         <item name="colorPrimary">@color/dark_violet_100</item>
         <item name="colorPrimaryVariant">@color/dark_violet_100</item>
-        <item name="colorOnPrimary">@color/dark_grey_820</item>
+        <item name="colorOnPrimary">@color/dark_grey_960</item>
         <item name="colorSecondary">@color/light_violet_400</item>
         <item name="colorSecondaryVariant">@color/light_violet_400</item>
         <item name="colorOnSecondary">@android:color/white</item>
@@ -61,10 +61,10 @@
 
         <item name="background_color">@color/dark_black_150</item>
         <item name="surface_color">@color/dark_blue_240</item>
-        <item name="text_color">@color/dark_grey_600</item>
-        <item name="unaccented_text_color">@color/dark_grey_660</item>
+        <item name="text_color">@color/dark_grey_960</item>
+        <item name="unaccented_text_color">@color/dark_grey_840</item>
         <item name="unaccented_light_text_color">@color/dark_grey_350</item>
-        <item name="unaccented_light_text_color_variant1">@color/dark_grey_660</item>
+        <item name="unaccented_light_text_color_variant1">@color/dark_grey_840</item>
         <item name="favorite_icon_color">@color/dark_yellow_790</item>
 
         <item name="union_background_color">@color/dark_black_120</item>

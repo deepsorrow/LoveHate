@@ -5,9 +5,7 @@ import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.GridLayoutManager
@@ -50,7 +48,7 @@ class PickMediaDialog : BaseBottomSheetDialogFragment<PickMediaViewModel, Dialog
         binding.apply {
             list.adapter = adapter
 
-            val spacing = resources.getDimension(R.dimen.tiny_offset).toInt()
+            val spacing = resources.getDimension(R.dimen.very_small_offset).toInt()
             list.addItemDecoration(GridSpaceItemDecoration(GRID_SPAN_COUNT, spacing, true))
             list.layoutManager =
                 GridLayoutManager(

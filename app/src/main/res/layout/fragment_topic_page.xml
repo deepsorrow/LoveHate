@@ -39,15 +39,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/carousel_list"
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/carousel_list_layout"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/topic_image_preview_height"
-                        android:orientation="horizontal"
+                        app:isShimmerVisible="@{viewModel.isTopicShimmerVisible}"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:background="#C1C1C1"
-                        tools:listitem="@layout/list_item_carousel_image" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/carousel_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/topic_image_preview_height"
+                            android:background="@drawable/round_bottom_placeholder"
+                            android:orientation="horizontal"
+                            tools:listitem="@layout/list_item_carousel_image"/>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <TextView
                         android:id="@+id/back_button"
@@ -80,15 +87,34 @@
                         android:id="@+id/carousel_indicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/medium_offset"
-                        app:layout_constraintEnd_toEndOf="@id/carousel_list"
-                        app:layout_constraintStart_toStartOf="@id/carousel_list"
-                        app:layout_constraintTop_toBottomOf="@id/carousel_list"
+                        android:layout_marginTop="@dimen/big_offset"
+                        app:isNotGone="@{viewModel.hasManyImages}"
+                        app:layout_constraintEnd_toEndOf="@id/carousel_list_layout"
+                        app:layout_constraintStart_toStartOf="@id/carousel_list_layout"
+                        app:layout_constraintTop_toBottomOf="@id/carousel_list_layout"
                         app:spi_dotColor="?unaccented_light_text_color"
                         app:spi_dotSelectedColor="?unaccented_text_color"
                         app:spi_dotSize="10dp"
                         app:spi_dotSpacing="10dp"
                         app:spi_visibleDotCount="7" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/title_shimmer"
+                        android:layout_width="0dp"
+                        android:layout_height="16dp"
+                        android:layout_marginHorizontal="@dimen/standard_offset"
+                        android:layout_marginTop="16dp"
+                        app:isNotGone="@{viewModel.isTopicShimmerVisible}"
+                        app:layout_constraintEnd_toStartOf="@id/heart_icon_shimmer"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/carousel_indicator">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/round_placeholder" />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <TextView
                         android:id="@+id/title"
@@ -99,11 +125,27 @@
                         android:fontFamily="@font/medium"
                         android:includeFontPadding="false"
                         android:text="@{viewModel.title}"
-                        android:textSize="@dimen/topic_page_title"
-                        app:layout_constraintEnd_toStartOf="@+id/heart_icon"
+                        android:textSize="@dimen/toolbar_subtitle_text_size"
+                        app:layout_constraintEnd_toStartOf="@+id/heart_icon_shimmer"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/carousel_indicator"
                         tools:text="Long hair on men" />
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/subtitle_shimmer"
+                        android:layout_width="0dp"
+                        android:layout_height="16dp"
+                        android:layout_marginTop="7dp"
+                        app:isNotGone="@{viewModel.isTopicShimmerVisible}"
+                        app:layout_constraintEnd_toEndOf="@id/title_shimmer"
+                        app:layout_constraintStart_toStartOf="@id/title_shimmer"
+                        app:layout_constraintTop_toBottomOf="@id/title_shimmer">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/round_placeholder" />
+                    </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <TextView
                         android:id="@+id/love_percent"
@@ -127,21 +169,29 @@
                         app:layout_constraintStart_toEndOf="@+id/love_percent"
                         app:layout_constraintTop_toTopOf="@+id/love_percent"
                         app:messagesCount="@{viewModel.opinionsCount}"
-                        tools:text="67% of love" />
+                        tools:text="out of 13 opinions" />
 
-                    <TextView
-                        android:id="@+id/heart_icon"
-                        style="@style/IconText"
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/heart_icon_shimmer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/standard_offset"
-                        android:textSize="34sp"
-                        app:isLoveTextColor="@{viewModel.opinionType}"
+                        android:layout_marginEnd="@dimen/big_offset"
+                        app:isShimmerVisible="@{viewModel.isTopicShimmerVisible}"
                         app:layout_constraintBottom_toBottomOf="@+id/love_percent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/title"
-                        app:textRes="@{viewModel.heartIcon}"
-                        tools:text="@string/icon_heart_filled" />
+                        app:layout_constraintTop_toTopOf="@+id/title">
+
+                        <TextView
+                            style="@style/IconText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/icon_heart_filled"
+                            android:textColor="?placeholder_color"
+                            android:textSize="34sp"
+                            app:isLoveTextColor="@{viewModel.opinionType}"
+                            app:textRes="@{viewModel.heartIcon}" />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
@@ -208,34 +258,64 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/similar_topics_block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/small_offset"
                     android:background="@drawable/round_surface"
-                    android:minHeight="252dp"
                     android:orientation="vertical"
                     android:paddingVertical="@dimen/big_offset"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/buttons_block">
 
                     <TextView
+                        android:id="@+id/similar_topics_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="@dimen/standard_offset"
                         android:text="@string/similar_topics"
-                        android:textColor="?unaccented_text_color" />
+                        android:textColor="?unaccented_text_color"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <include
+                        android:id="@+id/placeholder1"
+                        layout="@layout/list_item_topic_placeholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/tiny_offset"
+                        app:isShimmerNotGone="@{viewModel.isSimilarTopicsShimmerVisible}"
+                        app:layout_constraintTop_toBottomOf="@id/similar_topics_hint" />
+
+                    <include
+                        android:id="@+id/placeholder2"
+                        layout="@layout/list_item_topic_placeholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/tiny_offset"
+                        app:isShimmerNotGone="@{viewModel.isSimilarTopicsShimmerVisible}"
+                        app:layout_constraintTop_toBottomOf="@id/placeholder1" />
+
+                    <include
+                        layout="@layout/list_item_topic_placeholder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/tiny_offset"
+                        app:isShimmerNotGone="@{viewModel.isSimilarTopicsShimmerVisible}"
+                        app:layout_constraintTop_toBottomOf="@id/placeholder2" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/similar_topics_list"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:clipToPadding="false"
                         android:paddingBottom="@dimen/tiny_offset"
                         app:layoutManager="LinearLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@id/similar_topics_hint"
+                        tools:listitem="@layout/list_item_topic"
                         tools:itemCount="3" />
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/author_block"

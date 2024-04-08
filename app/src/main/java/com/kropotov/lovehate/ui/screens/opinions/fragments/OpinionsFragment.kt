@@ -11,7 +11,7 @@ import com.kropotov.lovehate.data.OpinionType
 import com.kropotov.lovehate.databinding.FragmentOpinionsBinding
 import com.kropotov.lovehate.databinding.ToolbarBinding
 import com.kropotov.lovehate.type.OpinionsListType
-import com.kropotov.lovehate.ui.adapters.lists.OpinionsListAdapter
+import com.kropotov.lovehate.ui.adapters.lists.paging.OpinionsPagingListAdapter
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.screens.opinions.OpinionsRouter
 import com.kropotov.lovehate.ui.screens.opinions.OpinionsViewModel
@@ -32,7 +32,7 @@ class OpinionsFragment : BaseFragment<OpinionsViewModel, FragmentOpinionsBinding
     @Inject
     lateinit var router: OpinionsRouter
 
-    private val adapter by lazy { OpinionsListAdapter(router, viewModel) }
+    private val adapter by lazy { OpinionsPagingListAdapter(router, viewModel) }
 
     private var currentSearchQuery: String? = null
     private var searchJob: Job? = null

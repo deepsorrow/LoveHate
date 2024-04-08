@@ -52,10 +52,11 @@
                         app:layout_constraintTop_toBottomOf="@+id/toolbar_layout">
 
                         <com.google.android.material.imageview.ShapeableImageView
-                            android:id="@+id/avatar"
                             style="@style/ThumbnailImageStyle"
+                            android:id="@+id/avatar"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
+                            android:scaleType="centerCrop"
                             app:imageUrl="@{viewModel.myAvatarUrl}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -95,16 +96,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/standard_offset"
+                            android:drawablePadding="@dimen/medium_offset"
                             android:foreground="?selectableItemBackground"
                             android:gravity="center_vertical"
                             android:padding="@dimen/medium_offset"
-                            android:drawablePadding="@dimen/medium_offset"
                             android:paddingVertical="@dimen/tiny_offset"
                             android:text="@string/my_topics"
                             app:drawableStartCompat="@drawable/icon_topics"
+                            app:drawableTint="?text_color"
                             app:layout_constraintTop_toBottomOf="@+id/avatar"
-                            app:onClick="@{router::navigateToMyTopics}"
-                            app:drawableTint="?text_color" />
+                            app:onClick="@{router::navigateToMyTopics}" />
 
                         <LinearLayout
                             android:id="@+id/my_opinions"
@@ -232,6 +233,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/round_surface"
+                            android:layout_marginBottom="@dimen/medium_offset"
                             android:paddingHorizontal="@dimen/standard_offset">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -241,10 +243,10 @@
                                 android:layout_marginTop="@dimen/standard_offset"
                                 android:foreground="?selectableItemBackground"
                                 android:gravity="start|center_vertical"
-                                app:onClickPassView="@{() -> router.showAppThemePopupDialog(appTheme)}"
                                 android:orientation="horizontal"
                                 android:padding="@dimen/medium_offset"
-                                app:layout_constraintTop_toTopOf="parent">
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:onClickPassView="@{() -> router.showAppThemePopupDialog(appTheme)}">
 
                                 <TextView
                                     android:id="@+id/icon_theme"
@@ -362,7 +364,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="@dimen/enormous_offset"
+                                android:layout_marginVertical="@dimen/standard_offset"
+                                android:layout_marginStart="@dimen/small_offset"
                                 android:fontFamily="@font/medium"
                                 android:foreground="?selectableItemBackground"
                                 android:text="@string/log_out"

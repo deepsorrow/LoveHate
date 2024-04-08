@@ -23,7 +23,6 @@ import com.kropotov.lovehate.databinding.LoveHateTextFieldBinding
 import com.kropotov.lovehate.ui.utilities.getColorAttr
 import com.kropotov.lovehate.ui.utilities.showKeyboard
 
-
 class LoveHateTextField @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

@@ -99,10 +99,7 @@ class ProfileRouter @Inject constructor(
 
     private fun AppTheme.onAppThemeClicked() = run {
         sharedPrefs.savePreferredTheme(this)
-        fragment.requireActivity().run {
-            finish()
-            startActivity(intent) // TODO: Migrate to .recreate() / Circular theme reveal
-        }
+        fragment.requireActivity().recreate()
     }
 
     private companion object {

@@ -14,6 +14,7 @@ class FavoritesToolbar @Inject constructor() : ToolbarContract {
     override val toolbarColor = ObservableInt(androidx.appcompat.R.attr.colorPrimary)
 
     override val title = ObservableField(R.string.favorites)
+    override val titleTextSize = ObservableField(0)
     override val subtitle = ObservableField(0)
     override val isSubtitleVisible = ObservableBoolean(false)
 

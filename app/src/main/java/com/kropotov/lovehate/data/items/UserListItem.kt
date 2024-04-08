@@ -21,12 +21,7 @@ data class UserListItem(
     val opinionsCount get() = user.opinionsCount.toString()
     val opinionPercent get() = user.opinionPercent.toString()
 
-    val scoreLocalized = String.format(
-        Locale.ROOT,
-        "%1s (%2s)",
-        resourceProvider.getString(user.scoreTitle.localize()),
-        user.score
-    )
+    val scoreLocalized = "${resourceProvider.getString(user.scoreTitle.localize())} (${user.score})"
 
     val isTopicsCountVisible = user.topicsCount > 0
 

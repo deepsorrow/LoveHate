@@ -21,7 +21,7 @@ class UsersRepository @Inject constructor (
     fun getUsersStream(
         listType: UsersListType
     ): Flow<PagingData<UserListItem>> = Pager(
-        config = PagingConfig(enablePlaceholders = false, pageSize = USERS_PAGE_SIZE),
+        config = PagingConfig(enablePlaceholders = true, pageSize = USERS_PAGE_SIZE),
         pagingSourceFactory = { UsersPagingSource(apolloClient, listType) }
     ).flow
 
@@ -45,7 +45,7 @@ class UsersRepository @Inject constructor (
         .user
         ?.userListItem
 
-    private companion object {
+    companion object {
         const val USERS_PAGE_SIZE = 10
     }
 }

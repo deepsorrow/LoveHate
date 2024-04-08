@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.AttrRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.viewpager2.widget.ViewPager2
@@ -20,7 +21,7 @@ import com.kropotov.lovehate.ui.base.ToolbarContract
  * [OpinionType.INDIFFERENCE], [OpinionType.HATE], where first tab is icon, the rest are text.
  * Sets appropriate width for each tab and click listener with color-changing response.
  */
-interface OpinionsTabLayoutInitializer {
+interface TabLayoutInitializer {
 
     fun BaseFragment<*, *>.initTabLayout(
         toolbarContract: ToolbarContract,
@@ -48,6 +49,7 @@ interface OpinionsTabLayoutInitializer {
         }.attach()
 
         tabLayout.setNeutralTabWidth()
+        tabLayout.setHateTabWidth()
         tabLayout.setTabWidthAsWrapContent(0)
         setOnTabSelectedListener(toolbarContract, tabLayout, container)
     }
@@ -90,9 +92,18 @@ interface OpinionsTabLayoutInitializer {
     }
 
     private fun TabLayout.setNeutralTabWidth() {
-        val layout = (getChildAt(0) as LinearLayout).getChildAt(2) as LinearLayout
+        val neutralTabIndex = 2
+        val layout = (getChildAt(0) as LinearLayout).getChildAt(neutralTabIndex) as LinearLayout
         val layoutParams = layout.layoutParams as LinearLayout.LayoutParams
         layoutParams.weight = NEUTRAL_TAB_WIDTH_WEIGHT
+        layout.layoutParams = layoutParams
+    }
+
+    private fun TabLayout.setHateTabWidth() {
+        val hateTabIndex = 3
+        val layout = (getChildAt(0) as LinearLayout).getChildAt(hateTabIndex) as LinearLayout
+        val layoutParams = layout.layoutParams as LinearLayout.LayoutParams
+        layoutParams.weight = HATE_TAB_WIDTH_WEIGHT
         layout.layoutParams = layoutParams
     }
 
@@ -104,7 +115,27 @@ interface OpinionsTabLayoutInitializer {
         layout.layoutParams = layoutParams
     }
 
-    private companion object {
-        const val NEUTRAL_TAB_WIDTH_WEIGHT = 1.2f
+    companion object {
+        private const val NEUTRAL_TAB_WIDTH_WEIGHT = 1.4f
+        private const val HATE_TAB_WIDTH_WEIGHT = 1.2f
+
+        fun TabLayout.addOnTabCustomSelectedListener() {
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(p0: TabLayout.Tab?) {
+                    p0?.updateTabTextColor(RMaterial.attr.colorOnPrimary)
+                }
+
+                override fun onTabUnselected(p0: TabLayout.Tab?) {
+                    p0?.updateTabTextColor(R.attr.unaccented_light_text_color_variant1)
+                }
+
+                override fun onTabReselected(p0: TabLayout.Tab?) { }
+            })
+        }
+
+        private fun TabLayout.Tab.updateTabTextColor(@AttrRes colorAttr: Int) {
+            val textColor = view.context.getColorAttr(colorAttr)
+            customView?.findViewById<TextView>(R.id.tab_text)?.setTextColor(textColor)
+        }
     }
 }

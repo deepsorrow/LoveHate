@@ -29,7 +29,7 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/medium_offset"
+            android:layout_marginTop="@dimen/very_small_offset"
             tools:itemCount="3"
             tools:listitem="@layout/list_item_selected_photo"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />

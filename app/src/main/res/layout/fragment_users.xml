@@ -27,14 +27,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_layout">
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <include
                     android:id="@+id/shimmer_list"
-                    layout="@layout/placeholder_topics_list" />
+                    layout="@layout/list_placeholders_users" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list"
@@ -45,7 +44,7 @@
                     app:layoutManager="LinearLayoutManager"
                     tools:itemCount="10"
                     tools:listitem="@layout/list_item_user" />
-            </com.facebook.shimmer.ShimmerFrameLayout>
+            </FrameLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -14,7 +14,6 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/favorites_root_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?union_background_color"
@@ -28,7 +27,7 @@
                 app:toolbarContract="@{viewModel.toolbar}" />
 
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/favorites_tab_layout"
+                android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_primary_tab"
@@ -38,11 +37,11 @@
                 app:tabSelectedTextColor="?colorOnPrimary" />
 
             <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/favorites_pager_container"
+                android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/favorites_tab_layout" />
+                app:layout_constraintTop_toBottomOf="@id/tab_layout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.fragment.app.FragmentContainerView

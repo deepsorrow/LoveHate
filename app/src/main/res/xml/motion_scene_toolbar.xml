@@ -21,7 +21,7 @@
         <Constraint android:id="@id/search_edit_text">
             <Layout
                 android:layout_width="0dp"
-                android:layout_height="35dp"
+                android:layout_height="30dp"
                 motion:layout_constraintStart_toEndOf="parent"
                 motion:layout_constraintTop_toTopOf="@id/title" />
             <PropertySet android:visibility="invisible" />

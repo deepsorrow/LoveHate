@@ -1,7 +1,5 @@
 package com.kropotov.lovehate.ui.screens.topicpage
 
-import androidx.fragment.app.commit
-import com.kropotov.lovehate.R
 import com.kropotov.lovehate.ui.base.BaseRouter
 import com.kropotov.lovehate.ui.dialogs.newopinion.NewOpinionDialog
 import com.kropotov.lovehate.ui.screens.opinions.fragments.OpinionsHostFragment

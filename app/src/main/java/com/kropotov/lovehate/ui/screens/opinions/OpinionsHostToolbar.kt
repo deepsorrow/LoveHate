@@ -13,6 +13,7 @@ class OpinionsHostToolbar @Inject constructor() : ToolbarContract {
     override val toolbarColor = ObservableInt(androidx.appcompat.R.attr.colorPrimary)
 
     override val title = ObservableField(R.string.app_name)
+    override val titleTextSize = ObservableField(0)
     override val subtitle = ObservableField(R.string.new_messages)
     override val isSubtitleVisible = ObservableBoolean(true)
 

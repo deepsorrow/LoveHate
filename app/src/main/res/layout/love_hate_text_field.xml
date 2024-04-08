@@ -76,7 +76,7 @@
             android:layout_marginEnd="@dimen/small_offset"
             android:layout_marginBottom="@dimen/tiny_offset"
             android:textColor="?text_color"
-            android:textSize="@dimen/character_countdown_text_size"
+            android:textSize="@dimen/tiny_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="70" />

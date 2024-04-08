@@ -40,8 +40,7 @@ class ProfileViewModel @Inject constructor(
                 myUsername.set(username)
 
                 val localizedScoreTitle = resourceProvider.getString(scoreTitle.localize())
-                val scoreTitle = String.format(Locale.ROOT, "%1s (%2s)", localizedScoreTitle, score)
-                myScoreTitle.set(scoreTitle)
+                myScoreTitle.set("$localizedScoreTitle ($score)")
                 myAvatarUrl.set(photoUrl.plusServerIp())
             }
         }

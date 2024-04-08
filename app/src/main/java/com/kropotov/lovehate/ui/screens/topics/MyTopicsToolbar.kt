@@ -14,10 +14,11 @@ class MyTopicsToolbar @Inject constructor() : ToolbarContract {
     override val toolbarColor = ObservableInt(0)
 
     override val title = ObservableField(R.string.my_topics)
+    override val titleTextSize = ObservableField(0)
     override val subtitle = ObservableField(0)
     override val isSubtitleVisible = ObservableBoolean(false)
 
-    override val searchIconIsVisible = ObservableBoolean(true)
+    override val searchIconIsVisible = ObservableBoolean(false)
     override val searchText = ObservableField("")
     override val arrowBackIsVisible = ObservableBoolean(true)
     override val isBottomOffsetVisible = ObservableBoolean(true)

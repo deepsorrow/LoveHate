@@ -6,6 +6,8 @@ import com.apollographql.apollo3.ApolloClient
 import com.kropotov.lovehate.api.main.UsersQueryAdapter
 import com.kropotov.lovehate.fragment.UserListItem
 import com.kropotov.lovehate.data.UsersListType
+import com.kropotov.lovehate.data.repositories.OpinionsRepository
+import com.kropotov.lovehate.data.repositories.UsersRepository.Companion.USERS_PAGE_SIZE
 
 class UsersPagingSource(
     private val apolloClient: ApolloClient,
@@ -23,7 +25,9 @@ class UsersPagingSource(
             LoadResult.Page(
                 data = response.results.map { it.userListItem },
                 prevKey = if (page == 0) null else page - 1,
-                nextKey = if (page == response.totalPages) null else page + 1
+                nextKey = if (page == response.totalPages) null else page + 1,
+                itemsBefore = 0,
+                itemsAfter = (response.totalPages - page) * USERS_PAGE_SIZE
             )
         } catch (e: Exception) {
             LoadResult.Error(e)

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kropotov.lovehate.data.items.UserListItem" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/small_offset"
+        app:cardCornerRadius="@dimen/default_corner_radius">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?surface_color"
+            android:paddingHorizontal="@dimen/standard_offset"
+            android:paddingVertical="@dimen/big_offset">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shimmer_auto_start="true">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="@dimen/topic_list_item_image_size"
+                    android:layout_height="@dimen/topic_list_item_image_size"
+                    android:scaleType="centerCrop"
+                    android:src="?placeholder_color"
+                    app:shapeAppearanceOverlay="@style/CircleImageView" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/username"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/big_offset"
+                android:layout_marginEnd="@dimen/medium_offset"
+                android:background="@drawable/round_placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/avatar"
+                app:layout_constraintTop_toTopOf="@id/avatar"
+                app:shimmer_auto_start="true" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/score_title"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/big_offset"
+                android:layout_marginTop="@dimen/medium_offset"
+                android:background="@drawable/round_placeholder"
+                app:layout_constraintEnd_toEndOf="@+id/username"
+                app:layout_constraintStart_toEndOf="@id/avatar"
+                app:layout_constraintTop_toBottomOf="@id/username"
+                app:shimmer_auto_start="true" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/bottom"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="@dimen/big_offset"
+                android:layout_marginTop="@dimen/medium_offset"
+                android:background="@drawable/round_placeholder"
+                app:layout_constraintEnd_toEndOf="@id/score_title"
+                app:layout_constraintStart_toStartOf="@id/avatar"
+                app:layout_constraintTop_toBottomOf="@id/avatar"
+                app:shimmer_auto_start="true" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

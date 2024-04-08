@@ -1,6 +1,6 @@
 package com.kropotov.lovehate.ui.screens.topicpage
 
-import android.graphics.Bitmap
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.viewModelScope
@@ -37,7 +37,10 @@ class TopicPageViewModel @Inject constructor(
     val date = ObservableField("")
     val author = ObservableField("")
     val authorOpinionType  = ObservableField<OpinionType>()
-    val heartIcon = ObservableInt(0)
+    val heartIcon = ObservableInt(R.string.icon_heart_filled)
+
+    val isTopicShimmerVisible = ObservableField(true)
+    val isSimilarTopicsShimmerVisible = ObservableField(true)
 
     override var isFavorite = false
         set(value) {
@@ -53,6 +56,7 @@ class TopicPageViewModel @Inject constructor(
 
     private val _carouselImages: MutableSharedFlow<List<String>> = MutableStateFlow(listOf())
     val carouselImages: SharedFlow<List<String>> = _carouselImages
+    val hasManyImages = ObservableBoolean(false)
 
     init {
         loadTopicPage()
@@ -66,19 +70,18 @@ class TopicPageViewModel @Inject constructor(
                 opinionType.set(it.opinionType)
                 opinionsCount.set(it.opinionsCount.toString())
                 feelingPercent.set(it.percent.toString())
+                isTopicShimmerVisible.set(false)
                 date.set(it.createdAt)
                 author.set(it.author)
                 isFavorite = it.isFavorite
                 authorOpinionType.set(it.authorOpinionType)
 
-                val icon = if (opinionType.get() == OpinionType.HATE)  {
-                    R.string.icon_filled_broken_heart
-                } else {
-                    R.string.icon_heart_filled
+                if (opinionType.get() == OpinionType.HATE)  {
+                    heartIcon.set(R.string.icon_filled_broken_heart)
                 }
-                heartIcon.set(icon)
 
                 _carouselImages.emit(it.attachmentsUrls.map { url -> url.plusServerIp() })
+                hasManyImages.set(it.attachmentsUrls.count() >= 2)
             }
         }
     }
@@ -86,6 +89,7 @@ class TopicPageViewModel @Inject constructor(
     private fun loadSimilarTopics() {
         viewModelScope.launch(Dispatchers.IO + defaultExceptionHandler) {
             val topics = repository.getSimilarTopics(topicId)
+            isSimilarTopicsShimmerVisible.set(false)
             _similarTopics.emit(topics)
         }
     }

@@ -14,6 +14,7 @@ class RatingsToolbar @Inject constructor() : ToolbarContract {
     override val toolbarColor = ObservableInt(0)
 
     override val title = ObservableField(R.string.ratings)
+    override val titleTextSize = ObservableField(0)
     override val subtitle = ObservableField(0)
     override val isSubtitleVisible = ObservableBoolean(false)
 

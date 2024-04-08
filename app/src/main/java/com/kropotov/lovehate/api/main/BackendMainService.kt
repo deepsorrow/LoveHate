@@ -26,6 +26,7 @@ interface BackendMainService {
     ): Call<Unit>
 
     companion object {
+
         fun createApolloClient(sharedPrefs: SharedPreferencesHelper): ApolloClient {
             val serverUrl = BuildConfig.MAIN_SERVICE_URL
             val token = sharedPrefs.getToken()
@@ -40,13 +41,22 @@ interface BackendMainService {
                 .build()
         }
 
-        fun createMainService(sharedPrefs: SharedPreferencesHelper): BackendMainService {
+        /**
+         * Creates main service instance. If [sharedPrefs] is null, i.e. invoked from worker,
+         * then token interceptor would not be added.
+         */
+        fun createMainService(sharedPrefs: SharedPreferencesHelper?): BackendMainService {
             val serverIp = BuildConfig.SERVER_IP
-            val token = sharedPrefs.getToken()
-            val client = OkHttpClient
-                .Builder()
-                .addInterceptor(AuthorizationInterceptor(token))
-                .build()
+            val token = sharedPrefs?.getToken()
+
+            val client = if (sharedPrefs != null) {
+                OkHttpClient
+                    .Builder()
+                    .addInterceptor(AuthorizationInterceptor(token))
+                    .build()
+            } else {
+                OkHttpClient.Builder().build()
+            }
 
             return Retrofit.Builder()
                 .baseUrl(serverIp)

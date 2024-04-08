@@ -1,6 +1,5 @@
 package com.kropotov.lovehate.ui.utilities
 
-import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Resources
@@ -41,7 +40,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.onStart
 import java.io.Serializable
-import java.security.AccessController.getContext
 
 
 inline fun <reified T : Serializable> Bundle.serializable(key: String, clazz: Class<T>): T? {
@@ -63,6 +61,7 @@ inline fun <T : Fragment> T.withArgs(argsBuilder: Bundle.() -> Unit): T =
         arguments = Bundle().apply(argsBuilder)
     }
 
+@ColorInt
 fun Context.getColorAttr(@AttrRes attr: Int, @ColorInt defaultColor: Int = Color.WHITE) =
     MaterialColors.getColor(this, attr, defaultColor)
 
@@ -159,7 +158,7 @@ fun Context.getBitmap(item: MediaListItem): Bitmap {
     }
 }
 
-fun ViewPager2.reduceDragSensitivity(f: Int = 6) {
+fun ViewPager2.reduceDragSensitivity(f: Int = 4) {
     val recyclerViewField = ViewPager2::class.java.getDeclaredField("mRecyclerView")
     recyclerViewField.isAccessible = true
     val recyclerView = recyclerViewField.get(this) as RecyclerView
