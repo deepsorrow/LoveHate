@@ -1,5 +1,7 @@
 package com.kropotov.lovehate.ui.utilities
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Resources
@@ -16,15 +18,18 @@ import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.annotation.AttrRes
 import androidx.annotation.CheckResult
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.WindowCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -47,7 +52,7 @@ inline fun <reified T : Serializable> Bundle.serializable(key: String, clazz: Cl
         getSerializable(key, clazz)
     } else {
         @Suppress("DEPRECATION")
-        getSerializable(key) as T
+        getSerializable(key) as? T
     }
 }
 
@@ -167,5 +172,17 @@ fun ViewPager2.reduceDragSensitivity(f: Int = 4) {
     touchSlopField.isAccessible = true
     val touchSlop = touchSlopField.get(recyclerView) as Int
     touchSlopField.set(recyclerView, touchSlop*f) // "7" was obtained experimentally
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun Context.createNotificationChannel(id: String, name: String, description: String? = null) {
+    val importance = NotificationManager.IMPORTANCE_HIGH
+    val channel = NotificationChannel(id, name, importance)
+    description?.let {
+        channel.description = it
+    }
+    channel.setShowBadge(true)
+    val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    manager.createNotificationChannel(channel)
 }
 

@@ -57,6 +57,12 @@
                 android:text="@string/registration"
                 android:textSize="@dimen/toolbar_title_text_size" />
 
+            <TextView
+                android:id="@+id/welcome_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_signup_subtitle" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,6 +80,7 @@
                     android:drawablePadding="@dimen/medium_offset"
                     android:hint="@string/login_signup"
                     android:inputType="text|textPersonName"
+                    android:maxLength="@integer/login_max_length"
                     android:paddingStart="@dimen/standard_offset"
                     android:text="@={viewModel.login}"
                     app:boxBackgroundMode="none"
@@ -121,6 +128,7 @@
                         android:drawablePadding="@dimen/medium_offset"
                         android:hint="@string/password"
                         android:inputType="textPassword"
+                        android:maxLength="@integer/password_max_length"
                         android:paddingStart="@dimen/standard_offset"
                         android:paddingTop="12dp"
                         android:text="@={viewModel.password}"
@@ -165,6 +173,7 @@
                         android:drawablePadding="@dimen/medium_offset"
                         android:hint="@string/confirm_password"
                         android:inputType="textPassword"
+                        android:maxLength="@integer/password_max_length"
                         android:paddingStart="@dimen/standard_offset"
                         android:paddingTop="12dp"
                         android:text="@={viewModel.confirmPassword}"

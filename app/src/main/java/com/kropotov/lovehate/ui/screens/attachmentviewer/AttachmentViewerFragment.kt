@@ -8,7 +8,6 @@ import com.kropotov.lovehate.ui.MainScreenActivity
 import com.kropotov.lovehate.ui.base.BaseFragment
 import com.kropotov.lovehate.ui.utilities.withArgs
 
-
 class AttachmentViewerFragment :
     BaseFragment<AttachmentViewerViewModel, FragmentAttachmentViewerBinding>(R.layout.fragment_attachment_viewer) {
 

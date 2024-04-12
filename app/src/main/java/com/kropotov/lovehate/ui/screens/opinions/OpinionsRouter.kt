@@ -1,7 +1,6 @@
 package com.kropotov.lovehate.ui.screens.opinions
 
 import android.graphics.Bitmap
-import androidx.fragment.app.commit
 import com.kropotov.lovehate.R
 import com.kropotov.lovehate.ui.base.BaseRouter
 import com.kropotov.lovehate.ui.screens.attachmentviewer.AttachmentViewerFragment

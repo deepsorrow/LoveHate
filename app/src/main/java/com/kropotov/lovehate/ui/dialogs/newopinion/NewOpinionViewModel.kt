@@ -77,7 +77,7 @@ class NewOpinionViewModel @Inject constructor(
             _isLoading.emit(true)
             val opinionId = sendOpinion()
 
-            if (mediaPaths.none { !it.isEmpty }) {
+            if (mediaPaths.any { !it.isEmpty }) {
                 runUploadAttachmentsWorker(opinionId).collect {
                     if (it.state == WorkInfo.State.SUCCEEDED) {
                         _isLoading.emit(false)

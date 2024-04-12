@@ -24,7 +24,6 @@ material = "1.11.0"
 # @keep
 minSdk = "24"
 pagingRuntimeKtx = "3.2.1"
-palette = "1.0.0"
 parcelize = "2.0.0-Beta4"
 apollo3 = "4.0.0-beta.4"
 ktx = "1.12.0"
@@ -53,7 +52,6 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
-androidx-palette = { module = "androidx.palette:palette", version.ref = "palette" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }

@@ -69,7 +69,7 @@
     <string name="my_topics">Мои темы</string>
     <string name="my_opinions">Мои мнения</string>
     <string name="my_comments">Мои комментарии</string>
-    <string name="my_achievements">Мои достижения</string>
+    <string name="my_achievements">Мой рейтинг</string>
     <string name="favorites">Избранное</string>
     <string name="app_settings">Настройки</string>
     <string name="theme">Тема приложения</string>
@@ -95,8 +95,11 @@
     <string name="no_data_here">Данных нет</string>
     <string name="no_opinions_was_found">Мнения не были найдены</string>
     <string name="no_topics_was_found">Темы не были найдены</string>
-    <string name="no_love_opinions_here_yet">Мнения любви не были найдены</string>
-    <string name="no_neutral_opinions_here_yet">Мнения безразличия не были найдены</string>
-    <string name="no_hate_opinions_here_yet">Мнения ненавести не были найдены</string>
-
+    <string name="no_love_opinions_here_yet">Мнения о любви не были найдены</string>
+    <string name="no_neutral_opinions_here_yet">Мнения о безразличии не были найдены</string>
+    <string name="no_hate_opinions_here_yet">Мнения о ненавести не были найдены</string>
+    <string name="welcome_signup_subtitle">Нужен только логин и пароль</string>
+    <string name="notification_channel_title_reactions">Реакции людей на ваши мнения</string>
+    <string name="notification_like_reaction">%s понравилось ваше мнение</string>
+    <string name="notification_dislike_reaction">%s не понравилось ваше мнение</string>
 </resources>

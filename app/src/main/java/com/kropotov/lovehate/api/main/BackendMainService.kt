@@ -15,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import java.util.concurrent.TimeUnit
 
 interface BackendMainService {
 
@@ -35,6 +36,7 @@ interface BackendMainService {
                 .serverUrl(serverUrl)
                 .okHttpClient(
                     OkHttpClient.Builder()
+                        .readTimeout(READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                         .addInterceptor(AuthorizationInterceptor(token))
                         .build()
                 )
@@ -45,18 +47,14 @@ interface BackendMainService {
          * Creates main service instance. If [sharedPrefs] is null, i.e. invoked from worker,
          * then token interceptor would not be added.
          */
-        fun createMainService(sharedPrefs: SharedPreferencesHelper?): BackendMainService {
+        fun createMainService(sharedPrefs: SharedPreferencesHelper): BackendMainService {
             val serverIp = BuildConfig.SERVER_IP
-            val token = sharedPrefs?.getToken()
+            val token = sharedPrefs.getToken()
 
-            val client = if (sharedPrefs != null) {
-                OkHttpClient
-                    .Builder()
-                    .addInterceptor(AuthorizationInterceptor(token))
-                    .build()
-            } else {
-                OkHttpClient.Builder().build()
-            }
+            val client = OkHttpClient
+                .Builder()
+                .addInterceptor(AuthorizationInterceptor(token))
+                .build()
 
             return Retrofit.Builder()
                 .baseUrl(serverIp)
@@ -65,6 +63,8 @@ interface BackendMainService {
                 .build()
                 .create(BackendMainService::class.java)
         }
+
+        private const val READ_TIMEOUT_SECONDS = 30L
     }
 
     private class AuthorizationInterceptor(val token: String) : Interceptor {

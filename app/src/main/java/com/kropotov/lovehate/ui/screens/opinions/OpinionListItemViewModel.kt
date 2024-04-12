@@ -16,14 +16,20 @@ import com.kropotov.lovehate.ui.utilities.Favorite
 import com.kropotov.lovehate.ui.utilities.extractErrorMessage
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
+@OptIn(FlowPreview::class)
 class OpinionListItemViewModel(
     private val opinion: OpinionListItemGenerated,
     private val viewModel: OpinionsViewModel
 ): BaseObservable(), Favorite, OnCheckedChangeListener {
 
+    private val reactionFlow = MutableSharedFlow<ReactionType>()
+    
     override var isFavorite = opinion.isFavorite
         set(value) {
             field = value
@@ -31,8 +37,8 @@ class OpinionListItemViewModel(
         }
     override var isFavoriteFetching = false
     override var favoriteIcon = ObservableField(R.string.icon_favorite)
-    override var favoriteIconColor = ObservableField(R.attr.unaccented_text_color)
 
+    override var favoriteIconColor = ObservableField(R.attr.unaccented_text_color)
     val id: Int get() = opinion.id
     val position = "# ${opinion.position}"
     val isPositionVisible = viewModel.isRatingScreen
@@ -40,6 +46,7 @@ class OpinionListItemViewModel(
     val date: String get() = opinion.date
     val type: OpinionType get() = opinion.type
     val topic: String get() = opinion.topicTitle
+
     val text: String get() = opinion.text
 
     val opinionTypeFormatted: Int
@@ -55,11 +62,9 @@ class OpinionListItemViewModel(
         else -> R.attr.unaccented_text_color
     }
 
-    private var isReactionSending = false
-
     val isLikeChecked = opinion.isLiked
-    val isDislikeChecked = opinion.isDisliked
 
+    val isDislikeChecked = opinion.isDisliked
     @get:Bindable
     var likeCount by Delegates.observable(opinion.likeCount) { _, _, _ ->
         notifyPropertyChanged(BR.likeCount)
@@ -71,6 +76,7 @@ class OpinionListItemViewModel(
 
     init {
         updateFavoriteIcon()
+        subscribeToSendReaction()
     }
 
     override fun onFavoriteClick() {
@@ -96,25 +102,25 @@ class OpinionListItemViewModel(
      */
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         val itIsLikeChip = buttonView?.id == R.id.like_chip
-        if (!isChecked) {
+        if (isChecked) {
+            updateCheckedCount(itIsLikeChip)
+        } else {
             updateUncheckedCount(itIsLikeChip)
-            return
         }
-        if (isReactionSending) {
-            buttonView!!.isChecked = !buttonView.isChecked
-            return
-        }
-        isReactionSending = true
 
-        sendReaction(itIsLikeChip)
+        viewModel.viewModelScope.launch {
+            val reaction = if (itIsLikeChip) ReactionType.LIKE else ReactionType.DISLIKE
+            reactionFlow.emit(reaction)
+        }
     }
 
-    private fun sendReaction(isLike: Boolean) = viewModel.run {
-        updateCheckedCount(isLike)
-        viewModelScope.launch(Dispatchers.IO + defaultExceptionHandler) {
-            val reaction = if (isLike) ReactionType.LIKE else ReactionType.DISLIKE
-            repository.updateReaction(id, reaction)
-            isReactionSending = false
+    private fun subscribeToSendReaction() {
+        viewModel.run {
+            viewModelScope.launch(Dispatchers.IO + defaultExceptionHandler) {
+                reactionFlow.debounce(SEND_REACTION_DEBOUNCE).collect { reaction ->
+                    repository.updateReaction(id, reaction)
+                }
+            }
         }
     }
 
@@ -132,5 +138,9 @@ class OpinionListItemViewModel(
         } else {
             dislikeCount = "${dislikeCount.toInt() - 1}"
         }
+    }
+
+    private companion object {
+        const val SEND_REACTION_DEBOUNCE = 500L
     }
 }

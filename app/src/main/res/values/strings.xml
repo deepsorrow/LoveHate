@@ -45,7 +45,7 @@
     <string name="add_up_to_4_photo">Attach up to 4 images</string>
     <string name="welcome">Welcome!</string>
     <string name="please_enter_your_login_details">Please enter your login details</string>
-    <string name="login_or_email">Login or Email</string>
+    <string name="login_or_email">Login</string>
     <string name="login_signup">Login</string>
     <string name="login_button">Login</string>
     <string name="login_signup_button">Sign up</string>
@@ -69,7 +69,7 @@
     <string name="my_topics">My topics</string>
     <string name="my_opinions">My opinions</string>
     <string name="my_comments">My comments</string>
-    <string name="my_achievements">My achievements</string>
+    <string name="my_achievements">My rating</string>
     <string name="favorites">Favorites</string>
     <string name="app_settings">Settings</string>
     <string name="theme">App theme</string>
@@ -98,6 +98,10 @@
     <string name="no_love_opinions_here_yet">No love opinions here yet</string>
     <string name="no_neutral_opinions_here_yet">No indifferent opinions here yet</string>
     <string name="no_hate_opinions_here_yet">No hate opinions here yet</string>
+    <string name="welcome_signup_subtitle">Nothing but a login and password is needed</string>
+    <string name="notification_channel_title_reactions">Reactions to your opinions</string>
+    <string name="notification_like_reaction">%s liked your opinion</string>
+    <string name="notification_dislike_reaction">%s did not like your opinion</string>
 
     <string name="icon_palette" translatable="false">&#xe904;</string>
     <string name="icon_cup" translatable="false">&#xe905;</string>

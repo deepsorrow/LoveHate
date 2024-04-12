@@ -40,6 +40,7 @@
                 android:layout_height="@dimen/topic_list_item_image_size"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{viewModel.thumbnailUrl}"
+                android:tint="#1F000000"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/RoundedImageView"

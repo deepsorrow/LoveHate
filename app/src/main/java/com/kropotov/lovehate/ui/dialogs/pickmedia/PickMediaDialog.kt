@@ -72,7 +72,7 @@ class PickMediaDialog : BaseBottomSheetDialogFragment<PickMediaViewModel, Dialog
     private fun fetchImages() {
         val galleryImageUrls = mutableListOf<MediaListItem>()
         val columns = arrayOf(MediaStore.Images.Media._ID)
-        val orderBy = MediaStore.Images.Media.DATE_TAKEN
+        val orderBy = MediaStore.Images.Media.DATE_ADDED
 
         requireContext().applicationContext.contentResolver.query(
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns,

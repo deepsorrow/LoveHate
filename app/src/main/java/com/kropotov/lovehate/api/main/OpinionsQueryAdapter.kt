@@ -1,6 +1,7 @@
 package com.kropotov.lovehate.api.main
 
 import com.apollographql.apollo3.api.Optional
+import com.kropotov.lovehate.GetNotificationsQuery
 import com.kropotov.lovehate.GetOpinionsQuery
 import com.kropotov.lovehate.PublishOpinionMutation
 import com.kropotov.lovehate.UpdateOpinionFavoriteMutation
@@ -55,6 +56,8 @@ object OpinionsQueryAdapter {
 
     fun updateOpinionReaction(opinionId: Int, type: ReactionType) =
         UpdateOpinionReactionMutation(opinionId, type)
+
+    fun getNotifications() = GetNotificationsQuery()
 
     fun OpinionType.mapToGenerated() = GeneratedOpinionType.valueOf(this.name)
 }

@@ -3,9 +3,6 @@ package com.kropotov.lovehate.ui.screens.topics
 import androidx.lifecycle.viewModelScope
 import com.kropotov.lovehate.ui.base.BaseViewModel
 import com.kropotov.lovehate.ui.utilities.ResourceProvider
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -7,11 +7,12 @@ import androidx.work.WorkerParameters
 import com.kropotov.lovehate.api.main.BackendMainService
 import com.kropotov.lovehate.data.items.MediaListItem
 import com.kropotov.lovehate.data.items.MediaListItem.Companion.toMultiparts
+import com.kropotov.lovehate.ui.utilities.SharedPreferencesHelper
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
 
 class UploadAttachmentsWorker(
-    val context: Context,
+    context: Context,
     workerParams: WorkerParameters
 ): CoroutineWorker(context, workerParams) {
 
@@ -25,8 +26,9 @@ class UploadAttachmentsWorker(
             return Result.failure(errorData)
         }
 
+        val sharedPrefs = SharedPreferencesHelper(applicationContext)
         val response = BackendMainService
-                .createMainService(null)
+                .createMainService(sharedPrefs)
                 .uploadOpinionAttachments(
                     opinionId = opinionId.toRequestBody("text/plain".toMediaTypeOrNull()),
                     files = mediaList.toMultiparts()

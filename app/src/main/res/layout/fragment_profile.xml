@@ -231,9 +231,9 @@
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:background="@drawable/round_surface"
-                            android:layout_marginBottom="@dimen/medium_offset"
+                            android:paddingBottom="@dimen/standard_offset"
                             android:paddingHorizontal="@dimen/standard_offset">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -308,10 +308,10 @@
                                     app:layout_constraintTop_toTopOf="@id/icon_notification" />
 
                                 <androidx.appcompat.widget.SwitchCompat
+                                    android:id="@+id/notifications_switch"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:checked="@{viewModel.notificationsEnabled}"
-                                    android:onCheckedChanged="@{(_, isChecked) -> viewModel.onNotificationsSwitched(isChecked)}"
                                     app:layout_constraintBottom_toBottomOf="@id/icon_notification"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="@id/icon_notification" />
@@ -364,13 +364,12 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="@dimen/standard_offset"
+                                android:layout_marginTop="@dimen/standard_offset"
                                 android:layout_marginStart="@dimen/small_offset"
                                 android:fontFamily="@font/medium"
                                 android:foreground="?selectableItemBackground"
                                 android:text="@string/log_out"
                                 android:textColor="?hate_color"
-                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/divider2"
                                 app:onClick="@{router::logOut}" />
