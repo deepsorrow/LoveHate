@@ -64,7 +64,7 @@
                 android:textSize="@dimen/small_text_size"
                 app:layout_constraintBottom_toBottomOf="@+id/like_layout"
                 app:layout_constraintEnd_toEndOf="@+id/position"
-                tools:text="03/02/2023" />
+                tools:text="3 February at 13:02" />
 
             <TextView
                 android:id="@+id/feeling"
@@ -113,12 +113,14 @@
                 app:textRes="@{viewModel.favoriteIcon}"
                 tools:text="@string/icon_favorite" />
 
-            <TextView
+            <com.kropotov.lovehate.ui.views.ExpandableTextView
                 android:id="@+id/body_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/tiny_offset"
-                android:text="@{viewModel.text}"
+                app:expandAction="@string/show_more"
+                app:limitedMaxLines="@integer/expandable_text_visible_lines"
+                app:expandActionColor="?colorPrimary"
                 app:layout_constraintStart_toStartOf="@id/feeling"
                 app:layout_constraintTop_toBottomOf="@id/feeling"
                 tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper risus mauris. Suspendisse potenti. Vivamus ut porta quam. Phasellus sed lacinia libero, vitae ullamcorper eros. Maecenas sit amet sapien non lacus condimentum consectetur sit amet nec mi. Praesent molestie semper auctor." />

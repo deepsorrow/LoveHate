@@ -18,7 +18,6 @@ import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.annotation.AttrRes
 import androidx.annotation.CheckResult
 import androidx.annotation.ColorInt
@@ -40,6 +39,7 @@ import com.kropotov.lovehate.BuildConfig
 import com.kropotov.lovehate.R
 import com.kropotov.lovehate.data.items.MediaListItem
 import com.kropotov.lovehate.type.UserScoreTitle
+import com.kropotov.lovehate.ui.views.ExpandableTextView
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -69,9 +69,6 @@ inline fun <T : Fragment> T.withArgs(argsBuilder: Bundle.() -> Unit): T =
 @ColorInt
 fun Context.getColorAttr(@AttrRes attr: Int, @ColorInt defaultColor: Int = Color.WHITE) =
     MaterialColors.getColor(this, attr, defaultColor)
-
-fun Resources.getDrawableRes(@DrawableRes drawableRes: Int) =
-    ResourcesCompat.getDrawable(this, drawableRes, null)
 
 fun Bundle.getIntNullable(key: String): Int? = getInt(key).run {
     if (this == 0) null else this

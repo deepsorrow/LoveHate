@@ -4,6 +4,7 @@
     <item type="integer" name="opinion_max_length">700</item>
     <item type="integer" name="login_max_length">35</item>
     <item type="integer" name="password_max_length">25</item>
+    <item type="integer" name="expandable_text_visible_lines">5</item>
 
     <item type="integer" name="thumbnail_size">150</item>
 </resources>

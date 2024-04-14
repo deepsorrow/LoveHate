@@ -60,6 +60,7 @@
             android:background="@drawable/stroke_love"
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
+            android:padding="@dimen/small_offset"
             android:maxHeight="@dimen/max_comment_height"
             android:maxLength="@integer/title_max_length"
             android:maxLines="10"

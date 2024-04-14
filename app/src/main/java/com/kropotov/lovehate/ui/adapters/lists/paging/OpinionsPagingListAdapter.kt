@@ -48,6 +48,10 @@ class OpinionsPagingListAdapter(
             if (binding is ListItemOpinionBinding) {
                 with(binding) {
                     viewModel = OpinionListItemViewModel(item, opinionsViewModel)
+                    binding.bodyText.originalText = item.text
+                    if (binding.bodyText.expanded) {
+                        binding.bodyText.toggle()
+                    }
 
                     attachmentsList.apply {
                         val items = item.attachmentUrls.map { it.plusServerIp() }
