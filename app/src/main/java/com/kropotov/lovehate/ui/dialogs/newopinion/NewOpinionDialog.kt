@@ -31,7 +31,6 @@ class NewOpinionDialog : BaseBottomSheetDialogFragment<NewOpinionViewModel, Dial
         adapter = OpinionNewMediaListAdapter(viewModel.mediaPaths, childFragmentManager)
         binding.attachmentsList.adapter = adapter
 
-
         subscribeToOpinionState()
         subscribeToNavigationEvent()
 

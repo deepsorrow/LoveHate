@@ -102,6 +102,7 @@
     <string name="notification_channel_title_reactions">Reactions to your opinions</string>
     <string name="notification_like_reaction">%s liked your opinion</string>
     <string name="notification_dislike_reaction">%s did not like your opinion</string>
+    <string name="no_images_error">No images in gallery on this device</string>
 
     <string name="icon_palette" translatable="false">&#xe904;</string>
     <string name="icon_cup" translatable="false">&#xe905;</string>

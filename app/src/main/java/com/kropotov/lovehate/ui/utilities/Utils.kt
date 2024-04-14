@@ -163,7 +163,7 @@ fun Context.getBitmap(item: MediaListItem): Bitmap {
     }
 }
 
-fun ViewPager2.reduceDragSensitivity(f: Int = 4) {
+fun ViewPager2.reduceDragSensitivity(f: Int = 3) {
     val recyclerViewField = ViewPager2::class.java.getDeclaredField("mRecyclerView")
     recyclerViewField.isAccessible = true
     val recyclerView = recyclerViewField.get(this) as RecyclerView

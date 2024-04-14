@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="@dimen/small_offset"
+    android:orientation="vertical"
+    tools:background="?background_color">
+
+    <include
+        layout="@layout/list_item_my_rating_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_offset" />
+
+    <include
+        layout="@layout/list_item_my_rating_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_offset" />
+
+    <include
+        layout="@layout/list_item_my_rating_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_offset" />
+
+    <include
+        layout="@layout/list_item_my_rating_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_offset" />
+
+    <include
+        layout="@layout/list_item_my_rating_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_offset" />
+
+    <include
+        layout="@layout/list_item_my_rating_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_offset" />
+
+    <include
+        layout="@layout/list_item_my_rating_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_offset" />
+
+    <include
+        layout="@layout/list_item_my_rating_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_offset" />
+
+    <include
+        layout="@layout/list_item_my_rating_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_offset" />
+
+    <include
+        layout="@layout/list_item_my_rating_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_offset" />
+
+    <include
+        layout="@layout/list_item_my_rating_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tiny_offset" />
+
+</LinearLayout>

@@ -1,19 +1,17 @@
 package com.kropotov.lovehate.analytics
 
+import android.content.Context
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.logEvent
+import dagger.Reusable
+import javax.inject.Inject
 
-class Analytics {
+@Reusable
+class Analytics @Inject constructor(
+    applicationContext: Context
+) {
 
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
+    private val firebaseAnalytics = FirebaseAnalytics.getInstance(applicationContext)
 
-    fun logEvent() {
-        firebaseAnalytics.logEvent(SHOW_REQUIRED_UPDATE_KEY) {
-            TODO("Analytics feature")
-        }
-    }
-
-    private companion object {
-        const val SHOW_REQUIRED_UPDATE_KEY = "show_required_update"
-    }
+    fun send(event: AnalyticsEvent) =
+        firebaseAnalytics.logEvent(event.key, event.extras)
 }

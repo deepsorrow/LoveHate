@@ -16,6 +16,7 @@ import com.kropotov.lovehate.ui.dialogs.pickmedia.PickMediaDialog
 import com.kropotov.lovehate.ui.dialogs.sendfeedback.SendFeedbackDialog
 import com.kropotov.lovehate.ui.dialogs.newtopic.NewTopicDialog
 import com.kropotov.lovehate.ui.screens.favorites.FavoritesFragment
+import com.kropotov.lovehate.ui.screens.myrating.MyRatingFragment
 import com.kropotov.lovehate.ui.screens.opinions.fragments.OpinionsHostFragment
 import com.kropotov.lovehate.ui.screens.opinions.fragments.OpinionsFragment
 import com.kropotov.lovehate.ui.screens.profile.fragments.ProfileFragment
@@ -79,6 +80,9 @@ class MainActivityModule {
 
         @ContributesAndroidInjector
         fun injectFavoritesFragment(): FavoritesFragment
+
+        @ContributesAndroidInjector
+        fun injectMyRatingFragment(): MyRatingFragment
 
         @ContributesAndroidInjector(modules = [AttachmentViewerFragmentModule::class])
         fun injectAttachmentViewerFragment(): AttachmentViewerFragment

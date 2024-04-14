@@ -8,6 +8,8 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.widget.PopupWindowCompat
 import com.kropotov.lovehate.R
+import com.kropotov.lovehate.analytics.Analytics
+import com.kropotov.lovehate.analytics.AnalyticsEvent
 import com.kropotov.lovehate.data.AppTheme
 import com.kropotov.lovehate.data.TopicType
 import com.kropotov.lovehate.type.OpinionsListType
@@ -15,6 +17,7 @@ import com.kropotov.lovehate.ui.AuthActivity
 import com.kropotov.lovehate.ui.base.BaseRouter
 import com.kropotov.lovehate.ui.dialogs.sendfeedback.SendFeedbackDialog
 import com.kropotov.lovehate.ui.screens.favorites.FavoritesFragment
+import com.kropotov.lovehate.ui.screens.myrating.MyRatingFragment
 import com.kropotov.lovehate.ui.screens.opinions.fragments.OpinionsFragment
 import com.kropotov.lovehate.ui.screens.profile.fragments.ProfileFragment
 import com.kropotov.lovehate.ui.screens.topics.fragments.TopicsFragment
@@ -24,7 +27,8 @@ import javax.inject.Inject
 
 class ProfileRouter @Inject constructor(
     private val fragment: ProfileFragment,
-    private val sharedPrefs: SharedPreferencesHelper
+    private val sharedPrefs: SharedPreferencesHelper,
+    private val analytics: Analytics
 ) : BaseRouter(fragment.childFragmentManager) {
 
     fun navigateToMyTopics() =
@@ -38,7 +42,7 @@ class ProfileRouter @Inject constructor(
     }
 
     fun navigateToMyAchievements() {
-        TODO("Achievements feature")
+        navigateWithSlideRightTransition(MyRatingFragment.newInstance())
     }
 
     fun navigateToFavorites() =
@@ -98,6 +102,8 @@ class ProfileRouter @Inject constructor(
     }
 
     private fun AppTheme.onAppThemeClicked() = run {
+        analytics.send(AnalyticsEvent.ChangeAppTheme(name))
+
         sharedPrefs.savePreferredTheme(this)
         fragment.requireActivity().recreate()
     }

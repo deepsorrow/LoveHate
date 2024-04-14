@@ -59,7 +59,6 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
         }
         initProgressBar(viewModel)
         initMessageInformer(viewModel)
-        //initBackPressedDispatcher()
 
         return binding.root
     }
@@ -77,14 +76,6 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
     override fun onPause() {
         super.onPause()
         backPressedCallback?.remove()
-    }
-
-    protected fun LoadState.extractAndShowError() {
-        (this as? LoadState.Error)?.error?.let {
-            val errorText = it.extractErrorMessage()
-            val informMessage = InformMessage(InformType.ERROR, errorText)
-            showSnackbarMessage(informMessage)
-        }
     }
 
     protected open fun initBackPressedDispatcher() {
@@ -134,6 +125,14 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel, BINDING : ViewDataBindin
 
     protected fun hideShimmer() {
         shimmerList?.visibility = View.GONE
+    }
+
+    private fun LoadState.extractAndShowError() {
+        (this as? LoadState.Error)?.error?.let {
+            val errorText = it.extractErrorMessage()
+            val informMessage = InformMessage(InformType.ERROR, errorText)
+            showSnackbarMessage(informMessage)
+        }
     }
 
     companion object {

@@ -32,6 +32,5 @@
     <declare-styleable name="LoveHateTextField">
         <attr name="hint" />
         <attr name="maxLength" />
-        <attr name="maxLines" />
     </declare-styleable>
 </resources>

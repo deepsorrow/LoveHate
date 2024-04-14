@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kropotov.lovehate.ui.screens.myrating.MyRatingListItemViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/small_offset"
+        android:background="@drawable/round_surface"
+        android:paddingHorizontal="@dimen/standard_offset"
+        android:paddingVertical="@dimen/big_offset">
+
+        <TextView
+            style="@style/IconText"
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:gravity="center"
+            android:textColor="?unaccented_text_color"
+            app:textRes="@{viewModel.textRes}"
+            app:layout_constraintBottom_toBottomOf="@id/text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/icon_topics" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/big_offset"
+            android:layout_marginEnd="@dimen/big_offset"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.date}"
+            android:textColor="?unaccented_text_color"
+            app:layout_constraintEnd_toStartOf="@+id/points"
+            app:layout_constraintStart_toEndOf="@id/icon"
+            app:layout_constraintTop_toTopOf="@id/icon"
+            tools:text="4 february at 15:10" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.text}"
+            app:layout_constraintEnd_toEndOf="@id/points"
+            app:layout_constraintStart_toStartOf="@+id/date"
+            app:layout_constraintTop_toBottomOf="@id/date"
+            tools:text="The cauldron gillyweed eye holly i'd normally..." />
+
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.points}"
+            app:isLoveTextColorBoolean="@{viewModel.isPositivePoints}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/icon"
+            tools:text="+10"
+            tools:textColor="?love_color" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

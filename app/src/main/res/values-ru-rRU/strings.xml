@@ -102,4 +102,5 @@
     <string name="notification_channel_title_reactions">Реакции людей на ваши мнения</string>
     <string name="notification_like_reaction">%s понравилось ваше мнение</string>
     <string name="notification_dislike_reaction">%s не понравилось ваше мнение</string>
+    <string name="no_images_error">На этом устройстве в галерее нет изображений!</string>
 </resources>

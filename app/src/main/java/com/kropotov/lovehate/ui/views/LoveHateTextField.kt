@@ -65,18 +65,12 @@ class LoveHateTextField @JvmOverloads constructor(
             0
         ).apply {
             try {
-                val maxLines = getInt(R.styleable.LoveHateTextField_maxLines, 1)
                 val hint = getString(R.styleable.LoveHateTextField_hint)
                 maxLength = getInt(R.styleable.LoveHateTextField_maxLength, 70)
 
                 binding.editText.apply {
-                    this.maxLines = maxLines
                     this.hint = hint
                     filters = arrayOf(InputFilter.LengthFilter(maxLength))
-
-                    if (maxLines > 1) {
-                        inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE
-                    }
                 }
             } finally {
                 recycle()
@@ -116,11 +110,6 @@ class LoveHateTextField @JvmOverloads constructor(
 
     fun setOpinionStateListener(opinionStateListener: OpinionStateListener) {
         this.opinionStateListener = opinionStateListener
-    }
-
-    fun requestKeyboardFocus() {
-        binding.editText.requestFocus()
-        showKeyboard()
     }
 
     private fun setOnCheckedListeners() {

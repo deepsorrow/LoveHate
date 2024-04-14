@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.annotation.DimenRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
@@ -133,6 +134,16 @@ internal fun TextView.setLoveHateTextColor(opinionType: OpinionType?) {
     setColorByAttr(this, attrColor)
 }
 
+@BindingAdapter("isLoveTextColorBoolean")
+internal fun TextView.setLoveHateTextColor(predicate: Boolean) {
+    val textColor = if (predicate) {
+        R.attr.love_color
+    } else {
+        R.attr.hate_color
+    }
+    setColorByAttr(this, textColor)
+}
+
 @BindingAdapter("isLove", "opinionPercent")
 internal fun TextView.formatOpinionPercent(opinionType: OpinionType?, percent: String) {
     opinionType == null && return
@@ -188,4 +199,10 @@ fun ShimmerFrameLayout.isShimmerEnabled(predicate: Boolean) {
     } else {
         hideShimmer()
     }
+}
+
+@BindingAdapter("drawableRes")
+fun ImageView.drawableRes(@DrawableRes drawableRes: Int) {
+    val drawable = ResourcesCompat.getDrawable(resources, drawableRes, null)
+    setImageDrawable(drawable)
 }

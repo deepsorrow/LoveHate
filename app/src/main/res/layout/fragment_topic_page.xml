@@ -53,7 +53,7 @@
                             android:layout_height="@dimen/topic_image_preview_height"
                             android:background="@drawable/round_bottom_placeholder"
                             android:orientation="horizontal"
-                            tools:listitem="@layout/list_item_carousel_image"/>
+                            tools:listitem="@layout/list_item_carousel_image" />
                     </com.facebook.shimmer.ShimmerFrameLayout>
 
                     <TextView
@@ -129,6 +129,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/heart_icon_shimmer"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/carousel_indicator"
+                        app:layout_goneMarginTop="@dimen/big_offset"
                         tools:text="Long hair on men" />
 
                     <com.facebook.shimmer.ShimmerFrameLayout
@@ -313,8 +314,8 @@
                         android:paddingBottom="@dimen/tiny_offset"
                         app:layoutManager="LinearLayoutManager"
                         app:layout_constraintTop_toBottomOf="@id/similar_topics_hint"
-                        tools:listitem="@layout/list_item_topic"
-                        tools:itemCount="3" />
+                        tools:itemCount="3"
+                        tools:listitem="@layout/list_item_topic" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -330,12 +331,11 @@
 
                     <TextView
                         android:id="@+id/made_by_text"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="?unaccented_text_color"
                         app:authorOpinion="@{viewModel.authorOpinionType}"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="Created with love by" />
@@ -344,36 +344,37 @@
                         android:id="@+id/author"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/medium"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="@{viewModel.author}"
                         android:textColor="?unaccented_text_color"
+                        app:layout_constraintEnd_toStartOf="@+id/textView"
                         app:layout_constraintStart_toStartOf="@id/made_by_text"
                         app:layout_constraintTop_toBottomOf="@id/made_by_text"
                         tools:text="kOnFetka" />
 
                     <TextView
+                        android:id="@+id/textView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/tiny_offset"
                         android:text="@{viewModel.date}"
                         android:textColor="?unaccented_text_color"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/author"
                         app:layout_constraintTop_toTopOf="@id/author"
                         tools:text="03/02/2023 Wd 11:05:13" />
 
                     <!-- TODO: View author opinion -->
-                    <!--                    <TextView-->
-                    <!--                        android:id="@+id/textView"-->
-                    <!--                        style="@style/IconText"-->
-                    <!--                        android:layout_width="0dp"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:text="@string/icon_arrow_next"-->
-                    <!--                        android:textColor="?unaccented_text_color"-->
-                    <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--                        app:layout_constraintTop_toTopOf="parent"-->
-                    <!--                        android:visibility="gone"/>-->
+                    <!-- <TextView-->
+                    <!--    android:id="@+id/textView"-->
+                    <!--    style="@style/IconText"-->
+                    <!--    android:layout_width="0dp"-->
+                    <!--    android:layout_height="wrap_content"-->
+                    <!--    android:text="@string/icon_arrow_next"-->
+                    <!--    android:textColor="?unaccented_text_color"-->
+                    <!--    app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--    app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--    app:layout_constraintTop_toTopOf="parent"-->
+                    <!--    android:visibility="gone"/>-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>

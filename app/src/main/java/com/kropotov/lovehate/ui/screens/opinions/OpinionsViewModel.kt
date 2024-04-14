@@ -4,6 +4,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.kropotov.lovehate.R
+import com.kropotov.lovehate.analytics.Analytics
+import com.kropotov.lovehate.analytics.AnalyticsEvent
 import com.kropotov.lovehate.data.OpinionType
 import com.kropotov.lovehate.data.repositories.OpinionsRepository
 import com.kropotov.lovehate.fragment.OpinionListItem
@@ -25,6 +27,7 @@ class OpinionsViewModel @Inject constructor(
     @Named(OPINIONS_TOPIC_ID_ARG) private val topicId: Int?,
     @Named(OPINIONS_SORT_TYPE_ARG) private val sortType: OpinionType,
     @Named(OPINIONS_FILTER_TYPE_ARG) private val listType: OpinionsListType,
+    private val analytics: Analytics,
     val repository: OpinionsRepository,
     val separateToolbar: OpinionsToolbar
 ) : BaseViewModel(resourceProvider) {
@@ -68,9 +71,20 @@ class OpinionsViewModel @Inject constructor(
         if (isRatingScreen) {
             separateToolbar.titleTextSize.set(R.dimen.toolbar_subtitle_text_size)
         }
+        sendAnalytics()
     }
 
-    fun searchOpinions(queryString: String): Flow<PagingData<OpinionListItem>> =
-        repository.getOpinionsStream(queryString, topicId, sortType, listType)
+    fun searchOpinions(queryString: String): Flow<PagingData<OpinionListItem>> {
+        if (queryString.isNotEmpty()) {
+            analytics.send(AnalyticsEvent.SearchOpinions(queryString))
+        }
+
+        return repository.getOpinionsStream(queryString, topicId, sortType, listType)
             .cachedIn(viewModelScope)
+    }
+
+    private fun sendAnalytics() {
+        val event = AnalyticsEvent.ShowOpinionsList(listType.name, topicId)
+        analytics.send(event)
+    }
 }

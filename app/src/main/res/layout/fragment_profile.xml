@@ -233,7 +233,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/round_surface"
-                            android:paddingBottom="@dimen/standard_offset"
+                            android:paddingBottom="@dimen/medium_offset"
                             android:paddingHorizontal="@dimen/standard_offset">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -365,7 +365,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/standard_offset"
-                                android:layout_marginStart="@dimen/small_offset"
+                                android:padding="@dimen/small_offset"
                                 android:fontFamily="@font/medium"
                                 android:foreground="?selectableItemBackground"
                                 android:text="@string/log_out"

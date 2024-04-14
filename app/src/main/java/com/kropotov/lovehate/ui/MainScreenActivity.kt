@@ -41,7 +41,7 @@ class MainScreenActivity : AppCompatActivity(), HasAndroidInjector {
         AndroidInjection.inject(this)
         setTheme(sharedPrefs.getPreferredTheme().themeResId)
         super.onCreate(savedInstanceState)
-
+        
         binding = ActivityMainScreenBinding.inflate(layoutInflater).apply {
             setContentView(root)
 

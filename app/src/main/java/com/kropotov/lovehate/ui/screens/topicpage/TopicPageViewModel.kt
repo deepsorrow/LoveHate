@@ -5,6 +5,8 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.viewModelScope
 import com.kropotov.lovehate.R
+import com.kropotov.lovehate.analytics.Analytics
+import com.kropotov.lovehate.analytics.AnalyticsEvent
 import com.kropotov.lovehate.data.InformType
 import com.kropotov.lovehate.data.repositories.TopicsRepository
 import com.kropotov.lovehate.type.OpinionType
@@ -27,7 +29,8 @@ import javax.inject.Named
 class TopicPageViewModel @Inject constructor(
     resourceProvider: ResourceProvider,
     @Named(TOPIC_PAGE_ID) val topicId: Int,
-    private val repository: TopicsRepository
+    private val repository: TopicsRepository,
+    private val analytics: Analytics
 ) : BaseViewModel(resourceProvider), Favorite {
 
     val title = ObservableField("")
@@ -82,6 +85,8 @@ class TopicPageViewModel @Inject constructor(
 
                 _carouselImages.emit(it.attachmentsUrls.map { url -> url.plusServerIp() })
                 hasManyImages.set(it.attachmentsUrls.count() >= 2)
+
+                analytics.send(AnalyticsEvent.ShowTopicPage(it.title))
             }
         }
     }

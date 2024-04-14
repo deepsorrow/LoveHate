@@ -3,13 +3,18 @@ package com.kropotov.lovehate.ui.dialogs.pickmedia
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentUris
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kropotov.lovehate.R
+import com.kropotov.lovehate.data.InformMessage
+import com.kropotov.lovehate.data.InformType
 import com.kropotov.lovehate.data.items.MediaListItem
 import com.kropotov.lovehate.databinding.DialogPickMediaBinding
 import com.kropotov.lovehate.ui.adapters.lists.PickMediaListAdapter
@@ -26,7 +31,7 @@ class PickMediaDialog : BaseBottomSheetDialogFragment<PickMediaViewModel, Dialog
     private var adapter: PickMediaListAdapter? = null
 
     private val requestPermissionLauncher = registerForActivityResult(
-        RequestPermission()
+        ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
             fetchImages()
@@ -61,8 +66,13 @@ class PickMediaDialog : BaseBottomSheetDialogFragment<PickMediaViewModel, Dialog
     }
 
     private fun checkPermissionAndFetchImages() {
-        if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+        val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Manifest.permission.READ_MEDIA_IMAGES
+        } else {
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        }
+        if (ContextCompat.checkSelfPermission(requireContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissionLauncher.launch(permission)
         } else {
             fetchImages()
         }
@@ -78,8 +88,14 @@ class PickMediaDialog : BaseBottomSheetDialogFragment<PickMediaViewModel, Dialog
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns,
             null, null, "$orderBy DESC"
         )?.use { cursor ->
-            val idColumn = cursor.getColumnIndex(MediaStore.Images.Media._ID)
+            if (cursor.count == 0) {
+                val noImagesError = requireContext().getString(R.string.no_images_error)
+                showSnackbarMessage(InformMessage(InformType.ERROR, noImagesError))
+                dismiss()
+                return@use
+            }
 
+            val idColumn = cursor.getColumnIndex(MediaStore.Images.Media._ID)
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idColumn)
                 val item = MediaListItem(
