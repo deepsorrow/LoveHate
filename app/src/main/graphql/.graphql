@@ -1,0 +1,141 @@
+query GetTopic ($id: Int!) {
+  topic(id: $id) {
+    ...topic
+  }
+}
+
+query GetTopicPage ($id: Int!) {
+  topicPage(id: $id) {
+    ...topicPage
+  }
+}
+
+query GetTopics ($listType: TopicsListType, $searchQuery: String, $page: Int!) {
+  topics(listType: $listType, searchQuery: $searchQuery, page: $page) {
+    totalPages, results {
+      ...topicListItem
+    }
+  }
+}
+
+query GetSimilarTopics ($topicId: Int!) {
+  similarTopics(topicId: $topicId) {
+    ...topicListItem
+  }
+}
+
+mutation CreateTopic ($title: String!, $opinionType: OpinionType!, $opinionText: String!) {
+  addTopic(title: $title, opinionType: $opinionType, opinionText: $opinionText) {
+    topicId, opinionId
+  }
+}
+
+mutation EditTopic ($id: Int!, $text: String!) {
+  editTopic(id: $id, text: $text) {
+    ...topic
+  }
+}
+
+query GetOpinions ($topicId: Int, $opinionType: OpinionType, $listType: OpinionsListType, $onlyFirst: Boolean!, $searchQuery: String, $page: Int!) {
+  opinions(topicId: $topicId, opinionType: $opinionType, listType: $listType, onlyFirst: $onlyFirst, searchQuery: $searchQuery, page: $page) {
+    totalPages, results {
+      ...opinionListItem
+    }
+  }
+}
+
+query GetNotifications {
+  notifications {
+    ...notificationReaction
+  }
+}
+
+mutation PublishOpinion ($topicId: Int!, $text: String!, $type: OpinionType!) {
+  publishOpinion(topicId: $topicId, text: $text, type: $type) {
+    ...opinion
+  }
+}
+
+mutation UpdateTopicFavorite ($topicId: Int!) {
+  updateTopicFavorite(topicId: $topicId) {
+    newState
+  }
+}
+
+mutation UpdateOpinionFavorite ($opinionId: Int!) {
+  updateOpinionFavorite(opinionId: $opinionId) {
+    newState
+  }
+}
+
+mutation UpdateCommentFavorite ($commentId: Int!) {
+  updateCommentFavorite(commentId: $commentId) {
+    newState
+  }
+}
+
+mutation UpdateOpinionReaction ($opinionId: Int!, $type: ReactionType!) {
+  updateOpinionReaction(opinionId: $opinionId, type: $type) {
+    newState
+  }
+}
+
+mutation SendFeedback ($text: String!) {
+  sendFeedback(text: $text) {
+    newState
+  }
+}
+
+query GetUser() {
+  user {
+     ...userListItem
+  }
+}
+
+query GetUsers($onlyFirst: Boolean!, $listType: UsersListType!, $page: Int!) {
+  users(onlyFirst: $onlyFirst, listType: $listType, page: $page) {
+    totalPages, results {
+      ...userListItem
+    }
+  }
+}
+
+query GetMyRatedEvents($page: Int!) {
+  myRatedEvents(page: $page) {
+    totalPages, results {
+      ...myRatedEvent
+    }
+  }
+}
+
+fragment topic on TopicOverview {
+  id, title
+}
+
+fragment topicListItem on TopicOverview {
+  id, title, thumbnailUrl, opinionsCount, opinionType, opinionPercent
+}
+
+fragment topicPage on TopicPage {
+  id, title, opinionsCount, opinionType, percent, author, authorOpinionType, isFavorite, createdAt, attachmentsUrls
+}
+
+fragment opinion on Opinion {
+  id, createdAt, topicId, userId, text, type
+}
+
+fragment notificationReaction on NotificationReaction {
+  who, sourceText, date, type
+}
+
+fragment opinionListItem on OpinionListItem {
+  id, date, topicTitle, username, text, type, likeCount, dislikeCount, isFavorite, isLiked, isDisliked, attachmentUrls, position
+}
+
+fragment userListItem on UserStatistics {
+  id, username, score, scoreTitle, topicsCount, opinionsCount, opinionPercent, type, photoUrl, position
+}
+
+fragment myRatedEvent on MyRatingEvent {
+  sourceType, text, points, date
+}
